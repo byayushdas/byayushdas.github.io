@@ -1,2 +1,0 @@
-A 5-degree-of-freedom Robotic Arm built with an ESP8266 microcontroller,
-controlled wirelessly via a web interface using the MQTT protocol.
