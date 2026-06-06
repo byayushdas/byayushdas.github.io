@@ -244,7 +244,7 @@
   /* ══════════════ MOUSE SCROLL INDICATOR ══════════════ */
   .mouse-scroll {
     position: absolute;
-    bottom: 2.3rem;
+    top: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -557,6 +557,9 @@
     white-space: nowrap;
     transition: border-color 0.3s;
   }
+  .tag.tag-hardware { border-color: #ef4444; color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+  .tag.tag-software { border-color: #22c55e; color: #22c55e; background: rgba(34, 197, 94, 0.1); }
+  .tag.tag-both { border-color: #eab308; color: #eab308; background: rgba(234, 179, 8, 0.1); }
   .project-view-btn {
     font-family: var(--mono);
     font-size: 0.6rem;
@@ -756,7 +759,7 @@
   }
   .footer-strip span { font-family: var(--mono); font-size: 0.58rem; color: var(--mid); letter-spacing: 0.1em; }
 
-  /* ══════════════ § 6  CERTIFICATIONS ══════════════ */
+  /* ══════════════ § 5  CERTIFICATIONS ══════════════ */
   .cert-header {
     display: flex;
     justify-content: space-between;
@@ -802,20 +805,7 @@
   .cert-infinite-scroll.paused {
     animation-play-state: paused;
   }
-  .cert-scroll-container.manual-mode {
-    mask: none;
-    -webkit-mask: none;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--mid) transparent;
-  }
-  .cert-scroll-container.manual-mode .cert-infinite-scroll {
-    animation: none;
-    width: max-content;
-  }
-  .cert-scroll-container.manual-mode .cert-item:nth-child(n+18) {
-    display: none;
-  }
+
   .cert-item {
     flex-shrink: 0;
     width: 400px;
@@ -1059,12 +1049,11 @@
 
             <div class="proj-card">
               <div class="proj-card-top">
-                <span class="proj-card-num">01</span>
                 <div class="project-title">Intelligent Farm Surveillance System</div>
               </div>
               <div class="proj-card-bottom">
                 <div class="project-stack">
-                  <span class="tag">IoT</span><span class="tag">Drone</span><span class="tag">ML</span><span class="tag">DEW</span>
+                  <span class="tag tag-both">Hardware/ Software</span>
                 </div>
                 <a class="project-view-btn" href="#">View ↗</a>
               </div>
@@ -1073,12 +1062,11 @@
 
             <div class="proj-card">
               <div class="proj-card-top">
-                <span class="proj-card-num">02</span>
                 <div class="project-title">Smart HealthCare Monitoring System</div>
               </div>
               <div class="proj-card-bottom">
                 <div class="project-stack">
-                  <span class="tag">IoT</span><span class="tag">Health</span><span class="tag">AI</span>
+                  <span class="tag tag-both">Hardware/ Software</span>
                 </div>
                 <a class="project-view-btn" href="#">View ↗</a>
               </div>
@@ -1087,14 +1075,13 @@
 
             <div class="proj-card">
               <div class="proj-card-top">
-                <span class="proj-card-num">03</span>
                 <div class="project-title">Robotic Arm</div>
               </div>
               <div class="proj-card-bottom">
                 <div class="project-stack">
-                  <span class="tag">ESP8266</span><span class="tag">Robotics</span><span class="tag">C++</span>
+                  <span class="tag tag-both">Hardware/ Software</span>
                 </div>
-                <a class="project-view-btn" href="#">View ↗</a>
+                <a class="project-view-btn" href="https://github.com/byayushdas/RoboticArm.git" target="_blank">View ↗</a>
               </div>
               <div class="proj-card-img-wrap"><img class="proj-card-img" src="assets/projects/Robotic arm1.PNG" alt="Robotic Arm"></div>
             </div>
@@ -1225,7 +1212,6 @@
             <option value="competitions">Competitions</option>
             <option value="nptel">NPTEL</option>
           </select>
-          <button id="certManualBtn" class="manual-view-btn">Manual View</button>
         </div>
       </div>
       <div class="cert-scroll-container" id="certScrollContainer">
@@ -1247,30 +1233,30 @@
           <a href="assets/certs/competitions/Workshop%20Certificates-34_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Workshop%20Certificates-34_page-0001.jpg" alt="Certification" loading="lazy"></a>
           <a href="assets/certs/competitions/ayush%20das.PNG" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/ayush%20das.PNG" alt="Certification" loading="lazy"></a>
           <a href="assets/certs/competitions/ayushxdas2005gmail.com_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/ayushxdas2005gmail.com_page-0001.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/19.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/19.png" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/20260318162049_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/20260318162049_page-0001.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/23.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/23.png" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/2f277712-f679-43f8-b015-959a6a378f11.JPG" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/2f277712-f679-43f8-b015-959a6a378f11.JPG" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/Ayush%20Das.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Ayush%20Das.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/CompletionCertificate_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/CompletionCertificate_page-0001.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/Copy%20of%20Certificate%20%28IIFR%20Idea%20Hackathon%29-79_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Copy%20of%20Certificate%20%28IIFR%20Idea%20Hackathon%29-79_page-0001.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/Hack2skill-Certificate%20%281%29.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Hack2skill-Certificate%20%281%29.png" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/Hack2skill-Certificate.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Hack2skill-Certificate.png" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/Hackathon%20certificates-163_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Hackathon%20certificates-163_page-0001.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/IMG_3974.JPG" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/IMG_3974.JPG" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/IMG_3989.jpeg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/IMG_3989.jpeg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/IMG_3990.jpeg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/IMG_3990.jpeg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/Paper_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Paper_page-0001.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/Workshop%20Certificates-34_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Workshop%20Certificates-34_page-0001.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/ayush%20das.PNG" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/ayush%20das.PNG" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/competitions/ayushxdas2005gmail.com_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/ayushxdas2005gmail.com_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/19.png" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/19.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/20260318162049_page-0001.jpg" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/20260318162049_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/23.png" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/23.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/2f277712-f679-43f8-b015-959a6a378f11.JPG" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/2f277712-f679-43f8-b015-959a6a378f11.JPG" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Ayush%20Das.jpg" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/Ayush%20Das.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/CompletionCertificate_page-0001.jpg" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/CompletionCertificate_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Copy%20of%20Certificate%20%28IIFR%20Idea%20Hackathon%29-79_page-0001.jpg" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/Copy%20of%20Certificate%20%28IIFR%20Idea%20Hackathon%29-79_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Hack2skill-Certificate%20%281%29.png" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/Hack2skill-Certificate%20%281%29.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Hack2skill-Certificate.png" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/Hack2skill-Certificate.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Hackathon%20certificates-163_page-0001.jpg" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/Hackathon%20certificates-163_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/IMG_3974.JPG" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/IMG_3974.JPG" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/IMG_3989.jpeg" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/IMG_3989.jpeg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/IMG_3990.jpeg" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/IMG_3990.jpeg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Paper_page-0001.jpg" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/Paper_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Workshop%20Certificates-34_page-0001.jpg" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/Workshop%20Certificates-34_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/ayush%20das.PNG" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/ayush%20das.PNG" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/ayushxdas2005gmail.com_page-0001.jpg" target="_blank" class="cert-item competitions duplicate" title="View Certificate"><img src="assets/certs/competitions/ayushxdas2005gmail.com_page-0001.jpg" alt="Certification" loading="lazy"></a>
 
           <a href="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
           <a href="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
           <a href="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
-          <a href="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" target="_blank" class="cert-item nptel duplicate" title="View Certificate"><img src="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" target="_blank" class="cert-item nptel duplicate" title="View Certificate"><img src="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" target="_blank" class="cert-item nptel duplicate" title="View Certificate"><img src="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" alt="Certification" loading="lazy"></a>
         </div>
       </div>
     </div>
@@ -1389,25 +1375,11 @@
     themeLabel.textContent = isDark ? 'Light' : 'Dark';
   }
 
-  // ── GITHUB CALENDAR ───────────────────────────────────
   // ── CERTIFICATIONS CAROUSEL ───────────────────────────
-  const certManualBtn = document.getElementById('certManualBtn');
   const certScrollContainer = document.getElementById('certScrollContainer');
   const certInfiniteScroll = document.getElementById('certInfiniteScroll');
 
-  if (certManualBtn && certScrollContainer) {
-    let isManual = false;
-    certManualBtn.addEventListener('click', () => {
-      isManual = !isManual;
-      if (isManual) {
-        certScrollContainer.classList.add('manual-mode');
-        certManualBtn.textContent = 'Auto Scroll View';
-      } else {
-        certScrollContainer.classList.remove('manual-mode');
-        certManualBtn.textContent = 'Manual View';
-      }
-    });
-
+  if (certScrollContainer) {
     const certCategorySelect = document.getElementById('certCategorySelect');
     if (certCategorySelect) {
       certCategorySelect.addEventListener('change', (e) => {
@@ -1425,12 +1397,12 @@
       certCategorySelect.dispatchEvent(new Event('change'));
     }
 
-    // Pause on hover when not manual
+    // Pause on hover
     certInfiniteScroll.addEventListener('mouseenter', () => {
-      if (!isManual) certInfiniteScroll.classList.add('paused');
+      certInfiniteScroll.classList.add('paused');
     });
     certInfiniteScroll.addEventListener('mouseleave', () => {
-      if (!isManual) certInfiniteScroll.classList.remove('paused');
+      certInfiniteScroll.classList.remove('paused');
     });
   }
 
