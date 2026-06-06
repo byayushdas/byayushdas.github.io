@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ayush Das — Portfolio</title>
+<title>Ayush Das | Software Engineer</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -14,7 +15,7 @@
     --ink: #0a0a0a;
     --paper: #ffffff;
     --surface: #f5f5f5;
-    --mid: #888;
+    --mid: #555555;
     --border: #e2e2e2;
     --serif: 'Playfair Display', Georgia, serif;
     --mono: 'DM Mono', monospace;
@@ -24,7 +25,7 @@
     --ink: #f0eeea;
     --paper: #0d0d0d;
     --surface: #181818;
-    --mid: #666;
+    --mid: #aaaaaa;
     --border: #282828;
   }
 
@@ -46,18 +47,47 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.15rem 3rem;
+    padding: 1rem 3rem;
+    height: 72px;
     background: var(--paper);
     border-bottom: 1px solid var(--border);
     transition: background 0.4s, border-color 0.4s;
   }
   .nav-logo {
     font-family: var(--serif);
-    font-size: 1rem;
-    letter-spacing: 0.08em;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: 0.04em;
     color: var(--ink);
     text-decoration: none;
     cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 2.6rem;
+    min-width: 5rem;
+    overflow: visible;
+    flex-shrink: 0;
+  }
+  #nav-gooey-inner {
+    display: flex;
+    align-items: center;
+    filter: url(#nav-threshold);
+    height: 100%;
+    position: relative;
+    min-width: 5rem;
+  }
+  #nav-gt1, #nav-gt2 {
+    position: absolute;
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    white-space: nowrap;
+    user-select: none;
+    transition: color 0.4s;
+    left: 0;
+    line-height: 1;
   }
   .nav-right { display: flex; align-items: center; gap: 2.5rem; }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -158,7 +188,7 @@
   #stage {
     position: fixed;
     inset: 0;
-    top: 57px; /* nav height */
+    top: 72px; /* nav height */
     overflow: hidden;
   }
   section {
@@ -231,10 +261,10 @@
     margin-top: 5px;
     font-family: var(--mono);
     font-size: 0.65rem;
-    font-weight: 400;
-    color: var(--mid);
+    font-weight: 500;
+    color: var(--ink);
     text-align: center;
-    opacity: 0.7;
+    opacity: 1;
     letter-spacing: 0.08em;
     transition: color 0.4s;
   }
@@ -338,6 +368,11 @@
     transition: border-color 0.2s, color 0.2s;
   }
   .social-icon:hover { border-color: var(--ink); color: var(--ink); }
+  .social-icon.social-x { color: #1DA1F2; border-color: #1DA1F2; }
+  .social-icon.social-linkedin { color: #0077B5; border-color: #0077B5; }
+  .social-icon.social-github { color: #333333; border-color: #333333; }
+  [data-theme="dark"] .social-icon.social-github { color: #ffffff; border-color: #ffffff; }
+  .social-icon.social-leetcode { color: #FFA116; border-color: #FFA116; }
   .social-icon svg { width: 18px; height: 18px; fill: currentColor; }
   .icon-divider { width: 1px; height: 20px; background: var(--border); margin: 0 0.15rem; }
   .resume-btn {
@@ -658,7 +693,7 @@
   }
   .ach-scroll-inner {
     flex: 1;
-    max-height: 195px;
+    max-height: 270px;
     overflow: hidden;
     border-top: 1px solid var(--border);
   }
@@ -688,6 +723,10 @@
 
   .hack-table { width: 100%; border-collapse: collapse; }
   .hack-table th {
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 10;
     font-family: var(--mono);
     font-size: 0.58rem;
     letter-spacing: 0.18em;
@@ -717,129 +756,97 @@
   }
   .footer-strip span { font-family: var(--mono); font-size: 0.58rem; color: var(--mid); letter-spacing: 0.1em; }
 
-  /* ══════════════ § 6  GITHUB ══════════════ */
-  .gh-header {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    margin-bottom: 1.6rem;
-  }
-  .gh-avatar {
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    object-fit: cover;
-    background: var(--surface);
-    transition: border-color 0.4s;
-  }
-  .gh-user-info { display: flex; flex-direction: column; gap: 0.15rem; }
-  .gh-name { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--ink); }
-  .gh-handle { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--mid); }
-
-  .gh-stats {
-    display: flex;
-    gap: 1.8rem;
-    margin-bottom: 1.4rem;
-    flex-wrap: wrap;
-  }
-  .gh-stat { display: flex; flex-direction: column; gap: 0.1rem; }
-  .gh-stat-val { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; color: var(--ink); }
-  .gh-stat-lbl { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
-
-  /* Calendar grid */
-  .gh-cal-wrap {
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1rem 1.2rem 0.8rem;
-    transition: border-color 0.4s;
-    overflow-x: auto;
-  }
-  .gh-cal-top {
+  /* ══════════════ § 6  CERTIFICATIONS ══════════════ */
+  .cert-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.6rem;
+    margin-bottom: 1.6rem;
   }
-  .gh-cal-title { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
-  .gh-cal-total { font-family: var(--mono); font-size: 0.6rem; color: var(--mid); letter-spacing: 0.06em; }
-
-  .gh-cal-months {
-    display: flex;
-    margin-left: 28px;
-    margin-bottom: 3px;
-    min-width: 720px;
-  }
-  .gh-month-label {
+  .manual-view-btn {
     font-family: var(--mono);
-    font-size: 0.55rem;
-    color: var(--mid);
-    letter-spacing: 0.05em;
-    flex: 1;
-  }
-
-  .gh-cal-body { display: flex; gap: 2px; min-width: 720px; }
-  .gh-day-labels {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-right: 4px;
-    flex-shrink: 0;
-    width: 22px;
-  }
-  .gh-day-label {
-    font-family: var(--mono);
-    font-size: 0.52rem;
-    color: var(--mid);
-    height: 11px;
-    line-height: 11px;
-    text-align: right;
-  }
-  .gh-weeks { display: flex; gap: 2px; flex: 1; }
-  .gh-week { display: flex; flex-direction: column; gap: 2px; }
-  .gh-cell {
-    width: 11px; height: 11px;
-    border-radius: 2px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    transition: background 0.2s, border-color 0.4s;
-    cursor: default;
-    flex-shrink: 0;
-  }
-  /* Contribution levels — GitHub green palette, adapts to dark */
-  .gh-cell[data-level="0"] { background: var(--surface); }
-  .gh-cell[data-level="1"] { background: #9be9a8; border-color: #9be9a8; }
-  .gh-cell[data-level="2"] { background: #40c463; border-color: #40c463; }
-  .gh-cell[data-level="3"] { background: #30a14e; border-color: #30a14e; }
-  .gh-cell[data-level="4"] { background: #216e39; border-color: #216e39; }
-  [data-theme="dark"] .gh-cell[data-level="1"] { background: #0e4429; border-color: #0e4429; }
-  [data-theme="dark"] .gh-cell[data-level="2"] { background: #006d32; border-color: #006d32; }
-  [data-theme="dark"] .gh-cell[data-level="3"] { background: #26a641; border-color: #26a641; }
-  [data-theme="dark"] .gh-cell[data-level="4"] { background: #39d353; border-color: #39d353; }
-
-  .gh-cell:hover { outline: 2px solid var(--ink); outline-offset: 1px; }
-
-  .gh-legend {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    justify-content: flex-end;
-    margin-top: 6px;
-  }
-  .gh-legend span { font-family: var(--mono); font-size: 0.52rem; color: var(--mid); }
-  .gh-legend-cell { width: 10px; height: 10px; border-radius: 2px; }
-
-  .gh-loading {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--mid);
+    font-size: 0.65rem;
     letter-spacing: 0.1em;
-    text-align: center;
-    padding: 2rem 0;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+  }
+  .manual-view-btn:hover {
+    background: var(--surface);
+    border-color: var(--ink);
+  }
+  
+  @keyframes scroll-right {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .cert-scroll-container {
+    mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding: 20px 0;
+  }
+  .cert-infinite-scroll {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+    animation: scroll-right 45s linear infinite;
+  }
+  .cert-infinite-scroll.paused {
+    animation-play-state: paused;
+  }
+  .cert-scroll-container.manual-mode {
+    mask: none;
+    -webkit-mask: none;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--mid) transparent;
+  }
+  .cert-scroll-container.manual-mode .cert-infinite-scroll {
+    animation: none;
+    width: max-content;
+  }
+  .cert-scroll-container.manual-mode .cert-item:nth-child(n+18) {
+    display: none;
+  }
+  .cert-item {
+    flex-shrink: 0;
+    width: 400px;
+    height: 280px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, filter 0.3s ease;
+    display: block;
+  }
+  .cert-item:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+    z-index: 10;
+    position: relative;
+  }
+  .cert-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: var(--surface);
+    display: block;
   }
 
   /* ══════════════ RESPONSIVE ══════════════ */
   @media (max-width: 680px) {
-    nav { padding: 1rem 1.4rem; }
+    nav { padding: 0.8rem 1.2rem; height: 60px; }
+    #stage { top: 60px; }
+    .nav-logo { font-size: 1.25rem; height: 2rem; min-width: 3.5rem; }
+    #nav-gt1, #nav-gt2 { font-size: 1.25rem; }
+    #nav-gooey-inner { min-width: 3.5rem; }
     .nav-links { display: none; }
     section { padding: 2rem 1.4rem 2rem; }
     .edu-grid { grid-template-columns: 1fr; }
@@ -848,12 +855,40 @@
     .project-row { grid-template-columns: 1fr; gap: 0.5rem; }
     .section-dots { display: none; }
     .landing-number { display: none; }
+    .cert-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .cert-header > div { flex-wrap: wrap; width: 100%; }
     
     .landing-inner {
       flex-direction: column;
       align-items: flex-start;
       gap: 2.5rem;
     }
+  }
+
+  /* ══════════════ GOOEY TEXT (inline in landing) ══════════════ */
+  #gooey-wrap {
+    position: relative;
+    height: 5rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
+  #gooey-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    filter: url(#threshold);
+  }
+  #gooey-t1, #gooey-t2 {
+    position: absolute;
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    white-space: nowrap;
+    user-select: none;
+    transition: color 0.4s;
   }
 
   /* ══════════════ LANDING SPLIT LAYOUT ══════════════ */
@@ -873,19 +908,35 @@
 
 <!-- NAV -->
 <nav>
-  <span class="nav-logo" onclick="goTo(0)">AD.</span>
+  <span class="nav-logo" onclick="goTo(0)">
+    <svg style="position:absolute;height:0;width:0" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="nav-threshold">
+          <feColorMatrix in="SourceGraphic" type="matrix"
+            values="1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 0 255 -140"/>
+        </filter>
+      </defs>
+    </svg>
+    <div id="nav-gooey-inner">
+      <span id="nav-gt1"></span>
+      <span id="nav-gt2"></span>
+    </div>
+  </span>
   <div class="nav-right">
     <ul class="nav-links">
       <li><a onclick="goTo(0)">Home</a></li>
       <li><a onclick="goTo(1)">Education</a></li>
       <li><a onclick="goTo(2)">Projects</a></li>
       <li><a onclick="goTo(3)">Achievements</a></li>
-      <li><a onclick="goTo(4)">GitHub</a></li>
+      <li><a onclick="goTo(4)">Certifications</a></li>
     </ul>
     <!-- SWITCH -->
     <div class="switch-wrap" onclick="toggleTheme()">
-      <span class="switch-label" id="themeLabel">Light</span>
-      <button class="switch-btn" role="switch" aria-checked="false" id="switchBtn" aria-label="Toggle dark mode">
+      <span class="switch-label" id="themeLabel">Dark</span>
+      <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
         <span class="switch-thumb"></span>
       </button>
     </div>
@@ -906,17 +957,35 @@
         <div class="landing-left">
           <div class="landing-eyebrow">Kolkata, IN &nbsp;·&nbsp; Software Engineer</div>
           <h1 class="landing-name">Ayush<br><em>Das</em></h1>
+          <!-- GOOEY MORPH -->
+          <svg style="position:absolute;height:0;width:0" aria-hidden="true" focusable="false">
+            <defs>
+              <filter id="threshold">
+                <feColorMatrix in="SourceGraphic" type="matrix"
+                  values="1 0 0 0 0
+                          0 1 0 0 0
+                          0 0 1 0 0
+                          0 0 0 255 -140"/>
+              </filter>
+            </defs>
+          </svg>
+          <div id="gooey-wrap">
+            <div id="gooey-inner">
+              <span id="gooey-t1"></span>
+              <span id="gooey-t2"></span>
+            </div>
+          </div>
           <div class="landing-links">
-            <a class="social-icon" href="https://x.com/" target="_blank" aria-label="X">
+            <a class="social-icon social-x" href="https://x.com/byayushdas" target="_blank" aria-label="X">
               <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
-            <a class="social-icon" href="https://www.linkedin.com/in/byayushdas/" target="_blank" aria-label="LinkedIn">
+            <a class="social-icon social-linkedin" href="https://www.linkedin.com/in/byayushdas" target="_blank" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
-            <a class="social-icon" href="https://github.com/" target="_blank" aria-label="GitHub">
+            <a class="social-icon social-github" href="https://github.com/byayushdas" target="_blank" aria-label="GitHub">
               <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
             </a>
-            <a class="social-icon" href="https://leetcode.com/" target="_blank" aria-label="LeetCode">
+            <a class="social-icon social-leetcode" href="https://leetcode.com/u/byayushdas/" target="_blank" aria-label="LeetCode">
               <svg viewBox="0 0 24 24"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
             </a>
             <div class="icon-divider"></div>
@@ -999,7 +1068,7 @@
                 </div>
                 <a class="project-view-btn" href="#">View ↗</a>
               </div>
-              <div class="proj-card-img-wrap"><img class="proj-card-img" src="drone.jpeg" alt="Intelligent Farm Surveillance System"></div>
+              <div class="proj-card-img-wrap"><img class="proj-card-img" src="assets/projects/Drone.jpeg" alt="Intelligent Farm Surveillance System"></div>
             </div>
 
             <div class="proj-card">
@@ -1013,7 +1082,7 @@
                 </div>
                 <a class="project-view-btn" href="#">View ↗</a>
               </div>
-              <div class="proj-card-img-wrap"><img class="proj-card-img" src="healthmonitor.jpeg" alt="Smart HealthCare Monitoring System"></div>
+              <div class="proj-card-img-wrap"><img class="proj-card-img" src="assets/projects/healthmonitor.jpeg" alt="Smart HealthCare Monitoring System"></div>
             </div>
 
             <div class="proj-card">
@@ -1027,7 +1096,7 @@
                 </div>
                 <a class="project-view-btn" href="#">View ↗</a>
               </div>
-              <div class="proj-card-img-wrap"><img class="proj-card-img" src="Robotic arm1.PNG" alt="Robotic Arm"></div>
+              <div class="proj-card-img-wrap"><img class="proj-card-img" src="assets/projects/Robotic arm1.PNG" alt="Robotic Arm"></div>
             </div>
 
           </div>
@@ -1068,10 +1137,9 @@
           <table class="hack-table">
             <thead>
               <tr>
-                <th style="width:36%">Achievement</th>
-                <th style="width:18%">Result</th>
-                <th style="width:34%">Detail</th>
-                <th style="width:12%">Year</th>
+                <th style="width:55%">Achievement</th>
+                <th style="width:30%">Result</th>
+                <th style="width:15%">Year</th>
               </tr>
             </thead>
             <tbody>
@@ -1081,7 +1149,6 @@
                   <div class="hack-sub">IEEE Dataport · Singapore · International</div>
                 </td>
                 <td><div class="hack-place"><span class="place-dot gold"></span>Winner</div></td>
-                <td><div class="hack-project">Smart HealthCare Monitoring — non-invasive early disease diagnosis</div></td>
                 <td><div class="hack-year">2025</div></td>
               </tr>
               <tr>
@@ -1090,7 +1157,6 @@
                   <div class="hack-sub">IEEE Malaysia · International</div>
                 </td>
                 <td><div class="hack-place"><span class="place-dot silver"></span>Finalist</div></td>
-                <td><div class="hack-project">Intelligent Farm Surveillance — precision agriculture with DEW nodes &amp; drones</div></td>
                 <td><div class="hack-year">2025</div></td>
               </tr>
               <tr>
@@ -1099,34 +1165,30 @@
                   <div class="hack-sub">IEEE Kolkata Section · Regional</div>
                 </td>
                 <td><div class="hack-place"><span class="place-dot silver"></span>Runner-Up</div></td>
-                <td><div class="hack-project">Intelligent Farm Surveillance System</div></td>
                 <td><div class="hack-year">2025</div></td>
               </tr>
               <tr>
                 <td>
-                  <div class="hack-name">Int'l CS Olympiad</div>
+                  <div class="hack-name">International Computer Science Olympiad</div>
                   <div class="hack-sub">SOF · Science Olympiad Foundation</div>
                 </td>
                 <td><div class="hack-place"><span class="place-dot gold"></span>Rank 10</div></td>
-                <td><div class="hack-project">ICSO Level 1, Rank 10</div></td>
                 <td><div class="hack-year">2019</div></td>
               </tr>
               <tr>
                 <td>
-                  <div class="hack-name">Int'l Mathematics Olympiad</div>
+                  <div class="hack-name">International Mathematics Olympiad</div>
                   <div class="hack-sub">SOF · Bronze Medal</div>
                 </td>
-                <td><div class="hack-place"><span class="place-dot gold"></span>Rank 3 🥉</div></td>
-                <td><div class="hack-project">IMO Level 1, Rank 3 — Bronze Medal</div></td>
+                <td><div class="hack-place"><span class="place-dot gold"></span>Rank 3</div></td>
                 <td><div class="hack-year">2019</div></td>
               </tr>
               <tr>
                 <td>
-                  <div class="hack-name">Int'l Mathematics Olympiad</div>
+                  <div class="hack-name">International Mathematics Olympiad</div>
                   <div class="hack-sub">SOF · WWA Cossipore English School</div>
                 </td>
                 <td><div class="hack-place"><span class="place-dot finalist"></span>Rank 9</div></td>
-                <td><div class="hack-project">IMO Level 1, Rank 9</div></td>
                 <td><div class="hack-year">2018</div></td>
               </tr>
             </tbody>
@@ -1141,10 +1203,6 @@
           </button>
         </div>
       </div>
-      <div class="footer-strip">
-        <span>© 2025 — Ayush Das</span>
-        <span>Built with care.</span>
-      </div>
     </div>
     <div class="mouse-scroll hidden" id="ms3">
       <div class="mouse-body"><div class="mouse-wheel"></div></div>
@@ -1156,48 +1214,66 @@
     </div>
   </section>
 
-  <!-- ⑤ GITHUB -->
+  <!-- ⑤ CERTIFICATIONS -->
   <section id="s4" class="wait-below">
     <div class="content">
-      <div class="section-label">05 — GitHub</div>
-      <h2 class="section-heading">Code &amp;<br><em>commits</em></h2>
-
-      <!-- Profile header, filled by JS -->
-      <div class="gh-header" id="ghHeader">
-        <div style="width:52px;height:52px;border-radius:50%;background:var(--surface);border:1px solid var(--border);flex-shrink:0;"></div>
-        <div class="gh-user-info">
-          <div class="gh-name">Ayush Das</div>
-          <div class="gh-handle">@byayushdas</div>
+      <div class="section-label">05 — Certifications</div>
+      <div class="cert-header">
+        <h2 class="section-heading" style="margin-bottom: 0;">My<br><em>certifications</em></h2>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <select id="certCategorySelect" class="manual-view-btn" style="appearance: auto; cursor: pointer; padding-right: 15px;">
+            <option value="competitions">Competitions</option>
+            <option value="nptel">NPTEL</option>
+          </select>
+          <button id="certManualBtn" class="manual-view-btn">Manual View</button>
         </div>
       </div>
+      <div class="cert-scroll-container" id="certScrollContainer">
+        <div class="cert-infinite-scroll" id="certInfiniteScroll">
+          <a href="assets/certs/competitions/19.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/19.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/20260318162049_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/20260318162049_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/23.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/23.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/2f277712-f679-43f8-b015-959a6a378f11.JPG" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/2f277712-f679-43f8-b015-959a6a378f11.JPG" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Ayush%20Das.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Ayush%20Das.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/CompletionCertificate_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/CompletionCertificate_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Copy%20of%20Certificate%20%28IIFR%20Idea%20Hackathon%29-79_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Copy%20of%20Certificate%20%28IIFR%20Idea%20Hackathon%29-79_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Hack2skill-Certificate%20%281%29.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Hack2skill-Certificate%20%281%29.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Hack2skill-Certificate.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Hack2skill-Certificate.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Hackathon%20certificates-163_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Hackathon%20certificates-163_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/IMG_3974.JPG" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/IMG_3974.JPG" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/IMG_3989.jpeg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/IMG_3989.jpeg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/IMG_3990.jpeg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/IMG_3990.jpeg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Paper_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Paper_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Workshop%20Certificates-34_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Workshop%20Certificates-34_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/ayush%20das.PNG" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/ayush%20das.PNG" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/ayushxdas2005gmail.com_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/ayushxdas2005gmail.com_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/19.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/19.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/20260318162049_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/20260318162049_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/23.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/23.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/2f277712-f679-43f8-b015-959a6a378f11.JPG" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/2f277712-f679-43f8-b015-959a6a378f11.JPG" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Ayush%20Das.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Ayush%20Das.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/CompletionCertificate_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/CompletionCertificate_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Copy%20of%20Certificate%20%28IIFR%20Idea%20Hackathon%29-79_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Copy%20of%20Certificate%20%28IIFR%20Idea%20Hackathon%29-79_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Hack2skill-Certificate%20%281%29.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Hack2skill-Certificate%20%281%29.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Hack2skill-Certificate.png" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Hack2skill-Certificate.png" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Hackathon%20certificates-163_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Hackathon%20certificates-163_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/IMG_3974.JPG" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/IMG_3974.JPG" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/IMG_3989.jpeg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/IMG_3989.jpeg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/IMG_3990.jpeg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/IMG_3990.jpeg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Paper_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Paper_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/Workshop%20Certificates-34_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/Workshop%20Certificates-34_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/ayush%20das.PNG" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/ayush%20das.PNG" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/competitions/ayushxdas2005gmail.com_page-0001.jpg" target="_blank" class="cert-item competitions" title="View Certificate"><img src="assets/certs/competitions/ayushxdas2005gmail.com_page-0001.jpg" alt="Certification" loading="lazy"></a>
 
-      <!-- Stats row -->
-      <div class="gh-stats" id="ghStats">
-        <div class="gh-stat"><div class="gh-stat-val" id="ghRepos">—</div><div class="gh-stat-lbl">Repositories</div></div>
-        <div class="gh-stat"><div class="gh-stat-val" id="ghFollowers">—</div><div class="gh-stat-lbl">Followers</div></div>
-        <div class="gh-stat"><div class="gh-stat-val" id="ghFollowing">—</div><div class="gh-stat-lbl">Following</div></div>
-        <div class="gh-stat"><div class="gh-stat-val" id="ghContribs">—</div><div class="gh-stat-lbl">Contributions (yr)</div></div>
-      </div>
-
-      <!-- Calendar -->
-      <div class="gh-cal-wrap">
-        <div class="gh-cal-top">
-          <span class="gh-cal-title">Contribution Activity</span>
-          <span class="gh-cal-total" id="ghCalTotal">Loading…</span>
-        </div>
-        <div id="ghCal"><div class="gh-loading">Fetching contributions…</div></div>
-        <div class="gh-legend">
-          <span>Less</span>
-          <div class="gh-legend-cell gh-cell" data-level="0"></div>
-          <div class="gh-legend-cell gh-cell" data-level="1"></div>
-          <div class="gh-legend-cell gh-cell" data-level="2"></div>
-          <div class="gh-legend-cell gh-cell" data-level="3"></div>
-          <div class="gh-legend-cell gh-cell" data-level="4"></div>
-          <span>More</span>
+          <a href="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" target="_blank" class="cert-item nptel" title="View Certificate"><img src="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" alt="Certification" loading="lazy"></a>
         </div>
       </div>
     </div>
-    <!-- Quote & Footer -->
     <div class="bottom-branding">
         <p class="footer">2026 | byayushdas</p>
     </div>
@@ -1314,143 +1390,48 @@
   }
 
   // ── GITHUB CALENDAR ───────────────────────────────────
-  const GH_USER = 'byayushdas';
+  // ── CERTIFICATIONS CAROUSEL ───────────────────────────
+  const certManualBtn = document.getElementById('certManualBtn');
+  const certScrollContainer = document.getElementById('certScrollContainer');
+  const certInfiniteScroll = document.getElementById('certInfiniteScroll');
 
-  async function loadGitHub() {
-    try {
-      // 1. Fetch user profile
-      const userRes  = await fetch(`https://api.github.com/users/${GH_USER}`);
-      const userData = await userRes.json();
-
-      // Avatar
-      const header = document.getElementById('ghHeader');
-      header.innerHTML = `
-        <img class="gh-avatar" src="${userData.avatar_url}" alt="${GH_USER}" />
-        <div class="gh-user-info">
-          <div class="gh-name">${userData.name || 'Ayush Das'}</div>
-          <div class="gh-handle">@${userData.login}</div>
-        </div>`;
-
-      document.getElementById('ghRepos').textContent     = userData.public_repos ?? '—';
-      document.getElementById('ghFollowers').textContent = userData.followers    ?? '—';
-      document.getElementById('ghFollowing').textContent = userData.following    ?? '—';
-
-      // 2. Fetch contribution calendar via github-contributions-api (public CORS proxy)
-      const calRes  = await fetch(`https://github-contributions-api.jogruber.de/v4/${GH_USER}?y=last`);
-      const calData = await calRes.json();
-      renderCalendar(calData.contributions);
-
-    } catch (err) {
-      // Fallback: render placeholder calendar
-      console.warn('GitHub API unavailable, showing placeholder', err);
-      renderPlaceholder();
-    }
-  }
-
-  function renderCalendar(contributions) {
-    // contributions = array of { date, count, level }
-    // Sort chronologically
-    contributions.sort((a, b) => a.date.localeCompare(b.date));
-
-    const total = contributions.reduce((s, d) => s + d.count, 0);
-    document.getElementById('ghContribs').textContent = total;
-    document.getElementById('ghCalTotal').textContent = `${total} contributions in the last year`;
-
-    // Group into weeks (Sun → Sat columns)
-    const weeks = [];
-    let week = [];
-
-    // Pad first week if it doesn't start on Sunday
-    const firstDay = new Date(contributions[0].date).getDay(); // 0=Sun
-    for (let p = 0; p < firstDay; p++) week.push(null);
-
-    for (const day of contributions) {
-      week.push(day);
-      if (week.length === 7) { weeks.push(week); week = []; }
-    }
-    if (week.length) {
-      while (week.length < 7) week.push(null);
-      weeks.push(week);
-    }
-
-    // Month labels
-    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const monthRow   = [];
-    let lastMonth    = -1;
-    for (const w of weeks) {
-      const firstReal = w.find(d => d !== null);
-      if (firstReal) {
-        const m = new Date(firstReal.date).getMonth();
-        monthRow.push(m !== lastMonth ? monthNames[m] : '');
-        lastMonth = m;
+  if (certManualBtn && certScrollContainer) {
+    let isManual = false;
+    certManualBtn.addEventListener('click', () => {
+      isManual = !isManual;
+      if (isManual) {
+        certScrollContainer.classList.add('manual-mode');
+        certManualBtn.textContent = 'Auto Scroll View';
       } else {
-        monthRow.push('');
+        certScrollContainer.classList.remove('manual-mode');
+        certManualBtn.textContent = 'Manual View';
       }
+    });
+
+    const certCategorySelect = document.getElementById('certCategorySelect');
+    if (certCategorySelect) {
+      certCategorySelect.addEventListener('change', (e) => {
+        const cat = e.target.value;
+        document.querySelectorAll('.cert-item').forEach(item => {
+          if (cat === 'all' || item.classList.contains(cat)) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+      
+      // trigger initially
+      certCategorySelect.dispatchEvent(new Event('change'));
     }
 
-    const dayLabels = ['','Mon','','Wed','','Fri',''];
-
-    let html = `
-      <div class="gh-cal-months">
-        ${monthRow.map(m => `<div class="gh-month-label">${m}</div>`).join('')}
-      </div>
-      <div class="gh-cal-body">
-        <div class="gh-day-labels">
-          ${dayLabels.map(l => `<div class="gh-day-label">${l}</div>`).join('')}
-        </div>
-        <div class="gh-weeks">
-          ${weeks.map(w => `
-            <div class="gh-week">
-              ${w.map(d => d
-                ? `<div class="gh-cell" data-level="${d.level}" title="${d.date}: ${d.count} contribution${d.count !== 1 ? 's' : ''}"></div>`
-                : `<div class="gh-cell" data-level="0" style="visibility:hidden"></div>`
-              ).join('')}
-            </div>`).join('')}
-        </div>
-      </div>`;
-
-    document.getElementById('ghCal').innerHTML = html;
-  }
-
-  function renderPlaceholder() {
-    // Generate a realistic-looking random calendar
-    document.getElementById('ghContribs').textContent = '—';
-    document.getElementById('ghCalTotal').textContent = 'Could not load — visit github.com/' + GH_USER;
-
-    const weeks = 52;
-    const dayLabels = ['','Mon','','Wed','','Fri',''];
-    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-    const today = new Date();
-    const monthRow = [];
-    let lastMonth = -1;
-    for (let w = 0; w < weeks; w++) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - (weeks - w) * 7);
-      const m = d.getMonth();
-      monthRow.push(m !== lastMonth ? monthNames[m] : '');
-      lastMonth = m;
-    }
-
-    const weekHtml = Array.from({ length: weeks }, () => {
-      const cells = Array.from({ length: 7 }, () => {
-        const r = Math.random();
-        const level = r < 0.55 ? 0 : r < 0.75 ? 1 : r < 0.88 ? 2 : r < 0.96 ? 3 : 4;
-        return `<div class="gh-cell" data-level="${level}"></div>`;
-      }).join('');
-      return `<div class="gh-week">${cells}</div>`;
-    }).join('');
-
-    document.getElementById('ghCal').innerHTML = `
-      <div class="gh-cal-months">
-        ${monthRow.map(m => `<div class="gh-month-label">${m}</div>`).join('')}
-      </div>
-      <div class="gh-cal-body">
-        <div class="gh-day-labels">
-          ${dayLabels.map(l => `<div class="gh-day-label">${l}</div>`).join('')}
-        </div>
-        <div class="gh-weeks">${weekHtml}</div>
-      </div>`;
+    // Pause on hover when not manual
+    certInfiniteScroll.addEventListener('mouseenter', () => {
+      if (!isManual) certInfiniteScroll.classList.add('paused');
+    });
+    certInfiniteScroll.addEventListener('mouseleave', () => {
+      if (!isManual) certInfiniteScroll.classList.remove('paused');
+    });
   }
 
   // ── PROJECTS CAROUSEL ─────────────────────────────────
@@ -1643,37 +1624,150 @@
 
   // ── ACHIEVEMENTS SCROLL ───────────────────────────────
   let achScrollPos = 0;
+  let achAutoScrollPaused = false;
+  let achScrollSpeed = 0.4; // slow continuous speed
+
   function achScroll(dir) {
     const inner = document.getElementById('achScrollInner');
     if (!inner) return;
     const rows = inner.querySelectorAll('tbody tr');
     if (!rows.length) return;
     const rowH = rows[0].getBoundingClientRect().height;
+    
+    // Pause auto scroll for 4 seconds after manual click
+    achAutoScrollPaused = true;
+    setTimeout(() => {
+      achAutoScrollPaused = false;
+    }, 4000);
+
     const maxScroll = inner.scrollHeight - inner.clientHeight;
     achScrollPos = Math.max(0, Math.min(maxScroll, achScrollPos + dir * rowH));
     inner.scrollTop = achScrollPos;
   }
 
-  // Set scroll container heights to exactly 3 rows on load
+  // Set heights and init auto-scroll
   window.addEventListener('load', function() {
-    (function setScrollHeights() {
-      const ach = document.getElementById('achScrollInner');
-      if (ach) {
-        const thead = ach.querySelector('thead');
-        const rows = ach.querySelectorAll('tbody tr');
-        const theadH = thead ? thead.getBoundingClientRect().height : 0;
-        if (rows.length >= 3) {
-          let h = theadH;
-          for (let i = 0; i < 3; i++) h += rows[i].getBoundingClientRect().height;
-          ach.style.maxHeight = h + 'px';
-        }
+    const ach = document.getElementById('achScrollInner');
+    if (!ach) return;
+    const tbody = ach.querySelector('tbody');
+    if (!tbody) return;
+
+    const originalRows = Array.from(tbody.querySelectorAll('tr'));
+    if (!originalRows.length) return;
+
+    // Set height to exactly 4 rows
+    const thead = ach.querySelector('thead');
+    const theadH = thead ? thead.getBoundingClientRect().height : 0;
+    if (originalRows.length >= 4) {
+      let h = theadH;
+      for (let i = 0; i < 4; i++) h += originalRows[i].getBoundingClientRect().height;
+      ach.style.maxHeight = h + 'px';
+    }
+
+    // Duplicate rows statically in JS to allow infinite looping
+    originalRows.forEach(row => {
+      const clone = row.cloneNode(true);
+      tbody.appendChild(clone);
+    });
+
+    // Hover detection
+    let mouseHover = false;
+    ach.addEventListener('mouseenter', () => { mouseHover = true; });
+    ach.addEventListener('mouseleave', () => { mouseHover = false; });
+
+    // Sync scroll pos when user scrolls manually
+    ach.addEventListener('scroll', () => {
+      if (Math.abs(ach.scrollTop - achScrollPos) > 2) {
+        achScrollPos = ach.scrollTop;
       }
-    })();
+    });
+
+    function getOriginalHeight() {
+      let h = 0;
+      const currentRows = tbody.querySelectorAll('tr');
+      const count = originalRows.length;
+      for (let i = 0; i < count; i++) {
+        if (currentRows[i]) h += currentRows[i].getBoundingClientRect().height;
+      }
+      return h;
+    }
+
+    // Animation frame step
+    function step() {
+      if (!mouseHover && !achAutoScrollPaused) {
+        const originalH = getOriginalHeight();
+        achScrollPos += achScrollSpeed;
+        if (achScrollPos >= originalH) {
+          achScrollPos = 0;
+        }
+        ach.scrollTop = achScrollPos;
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   });
 
 
 
-  // ── DOTTED WAVE BACKGROUND (Three.js faithful port — manual 3D projection) ──
+  // ── NAV GOOEY TEXT MORPH ───────────────────────────────
+  (function initNavGooey() {
+    const texts        = ["AD.", "Building.", "Solving.", "Selling."];
+    const morphTime    = 0.9;
+    const cooldownTime = 1.8; // longer pause so AD. reads clearly
+    const t1 = document.getElementById('nav-gt1');
+    const t2 = document.getElementById('nav-gt2');
+    if (!t1 || !t2) return;
+
+    let textIndex = 0;
+    let morph    = 0;
+    let cooldown = cooldownTime;
+    let prev     = performance.now();
+
+    t1.textContent = texts[0];
+    t2.textContent = texts[1];
+
+    function setMorph(fraction) {
+      t2.style.filter  = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      t2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+      fraction = 1 - fraction;
+      t1.style.filter  = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      t1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+    }
+    function doCooldown() {
+      morph = 0;
+      t2.style.filter  = '';
+      t2.style.opacity = '100%';
+      t1.style.filter  = '';
+      t1.style.opacity = '0%';
+    }
+    function doMorph() {
+      morph   -= cooldown;
+      cooldown = 0;
+      let fraction = morph / morphTime;
+      if (fraction > 1) { cooldown = cooldownTime; fraction = 1; }
+      setMorph(fraction);
+    }
+    function loop(ts) {
+      requestAnimationFrame(loop);
+      const dt = (ts - prev) / 1000;
+      prev = ts;
+      const shouldIncrement = cooldown > 0;
+      cooldown -= dt;
+      if (cooldown <= 0) {
+        if (shouldIncrement) {
+          textIndex = (textIndex + 1) % texts.length;
+          t1.textContent = texts[textIndex % texts.length];
+          t2.textContent = texts[(textIndex + 1) % texts.length];
+        }
+        doMorph();
+      } else {
+        doCooldown();
+      }
+    }
+    requestAnimationFrame(loop);
+  })();
+
+
   (function initDottedWaveBg() {
     const bgCanvas = document.getElementById('dottedWaveBg');
     if (!bgCanvas) return;
