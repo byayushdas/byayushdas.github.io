@@ -567,8 +567,6 @@
     isolation: isolate;
   }
   [data-theme="dark"] .star-btn {
-    --light-color: #ffffff;
-    --light-color-trans: rgba(255, 255, 255, 0);
     --star-fill: var(--paper);
     --btn-border: rgba(255, 255, 255, 0.15);
   }
@@ -883,14 +881,16 @@
     box-shadow: 0 0 0 2px rgba(240, 238, 234, 0.15);
   }
   .connect-form-field textarea { height: 80px; }
-  .connect-send-btn {
-    align-self: flex-start;
+  .connect-action-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
   }
   .connect-status {
     font-family: var(--mono);
     font-size: 0.6rem;
     letter-spacing: 0.1em;
-    margin-top: 0.3rem;
     min-height: 1.2em;
   }
   .connect-status.ok  { color: #22c55e; }
@@ -1354,8 +1354,9 @@
         <h2 class="section-heading" style="margin-bottom: 0;">My<br><em>certifications</em></h2>
         <div style="display: flex; gap: 10px; align-items: center;">
           <select id="certCategorySelect" class="manual-view-btn" style="appearance: auto; cursor: pointer; padding-right: 15px;">
-            <option value="competitions">Competitions</option>
+            <option value="competitions" selected>Competitions</option>
             <option value="nptel">NPTEL</option>
+            <option value="certifications">Certifications</option>
           </select>
         </div>
       </div>
@@ -1402,6 +1403,31 @@
           <a href="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" target="_blank" class="cert-item nptel duplicate" title="View Certificate"><img src="assets/certs/nptel/NOC26CS34S75870041004412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
           <a href="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" target="_blank" class="cert-item nptel duplicate" title="View Certificate"><img src="assets/certs/nptel/NPTEL26CS55S105870355504412579_page-0001.jpg" alt="Certification" loading="lazy"></a>
           <a href="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" target="_blank" class="cert-item nptel duplicate" title="View Certificate"><img src="assets/certs/nptel/Programming%20with%20Generative%20AI_page-0001.jpg" alt="Certification" loading="lazy"></a>
+
+          <a href="assets/certs/online/1.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/1.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/2.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/2.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/3.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/3.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/4.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/4.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/5.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/5.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%200CV6GD267TOV.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/Coursera%200CV6GD267TOV.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%204XP60SYECMZP.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/Coursera%204XP60SYECMZP.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%207KWKKCQI0OYN.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/Coursera%207KWKKCQI0OYN.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%20M3DUMATMVLQC.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/Coursera%20M3DUMATMVLQC.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%20N1M2BA04QYDD.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/Coursera%20N1M2BA04QYDD.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%20NBERIF7QKMSB.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/Coursera%20NBERIF7QKMSB.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%20WKTNYTY15171.jpg" target="_blank" class="cert-item certifications" title="View Certificate"><img src="assets/certs/online/Coursera%20WKTNYTY15171.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/1.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/1.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/2.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/2.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/3.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/3.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/4.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/4.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/5.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/5.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%200CV6GD267TOV.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/Coursera%200CV6GD267TOV.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%204XP60SYECMZP.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/Coursera%204XP60SYECMZP.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%207KWKKCQI0OYN.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/Coursera%207KWKKCQI0OYN.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%20M3DUMATMVLQC.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/Coursera%20M3DUMATMVLQC.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%20N1M2BA04QYDD.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/Coursera%20N1M2BA04QYDD.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%20NBERIF7QKMSB.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/Coursera%20NBERIF7QKMSB.jpg" alt="Certification" loading="lazy"></a>
+          <a href="assets/certs/online/Coursera%20WKTNYTY15171.jpg" target="_blank" class="cert-item certifications duplicate" title="View Certificate"><img src="assets/certs/online/Coursera%20WKTNYTY15171.jpg" alt="Certification" loading="lazy"></a>
         </div>
       </div>
     </div>
@@ -1448,14 +1474,16 @@
             <label for="c-message">Message</label>
             <textarea id="c-message" placeholder="Your message…"></textarea>
           </div>
-          <button class="star-btn connect-send-btn" onclick="sendMail()">
-            <div class="star-btn-glow"></div>
-            <div class="star-btn-inner">
-              <svg width="100%" height="100%" preserveAspectRatio="none"><use href="#star-bg" /></svg>
-            </div>
-            <span class="star-btn-text">Send &rarr;</span>
-          </button>
-          <p class="connect-status" id="connectStatus"></p>
+          <div class="connect-action-row">
+            <button class="star-btn connect-send-btn" onclick="sendMail()">
+              <div class="star-btn-glow"></div>
+              <div class="star-btn-inner">
+                <svg width="100%" height="100%" preserveAspectRatio="none"><use href="#star-bg" /></svg>
+              </div>
+              <span class="star-btn-text">Send &rarr;</span>
+            </button>
+            <p class="connect-status" id="connectStatus"></p>
+          </div>
         </div>
       </div>
     </div>
