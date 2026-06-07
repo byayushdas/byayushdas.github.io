@@ -608,16 +608,12 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .proj-carousel-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 1rem;
-  }
   .proj-carousel-indicators {
     display: flex;
-    gap: 6px;
+    gap: 8px;
     align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
   }
   .proj-dot {
     width: 5px; height: 5px;
@@ -634,7 +630,10 @@
   }
   .proj-carousel-controls {
     display: flex;
-    gap: 0.4rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
   }
   .proj-nav-btn {
     width: 30px; height: 30px;
@@ -1171,6 +1170,14 @@
       <div class="section-label">03 — Projects</div>
       <h2 class="section-heading">Things I've<br><em>built</em></h2>
       <div class="proj-carousel" id="projCarousel">
+        <div class="proj-carousel-controls">
+          <button class="proj-nav-btn" onclick="projCarouselNav(-1)" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="proj-nav-btn" onclick="projCarouselNav(1)" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
         <div class="proj-carousel-track-wrap">
           <div class="proj-carousel-track" id="projTrack">
 
@@ -1233,20 +1240,7 @@
 
           </div>
         </div>
-        <div class="proj-carousel-footer">
-          <div class="proj-carousel-indicators" id="projDots"></div>
-          <div style="display:flex;align-items:center;gap:0.8rem;">
-            <span class="proj-counter" id="projCounter">1 / 3</span>
-            <div class="proj-carousel-controls">
-              <button class="proj-nav-btn" onclick="projCarouselNav(-1)" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <button class="proj-nav-btn" onclick="projCarouselNav(1)" aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
+        <div class="proj-carousel-indicators" id="projDots"></div>
       </div>
     </div>
     <div class="mouse-scroll hidden" id="ms2">
@@ -1784,7 +1778,6 @@
         d.classList.toggle('active', i === current);
       });
       cards.forEach((c, i) => c.classList.toggle('active', i === current));
-      if (counter) counter.textContent = (current + 1) + ' / ' + total;
     }
 
     function startAuto() {
