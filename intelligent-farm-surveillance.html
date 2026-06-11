@@ -314,9 +314,9 @@
     gap: 0.9rem;
     flex-shrink: 0;
     transition:
-      transform 0.72s cubic-bezier(0.45, 0, 0.15, 1),
-      box-shadow 0.72s cubic-bezier(0.45, 0, 0.15, 1),
-      opacity 0.72s cubic-bezier(0.45, 0, 0.15, 1),
+      transform 1.5s cubic-bezier(0.45, 0, 0.15, 1),
+      box-shadow 1.5s cubic-bezier(0.45, 0, 0.15, 1),
+      opacity 1.5s cubic-bezier(0.45, 0, 0.15, 1),
       background 0.3s;
     opacity: 0.38;
     transform: scale(0.88) translateY(8px);
@@ -478,7 +478,7 @@
           min-width: 0 !important;
           opacity: 1 !important;
           filter: brightness(0.4);
-          transition: transform 0.72s cubic-bezier(0.45, 0, 0.15, 1), filter 0.72s cubic-bezier(0.45, 0, 0.15, 1);
+          transition: transform 1.5s cubic-bezier(0.45, 0, 0.15, 1), filter 1.5s cubic-bezier(0.45, 0, 0.15, 1);
         }
         .proj-card.media-card.active {
           filter: brightness(1);
@@ -502,43 +502,43 @@
           <div class="proj-carousel-track" id="projTrack" style="height: 50vh;">
             
             <div class="proj-card media-card">
-              <img src="assets/projects/farm/farm-img-1.jpg" alt="Farm image 1">
+              <img src="assets/projects/farm/farm-img-1.jpg" alt="Farm image 1" loading="lazy">
             </div>
 
             <div class="proj-card media-card">
-              <video playsinline muted style="pointer-events: none; outline: none; border: none;">
+              <video playsinline muted preload="metadata" style="pointer-events: none; outline: none; border: none;">
                 <source src="assets/projects/farm/farm-vid-1.mp4" type="video/mp4">
               </video>
             </div>
 
             <div class="proj-card media-card">
-              <video playsinline muted style="pointer-events: none; outline: none; border: none;">
+              <video playsinline muted preload="metadata" style="pointer-events: none; outline: none; border: none;">
                 <source src="assets/projects/farm/farm-vid-2.mp4" type="video/mp4">
               </video>
             </div>
 
             <div class="proj-card media-card">
-              <img src="assets/projects/farm/farm-img-2.jpg" alt="Farm image 2">
+              <img src="assets/projects/farm/farm-img-2.jpg" alt="Farm image 2" loading="lazy">
             </div>
 
             <div class="proj-card media-card">
-              <img src="assets/projects/farm/farm-img-3.jpg" alt="Farm image 3">
+              <img src="assets/projects/farm/farm-img-3.jpg" alt="Farm image 3" loading="lazy">
             </div>
 
             <div class="proj-card media-card">
-              <img src="assets/projects/farm/farm-img-4.jpg" alt="Farm image 4">
+              <img src="assets/projects/farm/farm-img-4.jpg" alt="Farm image 4" loading="lazy">
             </div>
 
             <div class="proj-card media-card">
-              <img src="assets/projects/farm/farm-img-5.jpg" alt="Farm image 5">
+              <img src="assets/projects/farm/farm-img-5.jpg" alt="Farm image 5" loading="lazy">
             </div>
 
             <div class="proj-card media-card">
-              <img src="assets/projects/farm/farm-img-6.jpg" alt="Farm image 6">
+              <img src="assets/projects/farm/farm-img-6.jpg" alt="Farm image 6" loading="lazy">
             </div>
 
             <div class="proj-card media-card">
-              <img src="assets/projects/farm/farm-img-7.jpeg" alt="Farm image 7">
+              <img src="assets/projects/farm/farm-img-7.jpeg" alt="Farm image 7" loading="lazy">
             </div>
 
           </div>
@@ -728,9 +728,9 @@
         track.style.transform = `translateX(${shift}px)`;
         // Force reflow then restore transition
         track.getBoundingClientRect();
-        track.style.transition = 'transform 0.72s cubic-bezier(0.45, 0, 0.15, 1)';
+        track.style.transition = 'transform 1.5s cubic-bezier(0.45, 0, 0.15, 1)';
       } else {
-        track.style.transition = 'transform 0.72s cubic-bezier(0.45, 0, 0.15, 1)';
+        track.style.transition = 'transform 1.5s cubic-bezier(0.45, 0, 0.15, 1)';
         track.style.transform = `translateX(${shift}px)`;
       }
     }
@@ -803,7 +803,7 @@
         return;
       }
 
-      autoTimer = setTimeout(() => goTo(current + 1), 4000);
+      autoTimer = setTimeout(() => goTo(current + 1), 3000);
     }
     function stopAuto() { if (autoTimer) clearTimeout(autoTimer); autoTimer = null; }
     function resetAuto() { stopAuto(); startAuto(); }
