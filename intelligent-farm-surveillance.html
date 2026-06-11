@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayush Das | Software Engineer</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0a0a0a;
+    --paper: #ffffff;
+    --surface: #f5f5f5;
+    --mid: #555555;
+    --border: #e2e2e2;
+    --serif: 'Playfair Display', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+  [data-theme="dark"] {
+    --ink: #f0eeea;
+    --paper: #0d0d0d;
+    --surface: #181818;
+    --mid: #aaaaaa;
+    --border: #282828;
+  }
+
+  html, body { height: 100%; overflow: hidden; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    transition: background 0.4s, color 0.4s;
+  }
+
+  /* ══════════════ NAV ══════════════ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    height: 72px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 2.6rem;
+    min-width: 5rem;
+    overflow: visible;
+    flex-shrink: 0;
+  }
+  #nav-gooey-inner {
+    display: flex;
+    align-items: center;
+    filter: url(#nav-threshold);
+    height: 100%;
+    position: relative;
+    min-width: 5rem;
+  }
+  #nav-gt1, #nav-gt2 {
+    position: absolute;
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    white-space: nowrap;
+    user-select: none;
+    transition: color 0.4s;
+    left: 0;
+    line-height: 1;
+  }
+  .nav-right { display: flex; align-items: center; gap: 2.5rem; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #444;
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  [data-theme="dark"] .nav-links a { color: #aaa; }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ══════════════ SWITCH (framer-motion style, pure CSS+JS) ══════════════ */
+  .switch-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .switch-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mid);
+    transition: color 0.3s;
+    min-width: 2.4rem;
+    text-align: right;
+  }
+  .switch-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+    background: #e2e2e2;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    transition: background 0.35s cubic-bezier(.4,0,.2,1);
+    flex-shrink: 0;
+  }
+  .switch-btn[aria-checked="true"] {
+    background: #1a1a1a;
+  }
+  [data-theme="dark"] .switch-btn[aria-checked="false"] {
+    background: #333;
+  }
+  [data-theme="dark"] .switch-btn[aria-checked="true"] {
+    background: #2a2a2a;
+  }
+  .switch-thumb {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    left: 2px;
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1), background 0.3s;
+    will-change: transform;
+  }
+  .switch-btn[aria-checked="true"] .switch-thumb {
+    transform: translateX(20px);
+    background: #fde047; /* yellow-300 */
+    box-shadow: 0 0 10px 2px rgba(253,224,71,0.55);
+  }
+  [data-theme="dark"] .switch-thumb { background: #f0eeea; }
+
+  /* ══════════════ SECTION DOTS ══════════════ */
+  .section-dots {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    z-index: 150;
+  }
+  .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .dot.active { background: var(--ink); transform: scale(1.6); }
+
+  /* ══════════════ SECTIONS ══════════════ */
+  /* Stack all sections absolutely, transition opacity + translateY */
+  #stage {
+    position: fixed;
+    inset: 0;
+    top: 72px; /* nav height */
+    overflow: hidden;
+  }
+  section {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5rem 3rem 2rem;
+    background: var(--paper);
+    opacity: 0;
+    pointer-events: none;
+    /* default: waiting below */
+    transform: translateY(60px);
+    transition:
+      opacity 0.6s cubic-bezier(.4,0,.2,1),
+      transform 0.6s cubic-bezier(.4,0,.2,1),
+      background 0.4s, color 0.4s;
+    will-change: opacity, transform;
+    overflow: hidden;
+  }
+  section.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 2;
+  }
+  /* Leaving upward */
+  section.leave-up {
+    opacity: 0;
+    transform: translateY(-60px);
+    z-index: 1;
+  }
+  /* Waiting above (for going back up) */
+  section.wait-above {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  /* Waiting below (default, for going forward) */
+  section.wait-below {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  /* ══════════════ CONTENT WRAPPER ══════════════ */
+  .content {
+    max-width: 860px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ══════════════ MOUSE SCROLL INDICATOR ══════════════ */
+  .mouse-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+    z-index: 5;
+    transition: opacity 0.4s;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 5px;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: center;
+    opacity: 1;
+    letter-spacing: 0.08em;
+    transition: color 0.4s;
+  }
+  .bottom-branding {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .mouse-scroll.hidden { opacity: 0; }
+  .mouse-body {
+    width: 20px; height: 32px;
+    border: 2px solid var(--ink);
+    opacity: 0.85;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    transition: border-color 0.4s, opacity 0.4s;
+  }
+  .mouse-wheel {
+    width: 3px; height: 7px;
+    background: var(--ink);
+    border-radius: 2px;
+    margin-top: 5px;
+    animation: mwheel 1.6s ease-in-out infinite;
+    transition: background 0.4s;
+  }
+  @keyframes mwheel {
+    0%   { opacity:1; transform:translateY(0); }
+    55%  { opacity:0; transform:translateY(9px); }
+    56%  { opacity:0; transform:translateY(0); }
+    100% { opacity:1; transform:translateY(0); }
+  }
+  .mouse-label {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.75;
+    transition: color 0.4s, opacity 0.4s;
+  }
+
+  /* ══════════════ TYPOGRAPHY UTILS ══════════════ */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 0.6rem;
+  }
+  .section-heading {
+    font-family: var(--serif);
+    font-size: clamp(1.9rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 1.6rem;
+  }
+  .section-heading em { font-style: italic; font-weight: 400; }
+
+  /* ══════════════ § 1  LANDING ══════════════ */
+  .landing-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 0.9rem;
+  }
+  .landing-name {
+    font-family: var(--serif);
+    font-size: clamp(3.2rem, 8vw, 6.2rem);
+    font-weight: 700;
+    line-height: 0.93;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+  .landing-name em { font-style: italic; font-weight: 400; }
+  
+  .landing-links { display: flex; gap: 0.9rem; align-items: center; flex-wrap: wrap; }
+  .social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px; height: 46px;
+    border: 1px solid var(--border);
+    color: var(--mid);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-icon:hover { border-color: var(--ink); color: var(--ink); }
+  .social-icon.social-x { color: #1DA1F2; border-color: #1DA1F2; }
+  .social-icon.social-linkedin { color: #0077B5; border-color: #0077B5; }
+  .social-icon.social-github { color: #333333; border-color: #333333; }
+  [data-theme="dark"] .social-icon.social-github { color: #ffffff; border-color: #ffffff; }
+  .social-icon.social-leetcode { color: #FFA116; border-color: #FFA116; }
+  .social-icon svg { width: 18px; height: 18px; fill: currentColor; }
+  .icon-divider { width: 1px; height: 20px; background: var(--border); margin: 0 0.15rem; }
+  .resume-btn {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+  .resume-btn:hover { opacity: 0.4; }
+  .landing-number {
+    position: absolute;
+    right: 0; bottom: -1rem;
+    font-family: var(--serif);
+    font-size: 9rem;
+    font-weight: 700;
+    color: var(--border);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  /* ══════════════ § 2  EDUCATION ══════════════ */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-top: 1px solid var(--border);
+  }
+  .edu-item {
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 1.4rem;
+  }
+  .edu-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    margin-left: auto;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .edu-location {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--mid);
+  }
+  .edu-period {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--mid);
+  }
+  .edu-logo {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .edu-text { flex: 1; }
+  .edu-degree {
+    font-family: var(--serif);
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--mid);
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+  }
+  .edu-school {
+    font-family: var(--serif);
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+    line-height: 1.3;
+  }
+  
+  .edu-grade {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.07em;
+    color: var(--ink);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    transition: border-color 0.4s;
+  }
+
+  /* ══════════════ § 3  PROJECTS CAROUSEL ══════════════ */
+  .proj-carousel {
+    position: relative;
+    width: 100%;
+    border-top: 1px solid var(--border);
+  }
+  .proj-carousel-track-wrap {
+    overflow: hidden;
+    width: 100%;
+    padding-bottom: 40px;
+    margin-bottom: -40px;
+    padding-top: 40px;
+    margin-top: -40px;
+  }
+  .proj-carousel-track {
+    display: flex;
+    will-change: transform;
+  }
+  .proj-card {
+    padding: 1.4rem 1.1rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    flex-shrink: 0;
+    transition:
+      transform 0.72s cubic-bezier(0.45, 0, 0.15, 1),
+      box-shadow 0.72s cubic-bezier(0.45, 0, 0.15, 1),
+      opacity 0.72s cubic-bezier(0.45, 0, 0.15, 1),
+      background 0.3s;
+    opacity: 0.38;
+    transform: scale(0.88) translateY(8px);
+    background: var(--paper);
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  .proj-card.active {
+    opacity: 1;
+    transform: scale(1) translateY(-6px);
+    box-shadow: 0 18px 52px -8px rgba(0,0,0,0.20), 0 4px 18px -4px rgba(0,0,0,0.10);
+    z-index: 2;
+    cursor: default;
+  }
+  [data-theme="dark"] .proj-card.active {
+    box-shadow: 0 18px 52px -8px rgba(0,0,0,0.60), 0 4px 18px -4px rgba(0,0,0,0.35);
+  }
+  .proj-card-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--ink);
+    flex: 1;
+    line-height: 1.3;
+  }
+  .proj-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  /* ══════════════ STAR BUTTON ══════════════ */
+  .star-btn {
+    --duration: 3;
+    --light-width: 140px;
+    --light-color: #ff2056;
+    --light-color-trans: rgba(255, 32, 86, 0);
+    --border-width: 1px;
+    --star-fill: var(--paper); /* The star mask matches the page background! */
+    --btn-border: rgba(0, 0, 0, 0.1);
+
+    position: relative;
+    z-index: 3;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px; /* Pill shaped just like screenshot */
+    padding: 8px 16px;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    isolation: isolate;
+  }
+  [data-theme="dark"] .star-btn {
+    --star-fill: var(--paper);
+    --btn-border: rgba(255, 255, 255, 0.15);
+  }
+  .star-btn-glow {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: 1 / 1;
+    width: var(--light-width);
+    background: radial-gradient(circle at center, var(--light-color) 0%, var(--light-color-trans) 60%);
+    animation: star-btn-anim calc(var(--duration) * 1s) linear infinite;
+    offset-distance: 0%;
+    offset-path: var(--path);
+    z-index: 1;
+  }
+  @keyframes star-btn-anim {
+    0% { offset-distance: 0%; }
+    100% { offset-distance: 100%; }
+  }
+  .star-btn-inner {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: var(--border-width) solid var(--btn-border);
+    z-index: 2;
+    overflow: hidden;
+  }
+  .star-btn-inner svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .star-btn-text {
+    position: relative;
+    z-index: 3;
+    color: var(--ink);
+    background: linear-gradient(to top, var(--ink), var(--mid));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .proj-carousel-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+  }
+  .proj-carousel-indicators {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .proj-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .proj-dot.active {
+    background: var(--ink);
+    transform: scale(1.4);
+  }
+  .proj-carousel-controls {
+    display: flex;
+    gap: 0.4rem;
+  }
+  .proj-nav-btn {
+    width: 30px; height: 30px;
+    border: 1px solid var(--border);
+    background: var(--paper);
+    color: var(--mid);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .proj-nav-btn:hover { border-color: var(--ink); color: var(--ink); }
+  .proj-nav-btn svg { width: 13px; height: 13px; }
+  .proj-counter {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--mid);
+  }
+  .proj-card-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-top: 0.2rem;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .proj-card-img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: grab;
+    user-select: none;
+    transition: none;
+  }
+  .proj-card-img.grabbing { cursor: grabbing; }
+
+  /* ══════════════ § 4  ACHIEVEMENTS ══════════════ */
+
+  /* ══════════════ § 4  ACHIEVEMENTS (scrollable table) ══════════════ */
+  .ach-scroll-wrap {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  .ach-scroll-inner {
+    flex: 1;
+    max-height: 270px;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+  }
+  .ach-scroll-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding-top: 0.3rem;
+    flex-shrink: 0;
+  }
+  .ach-scroll-btn {
+    width: 28px; height: 28px;
+    border: 1px solid var(--border);
+    background: var(--paper);
+    color: var(--mid);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s;
+    padding: 0;
+  }
+  .ach-scroll-btn:hover { border-color: var(--ink); color: var(--ink); }
+  .ach-scroll-btn svg { width: 14px; height: 14px; }
+
+  .hack-table { width: 100%; border-collapse: collapse; }
+  .hack-table th {
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 10;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-align: left;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-weight: 400;
+  }
+  .hack-table td { padding: 0.95rem 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .hack-name { font-family: var(--serif); font-size: 0.93rem; font-weight: 600; color: var(--ink); }
+  .hack-sub { font-size: 0.73rem; color: var(--mid); margin-top: 0.15rem; font-weight: 300; }
+  .hack-place { font-family: var(--mono); font-size: 0.73rem; color: var(--ink); display: flex; align-items: center; gap: 6px; }
+  .place-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .place-dot.gold    { background: #c9a84c; }
+  .place-dot.silver  { background: #888; }
+  .place-dot.finalist{ background: #aaa; }
+  .hack-year { font-family: var(--mono); font-size: 0.7rem; color: var(--mid); }
+
+  .footer-strip span { font-family: var(--mono); font-size: 0.58rem; color: var(--mid); letter-spacing: 0.1em; }
+
+  /* ══════════════ § 5  CERTIFICATIONS ══════════════ */
+  .cert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.6rem;
+  }
+  .manual-view-btn {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+  }
+  .manual-view-btn:hover {
+    background: var(--surface);
+    border-color: var(--ink);
+  }
+  
+  @keyframes scroll-right {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .cert-scroll-container {
+    mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding: 20px 0;
+  }
+  .cert-infinite-scroll {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+    animation: scroll-right 45s linear infinite;
+  }
+
+  .cert-item {
+    flex-shrink: 0;
+    width: 400px;
+    height: 280px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, filter 0.3s ease;
+    display: block;
+  }
+  .cert-item:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+    z-index: 10;
+    position: relative;
+  }
+  .cert-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: var(--surface);
+    display: block;
+  }
+
+  /* ══════════════ § 6  CONNECT ══════════════ */
+  .connect-wrap {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  }
+  [data-theme="dark"] .connect-wrap {
+    background: rgba(10, 10, 10, 0.4);
+  }
+  .connect-left { flex: 1; }
+  .connect-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    width: 100%;
+  }
+  .connect-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .connect-form-field label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+  .connect-form-field input,
+  .connect-form-field textarea {
+    width: 100%;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.75rem 0.85rem;
+    outline: none;
+    resize: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    caret-color: var(--ink);
+  }
+  .connect-form-field input::placeholder,
+  .connect-form-field textarea::placeholder { color: var(--mid); opacity: 0.5; }
+  .connect-form-field input:focus,
+  .connect-form-field textarea:focus {
+    border-color: var(--ink);
+    box-shadow: 0 0 0 2px rgba(10, 10, 10, 0.1);
+  }
+  [data-theme="dark"] .connect-form-field input:focus,
+  [data-theme="dark"] .connect-form-field textarea:focus {
+    box-shadow: 0 0 0 2px rgba(240, 238, 234, 0.15);
+  }
+  .connect-form-field textarea { height: 80px; }
+  .connect-action-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
+  }
+  .connect-status {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    min-height: 1.2em;
+  }
+  .connect-status.ok  { color: #22c55e; }
+  .connect-status.err { color: #ef4444; }
+  .connect-socials {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    align-items: center;
+  }
+  .connect-socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--mid);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .connect-socials a:hover { border-color: var(--ink); color: var(--ink); }
+  .connect-socials svg { width: 14px; height: 14px; fill: currentColor; }
+  .connect-divider {
+    width: 1px;
+    height: 90px;
+    background: var(--border);
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2rem;
+  }
+  @media (max-width: 680px) {
+    .connect-wrap { flex-direction: column; gap: 0.8rem; padding: 1rem; }
+    .connect-divider { display: none; }
+    .connect-right { gap: 0.6rem; }
+    .connect-form-field input,
+    .connect-form-field textarea {
+      padding: 0.5rem 0.6rem;
+    }
+    #c-message { height: 60px; }
+    .connect-left p { margin-top: 0.4rem; margin-bottom: 0.4rem; font-size: 0.75rem; }
+  }
+
+  /* ══════════════ RESPONSIVE ══════════════ */
+  @media (max-width: 680px) {
+    nav { padding: 0.8rem 1.2rem; height: 60px; }
+    #stage { top: 60px; }
+    .nav-logo { font-size: 1.25rem; height: 2rem; min-width: 3.5rem; }
+    #nav-gt1, #nav-gt2 { font-size: 1.25rem; }
+    #nav-gooey-inner { min-width: 3.5rem; }
+    .nav-links { display: none; }
+    section { padding: 2rem 1.4rem 2rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+
+    .section-dots { display: none; }
+    .landing-number { display: none; }
+    .cert-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .cert-header > div { flex-wrap: wrap; width: 100%; }
+    
+    .landing-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2.5rem;
+    }
+    .mouse-scroll {
+      display: none;
+    }
+
+    .proj-card { padding: 1.2rem 1rem; gap: 0.6rem; }
+    .project-title { font-size: 1rem; }
+    .project-desc { font-size: 0.75rem !important; }
+  }
+
+  /* ══════════════ GOOEY TEXT (inline in landing) ══════════════ */
+  #gooey-wrap {
+    position: relative;
+    height: 5rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
+  #gooey-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    filter: url(#threshold);
+  }
+  #gooey-t1, #gooey-t2 {
+    position: absolute;
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    white-space: nowrap;
+    user-select: none;
+    transition: color 0.4s;
+  }
+
+  /* ══════════════ LANDING SPLIT LAYOUT ══════════════ */
+  .landing-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+  }
+  .landing-left { flex: 1; }
+
+</style>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function(){
+      emailjs.init({
+        publicKey: "Y5LUAGEOrR4LQvK5-",
+      });
+  })();
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo" onclick="goTo(0)">
+    <svg style="position:absolute;height:0;width:0" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="nav-threshold">
+          <feColorMatrix in="SourceGraphic" type="matrix"
+            values="1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 0 255 -140"/>
+        </filter>
+        <clipPath id="clip_star"><rect width="100" height="40" fill="white" /></clipPath>
+      </defs>
+      <symbol id="star-bg" viewBox="0 0 100 40" preserveAspectRatio="none">
+        <g clip-path="url(#clip_star)">
+          <path d="M32.34 26.68C32.34 26.3152 32.0445 26.02 31.68 26.02C31.3155 26.02 31.02 26.3152 31.02 26.68C31.02 27.0448 31.3155 27.34 31.68 27.34C32.0445 27.34 32.34 27.0448 32.34 26.68Z" fill="var(--ink)" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M56.1 3.96C56.4645 3.96 56.76 4.25519 56.76 4.62C56.76 4.98481 56.4645 5.28 56.1 5.28C55.9131 5.28 55.7443 5.20201 55.624 5.07762C55.5632 5.01446 55.5147 4.93904 55.4829 4.8559C55.4552 4.78243 55.44 4.70315 55.44 4.62C55.44 4.5549 55.4494 4.49174 55.4668 4.43244C55.4906 4.35188 55.5292 4.27775 55.5795 4.21329C55.7004 4.05926 55.8885 3.96 56.1 3.96ZM40.26 17.16C40.6245 17.16 40.92 17.4552 40.92 17.82C40.92 18.1848 40.6245 18.48 40.26 18.48C39.8955 18.48 39.6 18.1848 39.6 17.82C39.6 17.4552 39.8955 17.16 40.26 17.16ZM74.58 5.28C74.7701 5.28 74.9413 5.36057 75.0618 5.48882C75.073 5.50043 75.0837 5.51268 75.094 5.52557C75.1088 5.54426 75.1231 5.56359 75.1359 5.58357L75.1479 5.60291L75.1595 5.62353C75.1711 5.64481 75.1814 5.66672 75.1906 5.68928C75.2226 5.76662 75.24 5.85106 75.24 5.94C75.24 6.1585 75.1336 6.3525 74.9699 6.47238C74.9158 6.51234 74.8555 6.54393 74.7908 6.56584C74.7247 6.58775 74.6538 6.6 74.58 6.6C74.2156 6.6 73.92 6.30481 73.92 5.94C73.92 5.87684 73.929 5.8156 73.9455 5.7576C73.9596 5.70862 73.979 5.66221 74.0032 5.61903C74.0657 5.50688 74.1595 5.41471 74.2728 5.35541C74.3647 5.30707 74.4691 5.28 74.58 5.28ZM21.66 33.52C22.0245 33.52 22.32 33.8152 22.32 34.18C22.32 34.5448 22.0245 34.84 21.66 34.84C21.2955 34.84 21 34.5448 21 34.18C21 33.8152 21.2955 33.52 21.66 33.52ZM8.16 32.86C8.16 32.4952 7.8645 32.2 7.5 32.2C7.1355 32.2 6.84 32.4952 6.84 32.86C6.84 33.2248 7.1355 33.52 7.5 33.52C7.8645 33.52 8.16 33.2248 8.16 32.86ZM7.5 23.68C7.8645 23.68 8.16 23.9752 8.16 24.34C8.16 24.7048 7.8645 25 7.5 25C7.1355 25 6.84 24.7048 6.84 24.34C6.84 23.9752 7.1355 23.68 7.5 23.68ZM19.32 18.48C19.32 18.1152 19.0245 17.82 18.66 17.82C18.2955 17.82 18 18.1152 18 18.48C18 18.8448 18.2955 19.14 18.66 19.14C19.0245 19.14 19.32 18.8448 19.32 18.48ZM5.66 11.84C6.0245 11.84 6.32001 12.1352 6.32001 12.5C6.32001 12.8648 6.0245 13.16 5.66 13.16C5.2955 13.16 5 12.8648 5 12.5C5 12.1352 5.2955 11.84 5.66 11.84ZM35.16 35.5C35.16 35.1352 34.8645 34.84 34.5 34.84C34.1355 34.84 33.84 35.1352 33.84 35.5C33.84 35.8648 34.1355 36.16 34.5 36.16C34.8645 36.16 35.16 35.8648 35.16 35.5ZM53.5 36.18C53.8645 36.18 54.16 36.4752 54.16 36.84C54.16 37.2048 53.8645 37.5 53.5 37.5C53.1355 37.5 52.84 37.2048 52.84 36.84C52.84 36.4752 53.1355 36.18 53.5 36.18ZM48.5 28.66C48.5 28.2952 48.2045 28 47.84 28C47.4755 28 47.18 28.2952 47.18 28.66C47.18 29.0248 47.4755 29.32 47.84 29.32C48.2045 29.32 48.5 29.0248 48.5 28.66ZM60.34 27.34C60.7045 27.34 61 27.6352 61 28C61 28.3648 60.7045 28.66 60.34 28.66C59.9755 28.66 59.68 28.3648 59.68 28C59.68 27.6352 59.9755 27.34 60.34 27.34ZM56.284 16.5C56.284 16.1352 55.9885 15.84 55.624 15.84C55.2595 15.84 54.964 16.1352 54.964 16.5C54.964 16.8648 55.2595 17.16 55.624 17.16C55.9885 17.16 56.284 16.8648 56.284 16.5ZM46.2 7.26C46.2 6.89519 45.9045 6.6 45.54 6.6C45.5174 6.6 45.4953 6.60129 45.4733 6.60387L45.453 6.60579L45.4124 6.61225L45.3857 6.61804L45.3845 6.61836C45.3675 6.62277 45.3504 6.62721 45.3341 6.63287C45.2522 6.65929 45.1774 6.70184 45.1134 6.75597C45.0627 6.79916 45.0186 6.84943 44.9828 6.90551C44.9178 7.00799 44.88 7.12981 44.88 7.26C44.88 7.62481 45.1755 7.92 45.54 7.92C45.7372 7.92 45.9141 7.83363 46.0353 7.69635C46.0808 7.64478 46.1182 7.58613 46.1459 7.52232C46.1807 7.4424 46.2 7.35346 46.2 7.26ZM33 9.34C33 8.9752 32.7045 8.68 32.34 8.68C31.9755 8.68 31.68 8.9752 31.68 9.34C31.68 9.7048 31.9755 10 32.34 10C32.7045 10 33 9.7048 33 9.34ZM16 4.8559C16.3645 4.8559 16.66 5.1511 16.66 5.5159C16.66 5.8807 16.3645 6.1759 16 6.1759C15.6355 6.1759 15.34 5.8807 15.34 5.5159C15.34 5.1511 15.6355 4.8559 16 4.8559ZM69.66 21.16C69.66 20.7952 69.3645 20.5 69 20.5C68.6355 20.5 68.34 20.7952 68.34 21.16C68.34 21.5248 68.6355 21.82 69 21.82C69.3645 21.82 69.66 21.5248 69.66 21.16ZM80.52 15.18C80.52 14.8152 80.2245 14.52 79.86 14.52C79.4956 14.52 79.2 14.8152 79.2 15.18C79.2 15.5448 79.4956 15.84 79.86 15.84C80.2245 15.84 80.52 15.5448 80.52 15.18ZM78.16 34.84C78.16 34.4752 77.5 34.18 77.5 34.18C77.5 34.18 76.84 34.4752 76.84 34.84C76.84 35.2048 77.1355 35.5 77.5 35.5C77.8645 35.5 78.16 35.2048 78.16 34.84ZM85.66 24.34C86.0245 24.34 86.32 24.6352 86.32 25C86.32 25.3648 86.0245 25.66 85.66 25.66C85.2955 25.66 85 25.3648 85 25C85 24.6352 85.2955 24.34 85.66 24.34ZM91.32 10C91.32 9.6352 91.0245 9.34 90.66 9.34C90.2955 9.34 90 9.6352 90 10C90 10.3648 90.2955 10.66 90.66 10.66C91.0245 10.66 91.32 10.3648 91.32 10ZM138.6 0H0V46.2H138.6V0ZM92.64 34.84C92.64 34.4752 91.98 34.18 91.98 34.18C91.98 34.18 91.32 34.4752 91.32 34.84C91.32 35.2048 91.6155 35.5 91.98 35.5C92.3445 35.5 92.64 35.2048 92.64 34.84Z" fill="var(--star-fill)" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M56.1 3.96C56.4645 3.96 56.76 4.25519 56.76 4.62C56.76 4.98481 56.4645 5.28 56.1 5.28C55.9131 5.28 55.7443 5.20201 55.624 5.07762C55.5632 5.01446 55.5147 4.93904 55.4829 4.8559C55.4552 4.78243 55.44 4.70315 55.44 4.62C55.44 4.5549 55.4494 4.49174 55.4668 4.43244C55.4906 4.35188 55.5292 4.27775 55.5795 4.21329C55.7004 4.05926 55.8885 3.96 56.1 3.96ZM40.26 17.16C40.6245 17.16 40.92 17.4552 40.92 17.82C40.92 18.1848 40.6245 18.48 40.26 18.48C39.8955 18.48 39.6 18.1848 39.6 17.82C39.6 17.4552 39.8955 17.16 40.26 17.16ZM74.58 5.28C74.7701 5.28 74.9413 5.36057 75.0618 5.48882C75.073 5.50043 75.0837 5.51268 75.094 5.52557C75.1088 5.54426 75.1231 5.56359 75.1359 5.58357L75.1479 5.60291L75.1595 5.62353C75.1711 5.64481 75.1814 5.66672 75.1906 5.68928C75.2226 5.76662 75.24 5.85106 75.24 5.94C75.24 6.1585 75.1336 6.3525 74.9699 6.47238C74.9158 6.51234 74.8555 6.54393 74.7908 6.56584C74.7247 6.58775 74.6538 6.6 74.58 6.6C74.2156 6.6 73.92 6.30481 73.92 5.94C73.92 5.87684 73.929 5.8156 73.9455 5.7576C73.9596 5.70862 73.979 5.66221 74.0032 5.61903C74.0657 5.50688 74.1595 5.41471 74.2728 5.35541C74.3647 5.30707 74.4691 5.28 74.58 5.28ZM21.66 33.52C22.0245 33.52 22.32 33.8152 22.32 34.18C22.32 34.5448 22.0245 34.84 21.66 34.84C21.2955 34.84 21 34.5448 21 34.18C21 33.8152 21.2955 33.52 21.66 33.52ZM8.16 32.86C8.16 32.4952 7.8645 32.2 7.5 32.2C7.1355 32.2 6.84 32.4952 6.84 32.86C6.84 33.2248 7.1355 33.52 7.5 33.52C7.8645 33.52 8.16 33.2248 8.16 32.86ZM7.5 23.68C7.8645 23.68 8.16 23.9752 8.16 24.34C8.16 24.7048 7.8645 25 7.5 25C7.1355 25 6.84 24.7048 6.84 24.34C6.84 23.9752 7.1355 23.68 7.5 23.68ZM19.32 18.48C19.32 18.1152 19.0245 17.82 18.66 17.82C18.2955 17.82 18 18.1152 18 18.48C18 18.8448 18.2955 19.14 18.66 19.14C19.0245 19.14 19.32 18.8448 19.32 18.48ZM5.66 11.84C6.0245 11.84 6.32001 12.1352 6.32001 12.5C6.32001 12.8648 6.0245 13.16 5.66 13.16C5.2955 13.16 5 12.8648 5 12.5C5 12.1352 5.2955 11.84 5.66 11.84ZM35.16 35.5C35.16 35.1352 34.8645 34.84 34.5 34.84C34.1355 34.84 33.84 35.1352 33.84 35.5C33.84 35.8648 34.1355 36.16 34.5 36.16C34.8645 36.16 35.16 35.8648 35.16 35.5ZM53.5 36.18C53.8645 36.18 54.16 36.4752 54.16 36.84C54.16 37.2048 53.8645 37.5 53.5 37.5C53.1355 37.5 52.84 37.2048 52.84 36.84C52.84 36.4752 53.1355 36.18 53.5 36.18ZM48.5 28.66C48.5 28.2952 48.2045 28 47.84 28C47.4755 28 47.18 28.2952 47.18 28.66C47.18 29.0248 47.4755 29.32 47.84 29.32C48.2045 29.32 48.5 29.0248 48.5 28.66ZM60.34 27.34C60.7045 27.34 61 27.6352 61 28C61 28.3648 60.7045 28.66 60.34 28.66C59.9755 28.66 59.68 28.3648 59.68 28C59.68 27.6352 59.9755 27.34 60.34 27.34ZM56.284 16.5C56.284 16.1352 55.9885 15.84 55.624 15.84C55.2595 15.84 54.964 16.1352 54.964 16.5C54.964 16.8648 55.2595 17.16 55.624 17.16C55.9885 17.16 56.284 16.8648 56.284 16.5ZM46.2 7.26C46.2 6.89519 45.9045 6.6 45.54 6.6C45.5174 6.6 45.4953 6.60129 45.4733 6.60387L45.453 6.60579L45.4124 6.61225L45.3857 6.61804L45.3845 6.61836C45.3675 6.62277 45.3504 6.62721 45.3341 6.63287C45.2522 6.65929 45.1774 6.70184 45.1134 6.75597C45.0627 6.79916 45.0186 6.84943 44.9828 6.90551C44.9178 7.00799 44.88 7.12981 44.88 7.26C44.88 7.62481 45.1755 7.92 45.54 7.92C45.7372 7.92 45.9141 7.83363 46.0353 7.69635C46.0808 7.64478 46.1182 7.58613 46.1459 7.52232C46.1807 7.4424 46.2 7.35346 46.2 7.26ZM33 9.34C33 8.9752 32.7045 8.68 32.34 8.68C31.9755 8.68 31.68 8.9752 31.68 9.34C31.68 9.7048 31.9755 10 32.34 10C32.7045 10 33 9.7048 33 9.34ZM16 4.8559C16.3645 4.8559 16.66 5.1511 16.66 5.5159C16.66 5.8807 16.3645 6.1759 16 6.1759C15.6355 6.1759 15.34 5.8807 15.34 5.5159C15.34 5.1511 15.6355 4.8559 16 4.8559ZM69.66 21.16C69.66 20.7952 69.3645 20.5 69 20.5C68.6355 20.5 68.34 20.7952 68.34 21.16C68.34 21.5248 68.6355 21.82 69 21.82C69.3645 21.82 69.66 21.5248 69.66 21.16ZM80.52 15.18C80.52 14.8152 80.2245 14.52 79.86 14.52C79.4956 14.52 79.2 14.8152 79.2 15.18C79.2 15.5448 79.4956 15.84 79.86 15.84C80.2245 15.84 80.52 15.5448 80.52 15.18ZM78.16 34.84C78.16 34.4752 77.5 34.18 77.5 34.18C77.5 34.18 76.84 34.4752 76.84 34.84C76.84 35.2048 77.1355 35.5 77.5 35.5C77.8645 35.5 78.16 35.2048 78.16 34.84ZM85.66 24.34C86.0245 24.34 86.32 24.6352 86.32 25C86.32 25.3648 86.0245 25.66 85.66 25.66C85.2955 25.66 85 25.3648 85 25C85 24.6352 85.2955 24.34 85.66 24.34ZM91.32 10C91.32 9.6352 91.0245 9.34 90.66 9.34C90.2955 9.34 90 9.6352 90 10C90 10.3648 90.2955 10.66 90.66 10.66C91.0245 10.66 91.32 10.3648 91.32 10ZM138.6 0H0V46.2H138.6V0ZM92.64 34.84C92.64 34.4752 91.98 34.18 91.98 34.18C91.98 34.18 91.32 34.4752 91.32 34.84C91.32 35.2048 91.6155 35.5 91.98 35.5C92.3445 35.5 92.64 35.2048 92.64 34.84Z" fill="var(--star-fill)" />
+        </g>
+      </symbol>
+      </defs>
+    </svg>
+    <div id="nav-gooey-inner">
+      <span id="nav-gt1"></span>
+      <span id="nav-gt2"></span>
+    </div>
+  </span>
+  <div class="nav-right">
+    <ul class="nav-links"><li><a href="index.html">← Back to Portfolio</a></li></ul>
+    <!-- SWITCH -->
+    <div class="switch-wrap" onclick="toggleTheme()">
+      <span class="switch-label" id="themeLabel">Dark</span>
+      <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
+        <span class="switch-thumb"></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- SECTION DOTS -->
+<div class="section-dots" id="dots"></div>
+
+<!-- STAGE -->
+<div id="stage">
+  <section id="s0" class="is-active" style="overflow: visible;">
+    <canvas id="dottedWaveBg" style="position:absolute;inset:0;pointer-events:none;z-index:0;width:100%;height:100%;"></canvas>
+    <div class="content" style="position:relative;z-index:1;display:flex;flex-direction:column;height:100%;">
+      
+      <div style="margin-top: 1rem;">
+        <div class="section-label">Project Details</div>
+        <h2 class="section-heading">Intelligent Farm<br><em>Surveillance System</em></h2>
+        <p class="project-desc" style="font-size: 1rem; color: var(--mid); line-height: 1.6; max-width: 600px; margin-bottom: 2rem;">
+          Precision Agriculture using DEW (Data Enabled Wireless) Nodes for Crop Recommendation and Aerial Drone for Crop Disease Detection, Cattle, Pest and Weed Detection.
+        </p>
+      </div>
+
+      <style>
+        .proj-card.media-card {
+          padding: 0;
+          background: transparent;
+          border: none;
+          box-shadow: none;
+          width: auto !important;
+          min-width: 0 !important;
+        }
+        .proj-card.media-card img, .proj-card.media-card video {
+          height: 100%;
+          width: auto;
+          max-width: 85vw;
+          object-fit: contain;
+          border-radius: 8px;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+          display: block;
+        }
+        [data-theme="light"] .proj-card.media-card img, [data-theme="light"] .proj-card.media-card video {
+          box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+      </style>
+      <div class="proj-carousel" id="projCarousel" style="flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="proj-carousel-track-wrap">
+          <div class="proj-carousel-track" id="projTrack" style="height: 50vh;">
+            
+            <div class="proj-card media-card">
+              <img src="assets/projects/farm/85a7d73f-28e3-411e-a93e-9c8f6d8fcf45.JPG" alt="Farm image 1">
+            </div>
+
+            <div class="proj-card media-card">
+              <video controls playsinline>
+                <source src="assets/projects/farm/IMG_2931.MOV" type="video/mp4">
+              </video>
+            </div>
+
+            <div class="proj-card media-card">
+              <video controls playsinline>
+                <source src="assets/projects/farm/IMG_3459.mov" type="video/mp4">
+              </video>
+            </div>
+
+            <div class="proj-card media-card">
+              <img src="assets/projects/farm/IMG_2908.HEIC" alt="Farm image 2">
+            </div>
+
+            <div class="proj-card media-card">
+              <img src="assets/projects/farm/IMG_3412.HEIC" alt="Farm image 3">
+            </div>
+
+            <div class="proj-card media-card">
+              <img src="assets/projects/farm/IMG_3420.HEIC" alt="Farm image 4">
+            </div>
+
+            <div class="proj-card media-card">
+              <img src="assets/projects/farm/IMG_3427.HEIC" alt="Farm image 5">
+            </div>
+
+            <div class="proj-card media-card">
+              <img src="assets/projects/farm/IMG_3428.HEIC" alt="Farm image 6">
+            </div>
+
+            <div class="proj-card media-card">
+              <img src="assets/projects/farm/WhatsApp%20Image%202025-09-02%20at%2011.10.03.jpeg" alt="Farm image 7">
+            </div>
+
+          </div>
+        </div>
+        
+        <div class="proj-carousel-footer" style="margin-top:1.5rem;">
+          <div class="proj-carousel-indicators" id="projDots"></div>
+          <div style="display:flex;align-items:center;gap:0.8rem;">
+            <span class="proj-counter" id="projCounter">1 / 9</span>
+            <div class="proj-carousel-controls">
+              <button class="proj-nav-btn" onclick="projCarouselNav(-1)" aria-label="Previous">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="proj-nav-btn" onclick="projCarouselNav(1)" aria-label="Next">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+    <div class="bottom-branding">
+      <p class="footer">2026 | byayushdas</p>
+    </div>
+  </section>
+</div><!-- /stage -->
+
+<script>
+  // ── STATE ──────────────────────────────────────────────
+  const N = 1;
+  let current = 0;
+  let locked = false;
+
+  // ── DOTS ──────────────────────────────────────────────
+  const dotsEl = document.getElementById('dots');
+  for (let i = 0; i < N; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  }
+
+  function sec(i)   { return document.getElementById('s' + i); }
+  function mouse(i) { return document.getElementById('ms' + i); }
+
+  // ── TRANSITION ────────────────────────────────────────
+  function goTo(next) {
+    if (next === current || locked || next < 0 || next >= N) return;
+    locked = true;
+
+    const prev = current;
+    const dir  = next > prev ? 1 : -1;
+
+    const prevEl = sec(prev);
+    const nextEl = sec(next);
+
+    nextEl.style.transition = 'none';
+    nextEl.className = 'section';
+    nextEl.classList.add(dir === 1 ? 'wait-below' : 'wait-above');
+
+    void nextEl.offsetHeight;
+
+    nextEl.style.transition = '';
+    prevEl.style.transition = '';
+
+    prevEl.classList.remove('is-active');
+    prevEl.classList.add(dir === 1 ? 'leave-up' : 'wait-below');
+
+    nextEl.classList.remove('wait-below', 'wait-above');
+    nextEl.classList.add('is-active');
+
+    current = next;
+
+    document.querySelectorAll('.dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current)
+    );
+
+    if (current === 2 && window.resetProjCarousel) {
+      window.resetProjCarousel();
+    }
+
+    // Mouse: show on sections 0-4, hide on 5 (last)
+    for (let i = 0; i < N; i++) {
+      const m = mouse(i);
+      if (m) m.classList.toggle('hidden', i !== current || i === N - 1);
+    }
+
+    setTimeout(() => {
+      prevEl.classList.remove('leave-up', 'wait-below');
+      prevEl.classList.add(dir === 1 ? 'wait-above' : 'wait-below');
+      locked = false;
+      // Pause spiral when not on landing, resume when back
+      if (window._spiralRafControl) {
+        window._spiralRafControl(next === 0);
+      }
+      if (window._connectRafControl) {
+        window._connectRafControl(next === 5);
+      }
+    }, 680);
+  }
+
+  // ── WHEEL ─────────────────────────────────────────────
+  let wheelAcc = 0;
+  let wheelTimer = null;
+  window.addEventListener('wheel', e => {
+    e.preventDefault();
+    wheelAcc += e.deltaY;
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => {
+      if (Math.abs(wheelAcc) > 40) goTo(current + (wheelAcc > 0 ? 1 : -1));
+      wheelAcc = 0;
+    }, 50);
+  }, { passive: false });
+
+  // ── TOUCH ─────────────────────────────────────────────
+  let tY = null;
+  window.addEventListener('touchstart', e => { tY = e.touches[0].clientY; }, { passive: true });
+  window.addEventListener('touchend', e => {
+    if (tY === null) return;
+    const diff = tY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 45) goTo(current + (diff > 0 ? 1 : -1));
+    tY = null;
+  });
+
+  // ── KEYBOARD ──────────────────────────────────────────
+  window.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') goTo(current + 1);
+    if (e.key === 'ArrowUp'   || e.key === 'PageUp')   goTo(current - 1);
+  });
+
+  // ── THEME SWITCH ──────────────────────────────────────
+  const switchBtn  = document.getElementById('switchBtn');
+  const themeLabel = document.getElementById('themeLabel');
+
+  function toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const next   = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    switchBtn.setAttribute('aria-checked', String(!isDark));
+    themeLabel.textContent = isDark ? 'Light' : 'Dark';
+  }
+
+  // ── CONNECT FORM ──────────────────────────────────────
+  function sendMail() {
+    const name    = document.getElementById('c-name').value.trim();
+    const email   = document.getElementById('c-email').value.trim();
+    const subject = document.getElementById('c-subject').value.trim();
+    const message = document.getElementById('c-message').value.trim();
+    const status  = document.getElementById('connectStatus');
+
+    if (!name || !email || !message) {
+      status.textContent = 'Please fill in name, email and message.';
+      status.className = 'connect-status err';
+      return;
+    }
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(email)) {
+      status.textContent = 'Please enter a valid email address.';
+      status.className = 'connect-status err';
+      return;
+    }
+    
+    status.textContent = 'Sending message...';
+    status.className = 'connect-status';
+
+    const templateParams = {
+        from_name: name,
+        from_email: email,
+        subject: subject || `New message from ${name} via Portfolio`,
+        message: message
+    };
+
+    emailjs.send('service_ms9huuf', 'template_xtjvznv', templateParams)
+      .then((response) => {
+        status.textContent = 'Message sent successfully!';
+        status.className = 'connect-status ok';
+        setTimeout(() => {
+          document.getElementById('c-name').value    = '';
+          document.getElementById('c-email').value   = '';
+          document.getElementById('c-subject').value = '';
+          document.getElementById('c-message').value = '';
+          status.textContent = '';
+        }, 3000);
+      }, (error) => {
+        status.textContent = 'Failed to send message. Please try again.';
+        status.className = 'connect-status err';
+        console.error('EmailJS Error:', error);
+      });
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const msgEl = document.getElementById('c-message');
+    if (msgEl) msgEl.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) sendMail();
+    });
+  });
+
+  // ── CERTIFICATIONS CAROUSEL ───────────────────────────
+  const certScrollContainer = document.getElementById('certScrollContainer');
+  const certInfiniteScroll = document.getElementById('certInfiniteScroll');
+
+  if (certScrollContainer) {
+    const certCategorySelect = document.getElementById('certCategorySelect');
+    if (certCategorySelect) {
+      certCategorySelect.addEventListener('change', (e) => {
+        const cat = e.target.value;
+        document.querySelectorAll('.cert-item').forEach(item => {
+          if (cat === 'all' || item.classList.contains(cat)) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        // Restart the animation so -50% recalculates on the new visible width
+        certInfiniteScroll.style.animation = 'none';
+        // Force reflow so the browser acknowledges the reset
+        void certInfiniteScroll.offsetWidth;
+        certInfiniteScroll.style.animation = '';
+      });
+      
+      // trigger initially
+      certCategorySelect.dispatchEvent(new Event('change'));
+    }
+
+    // Pause on hover
+    certInfiniteScroll.addEventListener('mouseenter', () => {
+      certInfiniteScroll.classList.add('paused');
+    });
+    certInfiniteScroll.addEventListener('mouseleave', () => {
+      certInfiniteScroll.classList.remove('paused');
+    });
+  }
+
+  // ── PROJECTS CAROUSEL ─────────────────────────────────
+  (function initProjCarousel() {
+    let current = 0;
+    let autoTimer = null;
+
+    const trackWrap = document.querySelector('.proj-carousel-track-wrap');
+    const track = document.getElementById('projTrack');
+    const dotsWrap = document.getElementById('projDots');
+    const counter = document.getElementById('projCounter');
+    const carousel = document.getElementById('projCarousel');
+    if (!track || !trackWrap) return;
+
+    const cards = Array.from(track.querySelectorAll('.proj-card'));
+    const total = cards.length;
+
+    const GAP = 16; // px gap between cards
+
+    // Size each card so the center one fills ~70% and sides peek ~10% each
+    function layout() {
+      // Dynamic widths for media cards!
+      track.style.gap = GAP + 'px';
+      track.style.paddingLeft = '0';
+      track.style.paddingRight = '0';
+
+      applyTransform(false); // re-position without animation on resize
+    }
+
+    function applyTransform(animate) {
+      const wrapW = trackWrap.offsetWidth;
+      const targetCard = cards[current];
+      if (!targetCard) return;
+      
+      const targetW = targetCard.offsetWidth;
+      const centerOffset = (wrapW - targetW) / 2;
+      
+      let shiftToCard = 0;
+      for (let i = 0; i < current; i++) {
+        shiftToCard += cards[i].offsetWidth + GAP;
+      }
+      
+      const shift = centerOffset - shiftToCard;
+
+      if (animate === false) {
+        track.style.transition = 'none';
+        track.style.transform = `translateX(${shift}px)`;
+        // Force reflow then restore transition
+        track.getBoundingClientRect();
+        track.style.transition = 'transform 0.72s cubic-bezier(0.45, 0, 0.15, 1)';
+      } else {
+        track.style.transition = 'transform 0.72s cubic-bezier(0.45, 0, 0.15, 1)';
+        track.style.transform = `translateX(${shift}px)`;
+      }
+    }
+
+    // Build dots
+    cards.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'proj-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', () => { goTo(i); resetAuto(); });
+      dotsWrap.appendChild(dot);
+    });
+
+    // Set initial active card
+    cards[0].classList.add('active');
+
+    // Click on side cards to navigate
+    cards.forEach((card, i) => {
+      card.addEventListener('click', () => {
+        if (i !== current) { goTo(i); resetAuto(); }
+      });
+    });
+
+    function goTo(idx) {
+      current = (idx + total) % total;
+      applyTransform(true);
+      dotsWrap.querySelectorAll('.proj-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+      cards.forEach((c, i) => c.classList.toggle('active', i === current));
+      if (counter) counter.textContent = (current + 1) + ' / ' + total;
+    }
+
+    function startAuto() {
+      if (autoTimer) return;
+      autoTimer = setInterval(() => goTo(current + 1), 4000);
+    }
+    function stopAuto() { clearInterval(autoTimer); autoTimer = null; }
+    function resetAuto() { stopAuto(); startAuto(); }
+
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+
+    window.projCarouselNav = function(dir) { goTo(current + dir); resetAuto(); };
+    window.resetProjCarousel = function() { if (current !== 0) { goTo(0); resetAuto(); } };
+
+    // Init layout on load and on resize
+    window.addEventListener('load', () => { layout(); });
+    window.addEventListener('resize', () => { layout(); });
+    // Also init now (DOM ready)
+    layout();
+    startAuto();
+  })();
+
+  // ── PROJECT IMAGE PAN (drag + scroll) ────────────────
+  (function initImgPan() {
+    function setupPan(img) {
+      // Track how much we've panned in percent of (naturalSize - displaySize)
+      let ox = 50, oy = 50; // object-position in %
+      let dragging = false, startX, startY, startOx, startOy;
+
+      function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+      function apply() {
+        img.style.objectPosition = ox + '% ' + oy + '%';
+      }
+
+      // Initial centre
+      apply();
+
+      // DRAG
+      img.addEventListener('mousedown', e => {
+        e.preventDefault();
+        dragging = true;
+        startX = e.clientX; startY = e.clientY;
+        startOx = ox; startOy = oy;
+        img.classList.add('grabbing');
+      });
+
+      window.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        const wrap = img.parentElement;
+        const W = wrap.offsetWidth;
+        const H = wrap.offsetHeight;
+        // Natural image dimensions
+        const nW = img.naturalWidth || W;
+        const nH = img.naturalHeight || H;
+        // Scale factor: image is displayed at 100% width, height = W * (H/W)
+        // Panning range: how much bigger is natural vs displayed
+        const dispW = W;
+        const dispH = W * (nH / nW);
+        const rangeX = Math.max(0, dispW  - W);  // 0 if image fits width
+        const rangeY = Math.max(0, dispH  - H);
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        // Convert px movement to % shift
+        ox = clamp(startOx - (dx / (rangeX || W)) * 100, 0, 100);
+        oy = clamp(startOy - (dy / (rangeY || H)) * 100, 0, 100);
+        apply();
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (dragging) { dragging = false; img.classList.remove('grabbing'); }
+      });
+
+      // TOUCH drag
+      img.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+        startOx = ox; startOy = oy;
+      }, { passive: true });
+
+      img.addEventListener('touchmove', e => {
+        const wrap = img.parentElement;
+        const W = wrap.offsetWidth, H = wrap.offsetHeight;
+        const nW = img.naturalWidth || W, nH = img.naturalHeight || H;
+        const dispH = W * (nH / nW);
+        const rangeY = Math.max(0, dispH - H);
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        ox = clamp(startOx - (dx / W) * 100, 0, 100);
+        oy = clamp(startOy - (dy / (rangeY || H)) * 100, 0, 100);
+        apply();
+      }, { passive: true });
+
+    }
+
+    // Init on load and whenever carousel slides (images already in DOM)
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.proj-card-img').forEach(setupPan);
+    });
+  })();
+
+  // ── ACHIEVEMENTS SCROLL ───────────────────────────────
+  let achScrollPos = 0;
+  let achAutoScrollPaused = false;
+  let achScrollSpeed = 0.4; // slow continuous speed
+
+  function achScroll(dir) {
+    const inner = document.getElementById('achScrollInner');
+    if (!inner) return;
+    const rows = inner.querySelectorAll('tbody tr');
+    if (!rows.length) return;
+    const rowH = rows[0].getBoundingClientRect().height;
+    
+    // Pause auto scroll for 4 seconds after manual click
+    achAutoScrollPaused = true;
+    setTimeout(() => {
+      achAutoScrollPaused = false;
+    }, 4000);
+
+    const maxScroll = inner.scrollHeight - inner.clientHeight;
+    achScrollPos = Math.max(0, Math.min(maxScroll, achScrollPos + dir * rowH));
+    inner.scrollTop = achScrollPos;
+  }
+
+  // Set heights and init auto-scroll
+  window.addEventListener('load', function() {
+    const ach = document.getElementById('achScrollInner');
+    if (!ach) return;
+    const tbody = ach.querySelector('tbody');
+    if (!tbody) return;
+
+    const originalRows = Array.from(tbody.querySelectorAll('tr'));
+    if (!originalRows.length) return;
+
+    // Set height to exactly 4 rows
+    const thead = ach.querySelector('thead');
+    const theadH = thead ? thead.getBoundingClientRect().height : 0;
+    if (originalRows.length >= 4) {
+      let h = theadH;
+      for (let i = 0; i < 4; i++) h += originalRows[i].getBoundingClientRect().height;
+      ach.style.maxHeight = h + 'px';
+    }
+
+    // Duplicate rows statically in JS to allow infinite looping
+    originalRows.forEach(row => {
+      const clone = row.cloneNode(true);
+      tbody.appendChild(clone);
+    });
+
+    // Hover detection
+    let mouseHover = false;
+    ach.addEventListener('mouseenter', () => { mouseHover = true; });
+    ach.addEventListener('mouseleave', () => { mouseHover = false; });
+
+    // Sync scroll pos when user scrolls manually
+    ach.addEventListener('scroll', () => {
+      if (Math.abs(ach.scrollTop - achScrollPos) > 2) {
+        achScrollPos = ach.scrollTop;
+      }
+    });
+
+    function getOriginalHeight() {
+      let h = 0;
+      const currentRows = tbody.querySelectorAll('tr');
+      const count = originalRows.length;
+      for (let i = 0; i < count; i++) {
+        if (currentRows[i]) h += currentRows[i].getBoundingClientRect().height;
+      }
+      return h;
+    }
+
+    // Animation frame step
+    function step() {
+      if (!mouseHover && !achAutoScrollPaused) {
+        const originalH = getOriginalHeight();
+        achScrollPos += achScrollSpeed;
+        if (achScrollPos >= originalH) {
+          achScrollPos = 0;
+        }
+        ach.scrollTop = achScrollPos;
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+
+  // ── NAV GOOEY TEXT MORPH ───────────────────────────────
+  (function initNavGooey() {
+    const texts        = ["AD.", "Building.", "Solving.", "Selling."];
+    const morphTime    = 0.9;
+    const cooldownTime = 1.8; // longer pause so AD. reads clearly
+    const t1 = document.getElementById('nav-gt1');
+    const t2 = document.getElementById('nav-gt2');
+    if (!t1 || !t2) return;
+
+    let textIndex = 0;
+    let morph    = 0;
+    let cooldown = cooldownTime;
+    let prev     = performance.now();
+
+    t1.textContent = texts[0];
+    t2.textContent = texts[1];
+
+    function setMorph(fraction) {
+      t2.style.filter  = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      t2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+      fraction = 1 - fraction;
+      t1.style.filter  = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      t1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+    }
+    function doCooldown() {
+      morph = 0;
+      t2.style.filter  = '';
+      t2.style.opacity = '100%';
+      t1.style.filter  = '';
+      t1.style.opacity = '0%';
+    }
+    function doMorph() {
+      morph   -= cooldown;
+      cooldown = 0;
+      let fraction = morph / morphTime;
+      if (fraction > 1) { cooldown = cooldownTime; fraction = 1; }
+      setMorph(fraction);
+    }
+    function loop(ts) {
+      requestAnimationFrame(loop);
+      const dt = (ts - prev) / 1000;
+      prev = ts;
+      const shouldIncrement = cooldown > 0;
+      cooldown -= dt;
+      if (cooldown <= 0) {
+        if (shouldIncrement) {
+          textIndex = (textIndex + 1) % texts.length;
+          t1.textContent = texts[textIndex % texts.length];
+          t2.textContent = texts[(textIndex + 1) % texts.length];
+        }
+        doMorph();
+      } else {
+        doCooldown();
+      }
+    }
+    requestAnimationFrame(loop);
+  })();
+
+  // ── DOTTED WAVE BACKGROUND ──────────────────────
+  function createDottedWave(canvasId, controlName) {
+    const bgCanvas = document.getElementById(canvasId);
+    if (!bgCanvas) return;
+    const ctx = bgCanvas.getContext('2d');
+
+    const AMOUNTX = 50, AMOUNTY = 50;
+    const SEPARATION = 100;
+    const FOV_DEG = 45;
+
+    let count = 0;
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    let dpr = 1;
+    let focalLength = 0;
+    let rafId = null;
+
+    function isDark() {
+      return document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+
+    function project(wx, wy, wz) {
+      const cameraZ = 1500;
+      const dz = cameraZ - wz;
+      const dx = wx;
+      const dy = wy - 100;
+
+      const depth = dz;
+      if (depth <= 0) return null;
+
+      const scale = focalLength / depth;
+      const sx = W / 2 + dx * scale;
+      const sy = H / 2 - dy * scale;  // canvas Y is flipped
+
+      const fogNear = 2000, fogFar = 10000;
+      const fogAlpha = 1 - Math.min(Math.max((depth - fogNear) / (fogFar - fogNear), 0), 1);
+      const radius = Math.max(0.3, 4 * scale);
+
+      return { sx, sy, radius, fogAlpha, depth };
+    }
+
+    function resize() {
+      const sec = document.getElementById('s0');
+      W = sec ? sec.offsetWidth  : window.innerWidth;
+      H = sec ? sec.offsetHeight : window.innerHeight;
+      dpr = window.devicePixelRatio || 1;
+      bgCanvas.width  = W * dpr;
+      bgCanvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      focalLength = (H / 2) / Math.tan((FOV_DEG / 2) * Math.PI / 180);
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, W, H);
+
+      const dark = isDark();
+      const baseR = dark ? 240 : 10;
+      const baseG = dark ? 238 : 10;
+      const baseB = dark ? 234 : 10;
+      const baseOpacity = dark ? 0.72 : 0.28;
+
+      const pts = [];
+
+      for (let ix = 0; ix < AMOUNTX; ix++) {
+        for (let iy = 0; iy < AMOUNTY; iy++) {
+          // 3D world position — exact from component
+          const wx = ix * SEPARATION - (AMOUNTX * SEPARATION) / 2;
+          const wy = Math.sin((ix + count) * 0.3) * 50 +
+                     Math.sin((iy + count) * 0.5) * 50;
+          const wz = iy * SEPARATION - (AMOUNTY * SEPARATION) / 2;
+
+          const p = project(wx, wy, wz);
+          if (!p) continue;
+
+          // Skip if off-screen (generous margin)
+          if (p.sx < -20 || p.sx > W + 20 || p.sy < -20 || p.sy > H + 20) continue;
+
+          pts.push(p);
+        }
+      }
+
+      // Sort far→near so front dots overdraw back dots
+      pts.sort((a, b) => b.depth - a.depth);
+
+      for (const p of pts) {
+        const alpha = baseOpacity * p.fogAlpha;
+        if (alpha < 0.01) continue;
+        ctx.beginPath();
+        ctx.arc(p.sx, p.sy, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${baseR},${baseG},${baseB},${alpha.toFixed(3)})`;
+        ctx.fill();
+      }
+    }
+
+    function loop() {
+      render();
+      count += 0.1;   // matches component: count += 0.1
+      rafId = requestAnimationFrame(loop);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    rafId = requestAnimationFrame(loop);
+
+    // Expose pause/resume (used by section transitions)
+    window[controlName] = function(active) {
+      if (active && !rafId) {
+        rafId = requestAnimationFrame(loop);
+      } else if (!active && rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    };
+  }
+
+  createDottedWave('dottedWaveBg', '_spiralRafControl');
+  createDottedWave('connectWaveBg', '_connectRafControl');
+
+  // ── STAR BUTTON PATH ──────────────────────────────────
+  function updateStarButtons() {
+    document.querySelectorAll('.star-btn').forEach(btn => {
+      btn.style.setProperty('--path', `path('M 0 0 H ${btn.offsetWidth} V ${btn.offsetHeight} H 0 V 0')`);
+    });
+  }
+  window.addEventListener('load', updateStarButtons);
+  window.addEventListener('resize', updateStarButtons);
+
+</script>
+</body>
+</html>
