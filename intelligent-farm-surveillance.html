@@ -564,6 +564,28 @@
 
   createDottedWave('dottedWaveBg', '_spiralRafControl');
 
+  // ── FORCE VIDEO PLAY ───────────────────────────────
+  document.addEventListener("DOMContentLoaded", () => {
+    const videos = document.querySelectorAll("video");
+    videos.forEach(v => {
+      v.muted = true;
+      v.setAttribute("playsinline", "");
+      const playPromise = v.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          const forcePlay = () => {
+            v.play();
+            document.removeEventListener("touchstart", forcePlay);
+            document.removeEventListener("click", forcePlay);
+            document.removeEventListener("scroll", forcePlay);
+          };
+          document.addEventListener("touchstart", forcePlay, { passive: true });
+          document.addEventListener("click", forcePlay);
+          document.addEventListener("scroll", forcePlay, { passive: true });
+        });
+      }
+    });
+  });
 
 </script>
 </body>
