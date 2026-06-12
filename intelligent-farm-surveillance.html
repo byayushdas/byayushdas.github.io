@@ -269,20 +269,24 @@
     width: max-content;
     animation: scroll-right 45s linear infinite;
   }
-  .cert-infinite-scroll.paused {
-    animation-play-state: paused;
+  @media (hover: hover) {
+    .cert-infinite-scroll:hover {
+      animation-play-state: paused;
+    }
   }
 
   .cert-item {
     flex-shrink: 0;
     width: auto;
+    min-width: 250px;
     height: 400px;
     border-radius: 8px;
     overflow: hidden;
     border: none;
     transition: transform 0.3s ease, filter 0.3s ease;
-    display: block;
-    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    background-color: var(--surface);
   }
   .cert-item:hover {
     transform: scale(1.05);
@@ -321,6 +325,7 @@
 
     .cert-item {
       width: auto;
+      min-width: 150px;
       height: 60vw;
     }
     .project-desc { font-size: 0.75rem !important; }
@@ -431,16 +436,7 @@
 
 
   // ── CERTIFICATIONS CAROUSEL ANIMATION LOGIC ──────────
-  const certInfiniteScroll = document.getElementById('certInfiniteScroll');
-  if (certInfiniteScroll) {
-    // Pause on hover
-    certInfiniteScroll.addEventListener('mouseenter', () => {
-      certInfiniteScroll.classList.add('paused');
-    });
-    certInfiniteScroll.addEventListener('mouseleave', () => {
-      certInfiniteScroll.classList.remove('paused');
-    });
-  }
+  // Replaced JS hover logic with CSS @media (hover: hover) to prevent touch-device tap pause issues.
 
 
   // ── DOTTED WAVE BACKGROUND ──────────────────────
