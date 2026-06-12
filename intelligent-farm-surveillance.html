@@ -487,6 +487,20 @@
         [data-theme="light"] .proj-card.media-card img, [data-theme="light"] .proj-card.media-card video {
           box-shadow: 0 10px 40px rgba(0,0,0,0.15);
         }
+        
+        @media (max-width: 680px) {
+          .proj-card.media-card {
+            width: 85vw !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .proj-card.media-card img, .proj-card.media-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
       </style>
       <div class="proj-carousel" id="projCarousel" style="flex-grow:1; display:flex; flex-direction:column; justify-content:center; position: relative;">
         
