@@ -298,6 +298,12 @@
     display: block;
   }
 
+  video::-webkit-media-controls-start-playback-button,
+  video::-webkit-media-controls {
+    display: none !important;
+    -webkit-appearance: none !important;
+  }
+
   /* ══════════════ RESPONSIVE ══════════════ */
   @media (max-width: 680px) {
     nav { padding: 0.8rem 1.2rem; height: 60px; }
