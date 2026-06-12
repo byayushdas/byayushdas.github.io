@@ -482,7 +482,7 @@
           border-radius: 8px;
           box-shadow: 0 10px 40px rgba(0,0,0,0.5);
           display: block;
-          background: var(--paper);
+          background: transparent;
         }
         [data-theme="light"] .proj-card.media-card img, [data-theme="light"] .proj-card.media-card video {
           box-shadow: 0 10px 40px rgba(0,0,0,0.15);
@@ -714,6 +714,20 @@
       }
     }
 
+
+    // Ensure layout updates when media loads
+    cards.forEach(c => {
+      const img = c.querySelector('img');
+      if (img) {
+        if (img.complete) layout();
+        else img.addEventListener('load', layout);
+      }
+      const vid = c.querySelector('video');
+      if (vid) {
+        if (vid.readyState >= 1) layout();
+        else vid.addEventListener('loadedmetadata', layout);
+      }
+    });
 
     // Set initial active card
     cards[0].classList.add('active');
