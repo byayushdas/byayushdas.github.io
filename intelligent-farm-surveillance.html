@@ -241,7 +241,6 @@
     position: relative;
   }
 
-  /* ══════════════ MOUSE SCROLL INDICATOR (Removed Unused CSS) ══════════════ */
 
   /* Footer */
   .footer {
@@ -284,8 +283,7 @@
   }
   .section-heading em { font-style: italic; font-weight: 400; }
 
-  /* ══════════════ § 1  LANDING (Removed Unused CSS) ══════════════ */
-  /* ══════════════ § 2  EDUCATION (Removed Unused CSS) ══════════════ */
+
 
   /* ══════════════ § 3  PROJECTS CAROUSEL ══════════════ */
   .proj-carousel {
@@ -334,71 +332,64 @@
   [data-theme="dark"] .proj-card.active {
     box-shadow: 0 18px 52px -8px rgba(0,0,0,0.60), 0 4px 18px -4px rgba(0,0,0,0.35);
   }
-  /* Unused Project Card CSS Removed */
 
-  /* ══════════════ STAR BUTTON (Removed Unused CSS) ══════════════ */
-  .proj-carousel-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 1rem;
-  }
-  .proj-carousel-indicators {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-  }
-  .proj-dot {
-    width: 5px; height: 5px;
+
+  .proj-side-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px; height: 48px;
     border-radius: 50%;
-    background: var(--border);
-    cursor: pointer;
-    border: none;
-    padding: 0;
-    transition: background 0.25s, transform 0.25s;
-  }
-  .proj-dot.active {
-    background: var(--ink);
-    transform: scale(1.4);
-  }
-  .proj-carousel-controls {
-    display: flex;
-    gap: 0.4rem;
-  }
-  .proj-nav-btn {
-    width: 30px; height: 30px;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(128, 128, 128, 0.15);
     background: var(--paper);
-    color: var(--mid);
+    color: var(--ink);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    transition: border-color 0.2s, color 0.2s;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 10;
   }
-  .proj-nav-btn:hover { border-color: var(--ink); color: var(--ink); }
-  .proj-nav-btn svg { width: 13px; height: 13px; }
-  .proj-counter {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
-    color: var(--mid);
+  [data-theme="dark"] .proj-side-nav-btn {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
+  .proj-side-nav-btn:hover { 
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+    background: var(--surface);
+  }
+  [data-theme="dark"] .proj-side-nav-btn:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+  .proj-side-nav-btn.prev { left: 1rem; }
+  .proj-side-nav-btn.next { right: 1rem; }
+  .proj-side-nav-btn svg { width: 20px; height: 20px; }
 
 
-  /* ══════════════ § 4 ACHIEVEMENTS, § 5 CERTIFICATIONS, § 6 CONNECT (Removed Unused CSS) ══════════════ */
+
 
   /* ══════════════ RESPONSIVE ══════════════ */
   @media (max-width: 680px) {
     nav { padding: 0.8rem 1.2rem; height: 60px; }
     #stage { top: 60px; }
-    .nav-logo { font-size: 1.25rem; height: 2rem; min-width: 3.5rem; }
-    #nav-gt1, #nav-gt2 { font-size: 1.25rem; }
-    #nav-gooey-inner { min-width: 3.5rem; }
-    .nav-links { display: none; }
+    .nav-logo { display: none; }
+    .nav-links { 
+      display: block; 
+      position: absolute; 
+      left: 1.2rem; 
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .nav-right { width: 100%; justify-content: flex-end; }
     section { padding: 2rem 1.4rem 2rem; }
     .section-dots { display: none; }
+
+    .proj-side-nav-btn { width: 36px; height: 36px; }
+    .proj-side-nav-btn.prev { left: 0.5rem; }
+    .proj-side-nav-btn.next { right: 0.5rem; }
 
 
     .proj-card { padding: 1.2rem 1rem; gap: 0.6rem; }
@@ -497,7 +488,15 @@
           box-shadow: 0 10px 40px rgba(0,0,0,0.15);
         }
       </style>
-      <div class="proj-carousel" id="projCarousel" style="flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
+      <div class="proj-carousel" id="projCarousel" style="flex-grow:1; display:flex; flex-direction:column; justify-content:center; position: relative;">
+        
+        <button class="proj-side-nav-btn prev" onclick="projCarouselNav(-1)" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="proj-side-nav-btn next" onclick="projCarouselNav(1)" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+
         <div class="proj-carousel-track-wrap">
           <div class="proj-carousel-track" id="projTrack" style="height: 50vh;">
             
@@ -543,22 +542,7 @@
 
           </div>
         </div>
-        
-        <div class="proj-carousel-footer" style="margin-top:1.5rem;">
-          <div class="proj-carousel-indicators" id="projDots"></div>
-          <div style="display:flex;align-items:center;gap:0.8rem;">
-            <span class="proj-counter" id="projCounter">1 / 9</span>
-            <div class="proj-carousel-controls">
-              <button class="proj-nav-btn" onclick="projCarouselNav(-1)" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <button class="proj-nav-btn" onclick="projCarouselNav(1)" aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
-        
+
       </div>
       
     </div>
@@ -621,7 +605,6 @@
       window.resetProjCarousel();
     }
 
-    // Mouse indicator was removed, so this block is no longer needed
 
     setTimeout(() => {
       prevEl.classList.remove('leave-up', 'wait-below');
@@ -678,8 +661,6 @@
     themeLabel.textContent = isDark ? 'Light' : 'Dark';
   }
 
-  // ── CONNECT FORM (Removed Unused JS) ──────────────────────────────────────
-  // ── CERTIFICATIONS CAROUSEL (Removed Unused JS) ───────────────────────────
 
   // ── PROJECTS CAROUSEL ─────────────────────────────────
   (function initProjCarousel() {
@@ -688,8 +669,6 @@
 
     const trackWrap = document.querySelector('.proj-carousel-track-wrap');
     const track = document.getElementById('projTrack');
-    const dotsWrap = document.getElementById('projDots');
-    const counter = document.getElementById('projCounter');
     const carousel = document.getElementById('projCarousel');
     if (!track || !trackWrap) return;
 
@@ -735,14 +714,6 @@
       }
     }
 
-    // Build dots
-    cards.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'proj-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-      dot.addEventListener('click', () => { goTo(i); resetAuto(); });
-      dotsWrap.appendChild(dot);
-    });
 
     // Set initial active card
     cards[0].classList.add('active');
@@ -772,9 +743,6 @@
     function goTo(idx) {
       current = (idx + total) % total;
       applyTransform(true);
-      dotsWrap.querySelectorAll('.proj-dot').forEach((d, i) => {
-        d.classList.toggle('active', i === current);
-      });
       cards.forEach((c, i) => {
         const isActive = (i === current);
         c.classList.toggle('active', isActive);
@@ -788,7 +756,6 @@
           }
         }
       });
-      if (counter) counter.textContent = (current + 1) + ' / ' + total;
       resetAuto();
     }
 
@@ -822,9 +789,6 @@
     startAuto();
   })();
 
-  // ── PROJECT IMAGE PAN (Removed Unused JS) ────────────────
-  // ── ACHIEVEMENTS SCROLL (Removed Unused JS) ───────────────────────────────
-  // ── NAV GOOEY TEXT MORPH (Removed Unused JS) ───────────────────────────────
 
   // ── DOTTED WAVE BACKGROUND ──────────────────────
   function createDottedWave(canvasId, controlName) {
@@ -942,7 +906,7 @@
   }
 
   createDottedWave('dottedWaveBg', '_spiralRafControl');
-  // ── STAR BUTTON PATH (Removed Unused JS) ──────────────────────────────────
+
 
 </script>
 </body>
