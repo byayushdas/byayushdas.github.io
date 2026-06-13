@@ -399,8 +399,8 @@
           <a href="assets/projects/farm/farm-img-5.jpg" target="_blank" class="cert-item" title="View Image"><img decoding="async" src="assets/projects/farm/farm-img-5.jpg" alt="Farm image 5"></a>
           <a href="assets/projects/farm/farm-img-6.jpg" target="_blank" class="cert-item" title="View Image"><img decoding="async" src="assets/projects/farm/farm-img-6.jpg" alt="Farm image 6"></a>
           <a href="assets/projects/farm/farm-img-7.jpeg" target="_blank" class="cert-item" title="View Image"><img decoding="async" src="assets/projects/farm/farm-img-7.jpeg" alt="Farm image 7"></a>
-          <div class="cert-item"><video preload="auto" autoplay loop muted playsinline style="aspect-ratio: 9/16; height: 100%; object-fit: contain; pointer-events: none; outline: none; border: none;" src="assets/projects/farm/farm-vid-1.mp4"></video></div>
-          <div class="cert-item"><video preload="auto" autoplay loop muted playsinline style="aspect-ratio: 9/16; height: 100%; object-fit: contain; pointer-events: none; outline: none; border: none;" src="assets/projects/farm/farm-vid-2.mp4"></video></div>
+          <div class="cert-item"><video loading="lazy" autoplay loop muted playsinline style="aspect-ratio: 9/16; height: 100%; object-fit: contain; pointer-events: none; outline: none; border: none;" src="assets/projects/farm/farm-vid-1.mp4"></video></div>
+          <div class="cert-item"><video loading="lazy" autoplay loop muted playsinline style="aspect-ratio: 9/16; height: 100%; object-fit: contain; pointer-events: none; outline: none; border: none;" src="assets/projects/farm/farm-vid-2.mp4"></video></div>
 
           <!-- Duplicates for infinite scroll -->
 
@@ -562,35 +562,6 @@
         certInfiniteScroll.appendChild(clone);
       });
     }
-    const videos = document.querySelectorAll("video");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const playPromise = entry.target.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(() => {
-              const forcePlay = () => {
-                entry.target.play();
-                document.removeEventListener("touchstart", forcePlay);
-                document.removeEventListener("click", forcePlay);
-                document.removeEventListener("scroll", forcePlay);
-              };
-              document.addEventListener("touchstart", forcePlay, { passive: true });
-              document.addEventListener("click", forcePlay);
-              document.addEventListener("scroll", forcePlay, { passive: true });
-            });
-          }
-        } else {
-          entry.target.pause();
-        }
-      });
-    }, { threshold: 0.1 });
-
-    videos.forEach(v => {
-      v.muted = true;
-      v.setAttribute("playsinline", "");
-      observer.observe(v);
-    });
   });
 
 </script>
