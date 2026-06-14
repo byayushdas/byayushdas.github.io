@@ -308,6 +308,11 @@
     -webkit-appearance: none !important;
   }
 
+  /* Ensure video items don't show blank while loading */
+  .cert-item video {
+    background: #111;
+  }
+
   /* ══════════════ RESPONSIVE ══════════════ */
   @media (max-width: 680px) {
     nav { padding: 0.8rem 1.2rem; height: 60px; }
@@ -393,17 +398,26 @@
 
       <div class="cert-scroll-container" id="certScrollContainer" style="flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
         <div class="cert-infinite-scroll" id="certInfiniteScroll">
-          
+          <!-- Position 1 -->
           <a href="assets/projects/farm/farm-img-3.jpg" target="_blank" class="cert-item" title="View Image"><img decoding="async" src="assets/projects/farm/farm-img-3.jpg" alt="Farm image 3"></a>
+          <!-- Position 2 -->
           <a href="assets/projects/farm/farm-img-4.jpg" target="_blank" class="cert-item" title="View Image"><img decoding="async" src="assets/projects/farm/farm-img-4.jpg" alt="Farm image 4"></a>
+          <!-- Position 3 -->
           <a href="assets/projects/farm/farm-img-5.jpg" target="_blank" class="cert-item" title="View Image"><img decoding="async" src="assets/projects/farm/farm-img-5.jpg" alt="Farm image 5"></a>
+          <!-- Position 4 -->
           <a href="assets/projects/farm/farm-img-6.jpg" target="_blank" class="cert-item" title="View Image"><img decoding="async" src="assets/projects/farm/farm-img-6.jpg" alt="Farm image 6"></a>
+          <!-- Position 5: VIDEO 1 -->
+          <div class="cert-item">
+            <video class="carousel-video" loop muted playsinline preload="auto" style="aspect-ratio: 9/16; height: 100%; object-fit: contain; pointer-events: none; outline: none; border: none;" src="assets/projects/farm/farm-vid-1.mp4"></video>
+          </div>
+          <!-- Position 6 -->
           <a href="assets/projects/farm/farm-img-7.jpeg" target="_blank" class="cert-item" title="View Image"><img decoding="async" src="assets/projects/farm/farm-img-7.jpeg" alt="Farm image 7"></a>
-          <div class="cert-item"><video autoplay loop muted playsinline style="aspect-ratio: 9/16; height: 100%; object-fit: contain; pointer-events: none; outline: none; border: none;" src="assets/projects/farm/farm-vid-1.mp4"></video></div>
-          <div class="cert-item"><video autoplay loop muted playsinline style="aspect-ratio: 9/16; height: 100%; object-fit: contain; pointer-events: none; outline: none; border: none;" src="assets/projects/farm/farm-vid-2.mp4"></video></div>
+          <!-- Position 7: VIDEO 2 -->
+          <div class="cert-item">
+            <video class="carousel-video" loop muted playsinline preload="auto" style="aspect-ratio: 9/16; height: 100%; object-fit: contain; pointer-events: none; outline: none; border: none;" src="assets/projects/farm/farm-vid-2.mp4"></video>
+          </div>
 
-          <!-- Duplicates for infinite scroll -->
-
+          <!-- Duplicates appended by JS -->
         </div>
       </div>
       
@@ -550,19 +564,59 @@
 
   createDottedWave('dottedWaveBg', '_spiralRafControl');
 
-  // ── VIEWPORT VIDEO PLAY ───────────────────────────────
-  document.addEventListener("DOMContentLoaded", () => {
-
+  // ── CAROUSEL INFINITE SCROLL + VIDEO AUTOPLAY ───────────────────────────────
+  (function () {
     const certInfiniteScroll = document.getElementById('certInfiniteScroll');
-    if (certInfiniteScroll) {
-      const itemsToClone = Array.from(certInfiniteScroll.children);
-      itemsToClone.forEach(item => {
-        const clone = item.cloneNode(true);
-        clone.classList.add('duplicate');
-        certInfiniteScroll.appendChild(clone);
-      });
+    if (!certInfiniteScroll) return;
+
+    // ── 1. Clone items for infinite loop ──
+    const origItems = Array.from(certInfiniteScroll.children);
+    origItems.forEach(item => {
+      const clone = item.cloneNode(true);
+      clone.classList.add('duplicate');
+      certInfiniteScroll.appendChild(clone);
+    });
+
+    // ── 2. IntersectionObserver: play video when ≥30% visible, pause otherwise ──
+    //    This is the only reliable way to autoplay on mobile browsers.
+    function attachVideoObserver(video) {
+      // Reset to start so it's ready to play from the beginning
+      video.currentTime = 0;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Use a promise to handle the case where play() is not yet allowed
+              const playPromise = entry.target.play();
+              if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                  // Autoplay was prevented — retry on next user interaction
+                  const retry = () => {
+                    entry.target.play().catch(() => {});
+                    document.removeEventListener('touchstart', retry);
+                    document.removeEventListener('click', retry);
+                  };
+                  document.addEventListener('touchstart', retry, { once: true });
+                  document.addEventListener('click', retry, { once: true });
+                });
+              }
+            } else {
+              entry.target.pause();
+            }
+          });
+        },
+        {
+          root: certInfiniteScroll.parentElement, // the .cert-scroll-container
+          threshold: 0.3
+        }
+      );
+      observer.observe(video);
     }
-  });
+
+    // Attach observer to ALL videos (originals + clones)
+    certInfiniteScroll.querySelectorAll('video.carousel-video').forEach(attachVideoObserver);
+  })();
 
 </script>
 </body>
