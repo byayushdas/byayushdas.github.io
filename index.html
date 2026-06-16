@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&family=Inter:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -104,7 +104,7 @@
   [data-theme="dark"] .nav-links a { color: #aaa; }
   .nav-links a:hover { color: var(--ink); }
 
-  /* ══════════════ SWITCH (framer-motion style, pure CSS+JS) ══════════════ */
+  /* ══════════════ SWITCH ══════════════ */
   .switch-wrap {
     display: flex;
     align-items: center;
@@ -158,7 +158,7 @@
   }
   .switch-btn[aria-checked="true"] .switch-thumb {
     transform: translateX(20px);
-    background: #fde047; /* yellow-300 */
+    background: #fde047;
     box-shadow: 0 0 10px 2px rgba(253,224,71,0.55);
   }
   [data-theme="dark"] .switch-thumb { background: #f0eeea; }
@@ -184,7 +184,6 @@
   .dot.active { background: var(--ink); transform: scale(1.6); }
 
   /* ══════════════ SECTIONS ══════════════ */
-  /* Stack all sections absolutely, transition opacity + translateY */
   #stage {
     position: fixed;
     inset: 0;
@@ -201,7 +200,6 @@
     background: var(--paper);
     opacity: 0;
     pointer-events: none;
-    /* default: waiting below */
     transform: translateY(60px);
     transition:
       opacity 0.6s cubic-bezier(.4,0,.2,1),
@@ -216,18 +214,15 @@
     pointer-events: auto;
     z-index: 2;
   }
-  /* Leaving upward */
   section.leave-up {
     opacity: 0;
     transform: translateY(-60px);
     z-index: 1;
   }
-  /* Waiting above (for going back up) */
   section.wait-above {
     opacity: 0;
     transform: translateY(-60px);
   }
-  /* Waiting below (default, for going forward) */
   section.wait-below {
     opacity: 0;
     transform: translateY(60px);
@@ -256,7 +251,7 @@
     transition: opacity 0.4s;
   }
 
-  /* Footer */
+  /* ══════════════ FOOTER ══════════════ */
   .footer {
     margin-top: 5px;
     font-family: var(--mono);
@@ -351,6 +346,7 @@
   .landing-name em { font-style: italic; font-weight: 400; }
   
   .landing-links { display: flex; gap: 0.9rem; align-items: center; flex-wrap: wrap; }
+  .landing-links .social-icon { background: var(--paper); }
   .social-icon {
     display: inline-flex;
     align-items: center;
@@ -543,7 +539,7 @@
     --light-color: #ff2056;
     --light-color-trans: rgba(255, 32, 86, 0);
     --border-width: 1px;
-    --star-fill: var(--paper); /* The star mask matches the page background! */
+    --star-fill: var(--paper);
     --btn-border: rgba(0, 0, 0, 0.1);
 
     position: relative;
@@ -677,9 +673,7 @@
   }
   .proj-card-img.grabbing { cursor: grabbing; }
 
-  /* ══════════════ § 4  ACHIEVEMENTS ══════════════ */
-
-  /* ══════════════ § 4  ACHIEVEMENTS (scrollable table) ══════════════ */
+  /* ══════════════ § 4  EVENTS ══════════════ */
   .ach-scroll-wrap {
     position: relative;
     display: flex;
@@ -688,10 +682,15 @@
   }
   .ach-scroll-inner {
     flex: 1;
-    max-height: 270px;
+    max-height: 400px;
     overflow: hidden;
-    border-top: 1px solid var(--border);
+    position: relative;
+    padding-left: 10px;
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
   }
+  
+  /* Scroll buttons logic */
   .ach-scroll-btns {
     display: flex;
     flex-direction: column;
@@ -715,31 +714,147 @@
   .ach-scroll-btn:hover { border-color: var(--ink); color: var(--ink); }
   .ach-scroll-btn svg { width: 14px; height: 14px; }
 
-  .hack-table { width: 100%; border-collapse: collapse; }
-  .hack-table th {
-    position: sticky;
-    top: 0;
-    background: var(--paper);
-    z-index: 10;
-    font-family: var(--mono);
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--mid);
-    text-align: left;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--border);
-    font-weight: 400;
+  /* — Timeline layout — */
+  .timeline-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 1rem 0 2rem 1.5rem;
   }
-  .hack-table td { padding: 0.95rem 0; border-bottom: 1px solid var(--border); vertical-align: top; }
-  .hack-name { font-family: var(--serif); font-size: 0.93rem; font-weight: 600; color: var(--ink); }
-  .hack-sub { font-size: 0.73rem; color: var(--mid); margin-top: 0.15rem; font-weight: 300; }
-  .hack-place { font-family: var(--mono); font-size: 0.73rem; color: var(--ink); display: flex; align-items: center; gap: 6px; }
-  .place-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-  .place-dot.gold    { background: #c9a84c; }
-  .place-dot.silver  { background: #888; }
-  .place-dot.finalist{ background: #aaa; }
-  .hack-year { font-family: var(--mono); font-size: 0.7rem; color: var(--mid); }
+  .timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 7px;
+    width: 2px;
+    background: var(--border);
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 2rem;
+  }
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+  .timeline-marker {
+    position: absolute;
+    left: -1.5rem;
+    top: 0.2rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 3px solid var(--border);
+    transform: translateX(-3px);
+    z-index: 2;
+  }
+  .timeline-marker.tier-gold { border-color: #ffc44a; box-shadow: 0 0 10px rgba(255,196,74,0.3); }
+  .timeline-marker.tier-silver { border-color: #94c4f9; box-shadow: 0 0 10px rgba(148,196,249,0.3); }
+  .timeline-marker.tier-finalist { border-color: #8fedb4; box-shadow: 0 0 10px rgba(143,237,180,0.3); }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .timeline-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  /* — Achievement name — */
+  .hack-name {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .hack-sub {
+    font-family: 'Space Grotesk', var(--sans);
+    font-size: 0.75rem;
+    color: var(--mid);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    opacity: 0.85;
+  }
+
+  /* — Result badge — */
+  .hack-place {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Grotesk', var(--sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  /* Gold tier — bright amber */
+  .hack-place.tier-gold {
+    color: #e6a72e;
+    background: rgba(230,167,46,0.12);
+    border-color: rgba(230,167,46,0.4);
+  }
+  [data-theme="dark"] .hack-place.tier-gold {
+    color: #ffc44a;
+    background: rgba(255,196,74,0.15);
+    border-color: rgba(255,196,74,0.4);
+  }
+  /* Silver tier — bright blue */
+  .hack-place.tier-silver {
+    color: #4a8cdb;
+    background: rgba(74,140,219,0.12);
+    border-color: rgba(74,140,219,0.4);
+  }
+  [data-theme="dark"] .hack-place.tier-silver {
+    color: #94c4f9;
+    background: rgba(148,196,249,0.15);
+    border-color: rgba(148,196,249,0.4);
+  }
+  /* Finalist tier — bright mint */
+  .hack-place.tier-finalist {
+    color: #42a86f;
+    background: rgba(66,168,111,0.12);
+    border-color: rgba(66,168,111,0.4);
+  }
+  [data-theme="dark"] .hack-place.tier-finalist {
+    color: #8fedb4;
+    background: rgba(143,237,180,0.15);
+    border-color: rgba(143,237,180,0.4);
+  }
+
+  /* leading icon dot */
+  .place-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+  .place-dot.gold     { background: #e6a72e; }
+  .place-dot.silver   { background: #4a8cdb; }
+  .place-dot.finalist { background: #42a86f; }
+  [data-theme="dark"] .place-dot.gold     { background: #ffc44a; }
+  [data-theme="dark"] .place-dot.silver   { background: #94c4f9; }
+  [data-theme="dark"] .place-dot.finalist { background: #8fedb4; }
+
+  /* — Year stamp — */
+  .hack-year {
+    font-family: 'Space Grotesk', var(--mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    opacity: 0.9;
+  }
 
   /* ══════════════ § 5  CERTIFICATIONS ══════════════ */
   .cert-header {
@@ -1110,18 +1225,16 @@
       <li><a onclick="goTo(0)">Home</a></li>
       <li><a onclick="goTo(1)">Education</a></li>
       <li><a onclick="goTo(2)">Projects</a></li>
-      <li><a onclick="goTo(3)">Achievements</a></li>
+      <li><a onclick="goTo(3)">Events</a></li>
       <li><a onclick="goTo(4)">Certifications</a></li>
       <li><a onclick="goTo(5)">Connect</a></li>
     </ul>
-    <!-- SWITCH -->
     <div class="switch-wrap" onclick="toggleTheme()">
       <span class="switch-label" id="themeLabel">Dark</span>
       <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
         <span class="switch-thumb"></span>
       </button>
     </div>
-    <!-- MOBILE MENU BUTTON -->
     <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -1325,78 +1438,86 @@
       <div class="mouse-body"><div class="mouse-wheel"></div></div>
       <span class="mouse-label">scroll</span>
     </div>
-    <!-- Quote & Footer -->
     <div class="bottom-branding">
         <p class="footer">2026 | byayushdas</p>
     </div>
   </section>
 
-  <!-- ④ ACHIEVEMENTS -->
+  <!-- ④ EVENTS -->
   <section id="s3" class="wait-below">
     <div class="content">
-      <div class="section-label">04 — Achievements</div>
+      <div class="section-label">04 — Events</div>
       <h2 class="section-heading">Hacked &amp;<br><em>shipped</em></h2>
       <div class="ach-scroll-wrap">
         <div class="ach-scroll-inner" id="achScrollInner">
-          <table class="hack-table">
-            <thead>
-              <tr>
-                <th style="width:55%">Achievement</th>
-                <th style="width:30%">Result</th>
-                <th style="width:15%">Year</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="hack-name">IEEE YP Dataport Hackathon</div>
-                  <div class="hack-sub">IEEE Dataport · Singapore · International</div>
-                </td>
-                <td><div class="hack-place"><span class="place-dot gold"></span>Winner</div></td>
-                <td><div class="hack-year">2025</div></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="hack-name">IEEE YESIST12</div>
-                  <div class="hack-sub">IEEE Malaysia · International</div>
-                </td>
-                <td><div class="hack-place"><span class="place-dot silver"></span>Finalist</div></td>
-                <td><div class="hack-year">2025</div></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="hack-name">IEEE Robotics Competition</div>
-                  <div class="hack-sub">IEEE Kolkata Section · Regional</div>
-                </td>
-                <td><div class="hack-place"><span class="place-dot silver"></span>Runner-Up</div></td>
-                <td><div class="hack-year">2025</div></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="hack-name">International Computer Science Olympiad</div>
-                  <div class="hack-sub">SOF · Science Olympiad Foundation</div>
-                </td>
-                <td><div class="hack-place"><span class="place-dot gold"></span>Rank 10</div></td>
-                <td><div class="hack-year">2019</div></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="hack-name">International Mathematics Olympiad</div>
-                  <div class="hack-sub">SOF · Bronze Medal</div>
-                </td>
-                <td><div class="hack-place"><span class="place-dot gold"></span>Rank 3</div></td>
-                <td><div class="hack-year">2019</div></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="hack-name">International Mathematics Olympiad</div>
-                  <div class="hack-sub">SOF · WWA Cossipore English School</div>
-                </td>
-                <td><div class="hack-place"><span class="place-dot finalist"></span>Rank 9</div></td>
-                <td><div class="hack-year">2018</div></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="timeline-container">
+            <div class="timeline-item">
+              <div class="timeline-marker tier-gold"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <div class="hack-year">2025</div>
+                  <div class="hack-place tier-gold"><span class="place-dot gold"></span>Winner</div>
+                </div>
+                <div class="hack-name">IEEE YP Dataport Hackathon</div>
+                <div class="hack-sub">IEEE Dataport · Singapore · International</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker tier-silver"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <div class="hack-year">2025</div>
+                  <div class="hack-place tier-silver"><span class="place-dot silver"></span>Finalist</div>
+                </div>
+                <div class="hack-name">IEEE YESIST12</div>
+                <div class="hack-sub">IEEE Malaysia · International</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker tier-silver"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <div class="hack-year">2025</div>
+                  <div class="hack-place tier-silver"><span class="place-dot silver"></span>Runner-Up</div>
+                </div>
+                <div class="hack-name">IEEE Robotics Competition</div>
+                <div class="hack-sub">IEEE Kolkata Section · Regional</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker tier-gold"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <div class="hack-year">2019</div>
+                  <div class="hack-place tier-gold"><span class="place-dot gold"></span>Rank 10</div>
+                </div>
+                <div class="hack-name">International Computer Science Olympiad</div>
+                <div class="hack-sub">SOF · Science Olympiad Foundation</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker tier-gold"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <div class="hack-year">2019</div>
+                  <div class="hack-place tier-gold"><span class="place-dot gold"></span>Rank 3</div>
+                </div>
+                <div class="hack-name">International Mathematics Olympiad</div>
+                <div class="hack-sub">SOF · Bronze Medal</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-marker tier-finalist"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <div class="hack-year">2018</div>
+                  <div class="hack-place tier-finalist"><span class="place-dot finalist"></span>Rank 9</div>
+                </div>
+                <div class="hack-name">International Mathematics Olympiad</div>
+                <div class="hack-sub">SOF · WWA Cossipore English School</div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="ach-scroll-btns">
           <button class="ach-scroll-btn" id="achScrollUp" onclick="achScroll(-1)" aria-label="Scroll up">
@@ -1412,7 +1533,6 @@
       <div class="mouse-body"><div class="mouse-wheel"></div></div>
       <span class="mouse-label">scroll</span>
     </div>
-    <!-- Quote & Footer -->
     <div class="bottom-branding">
         <p class="footer">2026 | byayushdas</p>
     </div>
@@ -1599,7 +1719,7 @@
       window.resetProjCarousel();
     }
 
-    // Mouse: show on sections 0-4, hide on 5 (last)
+
     for (let i = 0; i < N; i++) {
       const m = mouse(i);
       if (m) m.classList.toggle('hidden', i !== current || i === N - 1);
@@ -1740,18 +1860,15 @@
           }
         });
 
-        // Restart the animation so -50% recalculates on the new visible width
         certInfiniteScroll.style.animation = 'none';
-        // Force reflow so the browser acknowledges the reset
         void certInfiniteScroll.offsetWidth;
         certInfiniteScroll.style.animation = '';
       });
       
-      // trigger initially
       certCategorySelect.dispatchEvent(new Event('change'));
     }
 
-    // Pause on hover
+
     certInfiniteScroll.addEventListener('mouseenter', () => {
       certInfiniteScroll.classList.add('paused');
     });
@@ -1775,14 +1892,11 @@
     const cards = Array.from(track.querySelectorAll('.proj-card'));
     const total = cards.length;
 
-    const GAP = 16; // px gap between cards
-
-    // Size each card so the center one fills ~70% and sides peek ~10% each
+    const GAP = 16;
     function layout() {
       const wrapW = trackWrap.offsetWidth;
       const cardW = window.innerWidth <= 680 ? Math.round(wrapW * 0.85) : Math.round(wrapW * 0.70);
 
-      // Give every card the same intrinsic width
       cards.forEach(c => {
         c.style.width = cardW + 'px';
         c.style.minWidth = cardW + 'px';
@@ -1790,9 +1904,6 @@
 
       track.style.gap = GAP + 'px';
 
-      // The track should start offset so card[0] is centered.
-      // Center offset = (wrapW/2) - (cardW/2)
-      // For card[i]: shift = centerOffset - i*(cardW+GAP)
       track.style.paddingLeft = '0';
       track.style.paddingRight = '0';
 
@@ -1809,7 +1920,6 @@
       if (animate === false) {
         track.style.transition = 'none';
         track.style.transform = `translateX(${shift}px)`;
-        // Force reflow then restore transition
         track.getBoundingClientRect();
         track.style.transition = 'transform 1.5s cubic-bezier(0.45, 0, 0.15, 1)';
       } else {
@@ -1818,7 +1928,7 @@
       }
     }
 
-    // Build dots
+
     cards.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.className = 'proj-dot' + (i === 0 ? ' active' : '');
@@ -1827,10 +1937,8 @@
       dotsWrap.appendChild(dot);
     });
 
-    // Set initial active card
     cards[0].classList.add('active');
 
-    // Click on side cards to navigate
     cards.forEach((card, i) => {
       card.addEventListener('click', () => {
         if (i !== current) { goTo(i); resetAuto(); }
@@ -1860,19 +1968,16 @@
     window.projCarouselNav = function(dir) { goTo(current + dir); resetAuto(); };
     window.resetProjCarousel = function() { if (current !== 0) { goTo(0); resetAuto(); } };
 
-    // Init layout on load and on resize
     window.addEventListener('load', () => { layout(); });
     window.addEventListener('resize', () => { layout(); });
-    // Also init now (DOM ready)
     layout();
     startAuto();
   })();
 
-  // ── PROJECT IMAGE PAN (drag + scroll) ────────────────
+  // ── PROJECT IMAGE PAN ────────────────────────────────
   (function initImgPan() {
     function setupPan(img) {
-      // Track how much we've panned in percent of (naturalSize - displaySize)
-      let ox = 50, oy = 50; // object-position in %
+      let ox = 50, oy = 50;
       let dragging = false, startX, startY, startOx, startOy;
 
       function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
@@ -1881,10 +1986,8 @@
         img.style.objectPosition = ox + '% ' + oy + '%';
       }
 
-      // Initial centre
       apply();
 
-      // DRAG
       img.addEventListener('mousedown', e => {
         e.preventDefault();
         dragging = true;
@@ -1896,22 +1999,12 @@
       window.addEventListener('mousemove', e => {
         if (!dragging) return;
         const wrap = img.parentElement;
-        const W = wrap.offsetWidth;
-        const H = wrap.offsetHeight;
-        // Natural image dimensions
-        const nW = img.naturalWidth || W;
-        const nH = img.naturalHeight || H;
-        // Scale factor: image is displayed at 100% width, height = W * (H/W)
-        // Panning range: how much bigger is natural vs displayed
-        const dispW = W;
+        const W = wrap.offsetWidth, H = wrap.offsetHeight;
+        const nW = img.naturalWidth || W, nH = img.naturalHeight || H;
         const dispH = W * (nH / nW);
-        const rangeX = Math.max(0, dispW  - W);  // 0 if image fits width
-        const rangeY = Math.max(0, dispH  - H);
-
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-
-        // Convert px movement to % shift
+        const rangeX = Math.max(0, W - W);
+        const rangeY = Math.max(0, dispH - H);
+        const dx = e.clientX - startX, dy = e.clientY - startY;
         ox = clamp(startOx - (dx / (rangeX || W)) * 100, 0, 100);
         oy = clamp(startOy - (dy / (rangeY || H)) * 100, 0, 100);
         apply();
@@ -1921,7 +2014,6 @@
         if (dragging) { dragging = false; img.classList.remove('grabbing'); }
       });
 
-      // TOUCH drag
       img.addEventListener('touchstart', e => {
         startX = e.touches[0].clientX; startY = e.touches[0].clientY;
         startOx = ox; startOy = oy;
@@ -1942,7 +2034,6 @@
 
     }
 
-    // Init on load and whenever carousel slides (images already in DOM)
     window.addEventListener('load', () => {
       document.querySelectorAll('.proj-card-img').forEach(setupPan);
     });
@@ -1951,57 +2042,44 @@
   // ── ACHIEVEMENTS SCROLL ───────────────────────────────
   let achScrollPos = 0;
   let achAutoScrollPaused = false;
-  let achScrollSpeed = 0.4; // slow continuous speed
+  let achScrollSpeed = 0.4;
 
-  function achScroll(dir) {
+  window.achScroll = function(dir) {
     const inner = document.getElementById('achScrollInner');
     if (!inner) return;
-    const rows = inner.querySelectorAll('tbody tr');
-    if (!rows.length) return;
-    const rowH = rows[0].getBoundingClientRect().height;
+    const items = inner.querySelectorAll('.timeline-item');
+    if (!items.length) return;
+    const itemH = items[0].getBoundingClientRect().height;
     
-    // Pause auto scroll for 4 seconds after manual click
     achAutoScrollPaused = true;
-    setTimeout(() => {
-      achAutoScrollPaused = false;
-    }, 3000);
+    setTimeout(() => { achAutoScrollPaused = false; }, 3000);
 
     const maxScroll = inner.scrollHeight - inner.clientHeight;
-    achScrollPos = Math.max(0, Math.min(maxScroll, achScrollPos + dir * rowH));
+    achScrollPos = Math.max(0, Math.min(maxScroll, achScrollPos + dir * itemH));
     inner.scrollTop = achScrollPos;
-  }
+  };
 
-  // Set heights and init auto-scroll
   window.addEventListener('load', function() {
     const ach = document.getElementById('achScrollInner');
     if (!ach) return;
-    const tbody = ach.querySelector('tbody');
-    if (!tbody) return;
+    const container = ach.querySelector('.timeline-container');
+    if (!container) return;
 
-    const originalRows = Array.from(tbody.querySelectorAll('tr'));
-    if (!originalRows.length) return;
+    const originalItems = Array.from(container.querySelectorAll('.timeline-item'));
+    if (!originalItems.length) return;
 
-    // Set height to exactly 4 rows
-    const thead = ach.querySelector('thead');
-    const theadH = thead ? thead.getBoundingClientRect().height : 0;
-    if (originalRows.length >= 4) {
-      let h = theadH;
-      for (let i = 0; i < 4; i++) h += originalRows[i].getBoundingClientRect().height;
-      ach.style.maxHeight = h + 'px';
-    }
-
-    // Duplicate rows statically in JS to allow infinite looping
-    originalRows.forEach(row => {
-      const clone = row.cloneNode(true);
-      tbody.appendChild(clone);
+    // Clone items for infinite scroll
+    originalItems.forEach(item => {
+      const clone = item.cloneNode(true);
+      container.appendChild(clone);
     });
 
-    // Hover detection
     let mouseHover = false;
     ach.addEventListener('mouseenter', () => { mouseHover = true; });
     ach.addEventListener('mouseleave', () => { mouseHover = false; });
+    ach.addEventListener('touchstart', () => { mouseHover = true; });
+    ach.addEventListener('touchend', () => { mouseHover = false; });
 
-    // Sync scroll pos when user scrolls manually
     ach.addEventListener('scroll', () => {
       if (Math.abs(ach.scrollTop - achScrollPos) > 2) {
         achScrollPos = ach.scrollTop;
@@ -2010,15 +2088,13 @@
 
     function getOriginalHeight() {
       let h = 0;
-      const currentRows = tbody.querySelectorAll('tr');
-      const count = originalRows.length;
-      for (let i = 0; i < count; i++) {
-        if (currentRows[i]) h += currentRows[i].getBoundingClientRect().height;
+      const currentItems = container.querySelectorAll('.timeline-item');
+      for (let i = 0; i < originalItems.length; i++) {
+        if (currentItems[i]) h += currentItems[i].getBoundingClientRect().height;
       }
       return h;
     }
 
-    // Animation frame step
     function step() {
       if (!mouseHover && !achAutoScrollPaused) {
         const originalH = getOriginalHeight();
@@ -2037,7 +2113,7 @@
   (function initNavGooey() {
     const texts        = ["AD.", "Building.", "Solving.", "Selling."];
     const morphTime    = 0.9;
-    const cooldownTime = 1.8; // longer pause so AD. reads clearly
+    const cooldownTime = 1.8;
     const t1 = document.getElementById('nav-gt1');
     const t2 = document.getElementById('nav-gt2');
     if (!t1 || !t2) return;
@@ -2113,22 +2189,13 @@
     }
 
     function project(wx, wy, wz) {
-      const cameraZ = 1500;
-      const dz = cameraZ - wz;
-      const dx = wx;
-      const dy = wy - 100;
-
-      const depth = dz;
+      const depth = 1500 - wz;
       if (depth <= 0) return null;
-
       const scale = focalLength / depth;
-      const sx = W / 2 + dx * scale;
-      const sy = H / 2 - dy * scale;  // canvas Y is flipped
-
-      const fogNear = 2000, fogFar = 10000;
-      const fogAlpha = 1 - Math.min(Math.max((depth - fogNear) / (fogFar - fogNear), 0), 1);
+      const sx = W / 2 + wx * scale;
+      const sy = H / 2 - (wy - 100) * scale;
+      const fogAlpha = 1 - Math.min(Math.max((depth - 2000) / 8000, 0), 1);
       const radius = Math.max(0.3, 4 * scale);
-
       return { sx, sy, radius, fogAlpha, depth };
     }
 
@@ -2156,23 +2223,19 @@
 
       for (let ix = 0; ix < AMOUNTX; ix++) {
         for (let iy = 0; iy < AMOUNTY; iy++) {
-          // 3D world position — exact from component
           const wx = ix * SEPARATION - (AMOUNTX * SEPARATION) / 2;
-          const wy = Math.sin((ix + count) * 0.3) * 50 +
-                     Math.sin((iy + count) * 0.5) * 50;
+          const wy = Math.sin((ix + count) * 0.3) * 50 + Math.sin((iy + count) * 0.5) * 50;
           const wz = iy * SEPARATION - (AMOUNTY * SEPARATION) / 2;
 
           const p = project(wx, wy, wz);
           if (!p) continue;
 
-          // Skip if off-screen (generous margin)
           if (p.sx < -20 || p.sx > W + 20 || p.sy < -20 || p.sy > H + 20) continue;
 
           pts.push(p);
         }
       }
 
-      // Sort far→near so front dots overdraw back dots
       pts.sort((a, b) => b.depth - a.depth);
 
       for (const p of pts) {
@@ -2187,7 +2250,7 @@
 
     function loop() {
       render();
-      count += 0.1;   // matches component: count += 0.1
+      count += 0.1;
       rafId = requestAnimationFrame(loop);
     }
 
@@ -2195,7 +2258,6 @@
     window.addEventListener('resize', resize);
     rafId = requestAnimationFrame(loop);
 
-    // Expose pause/resume (used by section transitions)
     window[controlName] = function(active) {
       if (active && !rafId) {
         rafId = requestAnimationFrame(loop);
