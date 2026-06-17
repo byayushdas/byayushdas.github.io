@@ -228,6 +228,34 @@
   }
   .section-heading em { font-style: italic; font-weight: 400; }
 
+  .proj-awards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: 0.1rem;
+    margin-bottom: 2rem;
+  }
+  .proj-award-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #c97a10;
+    width: fit-content;
+    line-height: 1.3;
+  }
+  [data-theme="dark"] .proj-award-item {
+    color: #ffc44a;
+  }
+  .proj-award-item .award-medal {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+  }
+
   @keyframes scroll-right {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
@@ -345,10 +373,27 @@
       <div style="margin-top: 1rem;">
         <div class="section-label">Project Details</div>
         <h2 class="section-heading">Intelligent Farm<br><em>Surveillance System</em></h2>
-        <p class="project-desc" style="font-size: 1rem; color: var(--mid); line-height: 1.6; max-width: 600px; margin-bottom: 2rem;">
+        <p class="project-desc" style="font-size: 1rem; color: var(--mid); line-height: 1.6; max-width: 600px; margin-bottom: 1rem;">
           Precision Agriculture using DEW (Data Enabled Wireless) Nodes for Crop Recommendation and Aerial Drone for Crop Disease Detection, Cattle, Pest and Weed Detection.
         </p>
-      </div>
+        <div class="proj-awards">
+          <span class="proj-award-item">
+            <svg class="award-medal" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l2.4 1.5 2.8-.5.9 2.7 2.6 1.1-.4 2.8 1.9 2.1-1.4 2.5.5 2.8-2.6 1-1 2.7-2.8-.4L12 19l-2.4-1.5-2.8.5-.9-2.7-2.6-1.1.4-2.8-1.9-2.1 1.4-2.5-.5-2.8 2.6-1 1-2.7 2.8.4L12 2zm0 4.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+              <path d="M6 16.5l-2 7 4.5-2.5 2.5 1.5V18a8.5 8.5 0 0 1-5-1.5z"/>
+              <path d="M18 16.5a8.5 8.5 0 0 1-5 1.5v4.5l2.5-1.5L20 23.5l-2-7z"/>
+            </svg>
+            IEEE YESIST12 MakerFair Track Finalist, Malaysia
+          </span>
+          <span class="proj-award-item">
+            <svg class="award-medal" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l2.4 1.5 2.8-.5.9 2.7 2.6 1.1-.4 2.8 1.9 2.1-1.4 2.5.5 2.8-2.6 1-1 2.7-2.8-.4L12 19l-2.4-1.5-2.8.5-.9-2.7-2.6-1.1.4-2.8-1.9-2.1 1.4-2.5-.5-2.8 2.6-1 1-2.7 2.8.4L12 2zm0 4.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+              <path d="M6 16.5l-2 7 4.5-2.5 2.5 1.5V18a8.5 8.5 0 0 1-5-1.5z"/>
+              <path d="M18 16.5a8.5 8.5 0 0 1-5 1.5v4.5l2.5-1.5L20 23.5l-2-7z"/>
+            </svg>
+            IEEE Robotics Competition Second Runners&#8209;Up, Kolkata
+          </span>
+        </div>
 
       <div class="cert-scroll-container" id="certScrollContainer" style="flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
         <div class="cert-infinite-scroll" id="certInfiniteScroll">
