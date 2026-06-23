@@ -1147,8 +1147,8 @@
       opacity: 1;
       pointer-events: auto;
     }
-    section { padding: 2.5rem 1.2rem 2rem; overflow-x: hidden; overflow-y: hidden; justify-content: flex-start; }
-    #s1 { overflow-y: auto; -webkit-overflow-scrolling: touch; } /* Education page is scrollable */
+    section { padding: 2rem 1.2rem 1.5rem; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start; }
+    /* All pages scroll their own content; swipe navigates only at top/bottom edges */
     .edu-grid { grid-template-columns: 1fr; }
 
     .section-dots { display: none; }
@@ -1197,9 +1197,13 @@
       width: 100%;
       overflow-x: hidden;
     }
+    .section-heading { font-size: clamp(1.5rem, 6vw, 2.2rem); margin-bottom: 0.8rem; }
+    .section-label { margin-bottom: 0.3rem; }
+    .ach-scroll-inner { max-height: 260px; }
     .proj-card { padding: 1.2rem 1rem; gap: 0.6rem; }
     .project-title { font-size: 1rem; }
     .project-desc { font-size: 0.75rem !important; }
+    .connect-wrap { padding: 1.2rem; gap: 1rem; }
   }
 
   /* ══════════════ GOOEY TEXT (inline in landing) ══════════════ */
@@ -1887,6 +1891,9 @@
     const prevEl = sec(prev);
     const nextEl = sec(next);
 
+    // Reset scroll position of the incoming section to top
+    nextEl.scrollTop = 0;
+
     nextEl.style.transition = 'none';
     nextEl.className = 'section';
     nextEl.classList.add(dir === 1 ? 'wait-below' : 'wait-above');
@@ -1947,36 +1954,27 @@
 
   // ── TOUCH ─────────────────────────────────────────────
   let tY = null;
-  const EDUCATION_PAGE = 1; // s1 = Education (the only scrollable page on mobile)
 
-  function getEduScrollEl() {
-    // The education section’s scrollable content wrapper
-    return document.getElementById('s1');
+  function currentSectionEl() {
+    return document.getElementById('s' + current);
   }
 
   window.addEventListener('touchstart', e => {
     tY = e.touches[0].clientY;
   }, { passive: true });
 
-  // Prevent native page scroll on non-education pages
-  window.addEventListener('touchmove', e => {
-    if (current !== EDUCATION_PAGE) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-
   window.addEventListener('touchend', e => {
     if (tY === null) return;
     const diff = tY - e.changedTouches[0].clientY;
     if (Math.abs(diff) <= 45) { tY = null; return; }
 
-    if (current === EDUCATION_PAGE) {
-      // On education page: check if the section itself is scrolled to an edge
-      const eduEl = getEduScrollEl();
-      const atTop    = eduEl.scrollTop <= 0;
-      const atBottom = eduEl.scrollTop + eduEl.clientHeight >= eduEl.scrollHeight - 2;
-      if (diff > 0 && !atBottom) { tY = null; return; } // still scrolling down
-      if (diff < 0 && !atTop)    { tY = null; return; } // still scrolling up
+    // Check if the active section is at the scroll edge before navigating
+    const el = currentSectionEl();
+    if (el) {
+      const atTop    = el.scrollTop <= 2;
+      const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 2;
+      if (diff > 0 && !atBottom) { tY = null; return; } // swiping down, not at bottom yet
+      if (diff < 0 && !atTop)    { tY = null; return; } // swiping up, not at top yet
     }
 
     goTo(current + (diff > 0 ? 1 : -1));
