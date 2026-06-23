@@ -1159,10 +1159,11 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 1.5rem;
+      margin-top: -2.5rem; /* Push content up to prevent wave overlap */
     }
     .profile-pic-container {
-      width: 40px;  /* ← Change this value to resize the picture on mobile */
-      height: 40px; /* ← Keep this the same as width to stay a circle */
+      width: 60px;  /* ← Change this value to resize the picture on mobile */
+      height: 60px; /* ← Keep this the same as width to stay a circle */
       order: -1;
     }
     .mouse-scroll {
@@ -1359,7 +1360,7 @@
           </div>
         </div>
         <div class="profile-pic-container">
-          <img src="assets/profile.jpg" alt="Ayush Das">
+          <img src="assets/profile.jpg" alt="Ayush Das" fetchpriority="high" loading="eager" decoding="async">
         </div>
       </div>
       <div class="landing-number">01</div>
