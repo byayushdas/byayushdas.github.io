@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>Ayush Das | Software Engineer</title>
@@ -10,6 +16,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&family=Inter:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  button:focus, button:active { outline: none !important; }
+  button::-moz-focus-inner { border: 0 !important; }
 
   :root {
     --ink: #0a0a0a;
@@ -32,11 +40,16 @@
   html, body { height: 100%; overflow: hidden; }
 
   body {
-    background: var(--paper);
+    background-color: var(--paper);
+    background-image: radial-gradient(circle, rgba(100,100,100,0.18) 1px, transparent 1px);
+    background-size: 28px 28px;
     color: var(--ink);
     font-family: var(--sans);
     font-weight: 300;
-    transition: background 0.4s, color 0.4s;
+    transition: background-color 0.4s, color 0.4s;
+  }
+  [data-theme="dark"] body {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
   }
 
   /* ══════════════ NAV ══════════════ */
@@ -197,14 +210,14 @@
     flex-direction: column;
     justify-content: center;
     padding: 2.5rem 3rem 2rem;
-    background: var(--paper);
+    background: transparent;
     opacity: 0;
     pointer-events: none;
     transform: translateY(60px);
     transition:
       opacity 0.6s cubic-bezier(.4,0,.2,1),
       transform 0.6s cubic-bezier(.4,0,.2,1),
-      background 0.4s, color 0.4s;
+      color 0.4s;
     will-change: opacity, transform;
     overflow: hidden;
   }
@@ -498,7 +511,7 @@
       background 0.3s;
     opacity: 0.38;
     transform: scale(0.88) translateY(8px);
-    background: var(--paper);
+    background: transparent;
     cursor: pointer;
     box-sizing: border-box;
   }
@@ -537,76 +550,44 @@
 
   /* ══════════════ STAR BUTTON ══════════════ */
   .star-btn {
-    --duration: 3;
-    --light-width: 140px;
-    --light-color: var(--ink);
-    --light-color-trans: transparent;
-    --border-width: 1px;
-    --star-fill: var(--paper);
-    --btn-border: rgba(0, 0, 0, 0.1);
-
     position: relative;
-    z-index: 3;
-    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 9999px; /* Pill shaped just like screenshot */
-    padding: 8px 16px;
+    gap: 5px;
+    border-radius: 9999px;
+    padding: 5px 13px;
     font-family: var(--mono);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
     background: transparent;
-    border: none;
+    border: 1px solid var(--ink);
     outline: none;
-    isolation: isolate;
+    color: var(--ink);
+    box-shadow: 0 0 8px rgba(0,0,0,0.2), 0 0 20px rgba(0,0,0,0.08);
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .star-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+    transform: translateY(-1px);
+    box-shadow: 0 0 12px rgba(0,0,0,0.35), 0 0 30px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.18);
   }
   [data-theme="dark"] .star-btn {
-    --star-fill: var(--paper);
-    --btn-border: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255,255,255,0.85);
+    color: #f0eeea;
+    box-shadow: 0 0 8px rgba(255,255,255,0.25), 0 0 20px rgba(255,255,255,0.1);
   }
-  .star-btn-glow {
-    position: absolute;
-    inset: 0;
-    aspect-ratio: 1 / 1;
-    width: var(--light-width);
-    background: radial-gradient(circle at center, var(--light-color) 0%, var(--light-color-trans) 60%);
-    animation: star-btn-anim calc(var(--duration) * 1s) linear infinite;
-    offset-distance: 0%;
-    offset-path: var(--path);
-    z-index: 1;
+  [data-theme="dark"] .star-btn:hover {
+    background: rgba(255,255,255,0.08);
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), 0 4px 16px rgba(255,255,255,0.1);
   }
-  @keyframes star-btn-anim {
-    0% { offset-distance: 0%; }
-    100% { offset-distance: 100%; }
-  }
-  .star-btn-inner {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    border: var(--border-width) solid var(--btn-border);
-    z-index: 2;
-    overflow: hidden;
-  }
-  .star-btn-inner svg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .star-btn-text {
-    position: relative;
-    z-index: 3;
-    color: var(--ink);
-    background: linear-gradient(to top, var(--ink), var(--mid));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+
   .proj-carousel-footer {
     display: flex;
     align-items: center;
@@ -981,16 +962,18 @@
     gap: 3rem;
     align-items: flex-start;
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 16px;
     padding: 2.5rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
   }
   [data-theme="dark"] .connect-wrap {
-    background: rgba(10, 10, 10, 0.4);
+    background: rgba(25, 25, 25, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   }
   .connect-left { flex: 1; }
   .connect-right {
@@ -1301,12 +1284,14 @@
 <!-- SECTION DOTS -->
 <div class="section-dots" id="dots"></div>
 
+<canvas id="globalWaveBg"></canvas>
+
 <!-- STAGE -->
 <div id="stage">
 
   <!-- ① LANDING -->
   <section id="s0" class="is-active">
-    <canvas id="dottedWaveBg" style="position:absolute;inset:0;pointer-events:none;z-index:0;width:100%;height:100%;"></canvas>
+    <canvas id="homeWaveBg" style="position:absolute;inset:0;pointer-events:none;z-index:0;width:100%;height:100%;"></canvas>
     <div class="content" style="position:relative;z-index:1;">
       <div class="landing-inner">
         <div class="landing-left">
@@ -1390,10 +1375,7 @@
             <span class="edu-location">Kolkata</span>
             <span class="edu-period">2010 — 2024</span>
             <a class="star-btn" href="school.html" style="margin-top: 0.5rem;">
-              <div class="star-btn-glow"></div>
-              <div class="star-btn-inner">
-                <svg width="100%" height="100%" preserveAspectRatio="none"><use href="#star-bg" /></svg>
-              </div>
+
               <span class="star-btn-text">MORE ↗</span>
             </a>
           </div>
@@ -1446,10 +1428,7 @@
               </div>
               <div class="proj-card-bottom">
                 <a class="star-btn" href="project.html">
-                  <div class="star-btn-glow"></div>
-                  <div class="star-btn-inner">
-                    <svg width="100%" height="100%" preserveAspectRatio="none"><use href="#star-bg" /></svg>
-                  </div>
+
                   <span class="star-btn-text">View ↗</span>
                 </a>
               </div>
@@ -1475,10 +1454,7 @@
               </div>
               <div class="proj-card-bottom">
                 <a class="star-btn" href="https://github.com/byayushdas/SmartHealthCareMonitoringSystem.git" target="_blank">
-                  <div class="star-btn-glow"></div>
-                  <div class="star-btn-inner">
-                    <svg width="100%" height="100%" preserveAspectRatio="none"><use href="#star-bg" /></svg>
-                  </div>
+
                   <span class="star-btn-text" style="display: flex; align-items: center; gap: 6px;">
                     <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
                     View ↗
@@ -1497,10 +1473,7 @@
               </div>
               <div class="proj-card-bottom">
                 <a class="star-btn" href="#" onclick="return false;">
-                  <div class="star-btn-glow"></div>
-                  <div class="star-btn-inner">
-                    <svg width="100%" height="100%" preserveAspectRatio="none"><use href="#star-bg" /></svg>
-                  </div>
+
                   <span class="star-btn-text">Building</span>
                 </a>
               </div>
@@ -1516,10 +1489,7 @@
               </div>
               <div class="proj-card-bottom">
                 <a class="star-btn" href="https://github.com/byayushdas/RoboticArm.git" target="_blank">
-                  <div class="star-btn-glow"></div>
-                  <div class="star-btn-inner">
-                    <svg width="100%" height="100%" preserveAspectRatio="none"><use href="#star-bg" /></svg>
-                  </div>
+
                   <span class="star-btn-text" style="display: flex; align-items: center; gap: 6px;">
                     <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
                     View ↗
@@ -1806,10 +1776,7 @@
           </div>
           <div class="connect-action-row">
             <button class="star-btn connect-send-btn" onclick="sendMail()">
-              <div class="star-btn-glow"></div>
-              <div class="star-btn-inner">
-                <svg width="100%" height="100%" preserveAspectRatio="none"><use href="#star-bg" /></svg>
-              </div>
+
               <span class="star-btn-text">Send &rarr;</span>
             </button>
             <p class="connect-status" id="connectStatus"></p>
@@ -1942,12 +1909,21 @@
   const switchBtn  = document.getElementById('switchBtn');
   const themeLabel = document.getElementById('themeLabel');
 
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  if (switchBtn) {
+    switchBtn.setAttribute('aria-checked', savedTheme === 'dark' ? 'true' : 'false');
+  }
+  if (themeLabel) {
+    themeLabel.textContent = savedTheme === 'dark' ? 'Dark' : 'Light';
+  }
+
   function toggleTheme() {
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     const next   = isDark ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
-    switchBtn.setAttribute('aria-checked', String(!isDark));
-    themeLabel.textContent = isDark ? 'Light' : 'Dark';
+    localStorage.setItem('theme', next);
+    if (switchBtn) switchBtn.setAttribute('aria-checked', String(!isDark));
+    if (themeLabel) themeLabel.textContent = isDark ? 'Light' : 'Dark';
   }
 
   // ── CONNECT FORM ──────────────────────────────────────
@@ -2370,9 +2346,8 @@
     }
 
     function resize() {
-      const sec = document.getElementById('s0');
-      W = sec ? sec.offsetWidth  : window.innerWidth;
-      H = sec ? sec.offsetHeight : window.innerHeight;
+      W = window.innerWidth;
+      H = window.innerHeight;
       dpr = window.devicePixelRatio || 1;
       bgCanvas.width  = W * dpr;
       bgCanvas.height = H * dpr;
@@ -2438,17 +2413,12 @@
     };
   }
 
-  createDottedWave('dottedWaveBg', '_spiralRafControl');
-  createDottedWave('connectWaveBg', '_connectRafControl');
 
-  // ── STAR BUTTON PATH ──────────────────────────────────
-  function updateStarButtons() {
-    document.querySelectorAll('.star-btn').forEach(btn => {
-      btn.style.setProperty('--path', `path('M 0 0 H ${btn.offsetWidth} V ${btn.offsetHeight} H 0 V 0')`);
-    });
-  }
-  window.addEventListener('load', updateStarButtons);
-  window.addEventListener('resize', updateStarButtons);
+  createDottedWave('connectWaveBg', '_connectRafControl');
+  createDottedWave('homeWaveBg', '_homeRafControl');
+
+
+
 
 </script>
 </body>
