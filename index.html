@@ -1158,7 +1158,12 @@
     .landing-inner {
       flex-direction: column;
       align-items: flex-start;
-      gap: 2.5rem;
+      gap: 1.5rem;
+    }
+    .profile-pic-container {
+      width: 110px;
+      height: 110px;
+      order: -1;
     }
     .mouse-scroll {
       display: none;
@@ -1202,8 +1207,27 @@
     justify-content: space-between;
     gap: 2rem;
     width: 100%;
+    position: relative;
   }
   .landing-left { flex: 1; }
+  /* ── PROFILE PICTURE ──────────────────────────── */
+  .profile-pic-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid var(--border);
+    overflow: hidden;
+    flex-shrink: 0;
+    align-self: flex-start;
+    transition: border-color 0.4s;
+  }
+  .profile-pic-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left 20%;
+    display: block;
+  }
 
 </style>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -1296,7 +1320,9 @@
       <div class="landing-inner">
         <div class="landing-left">
           <div class="landing-eyebrow">Kolkata, India &nbsp;·&nbsp; Software Engineer</div>
-          <h1 class="landing-name">Ayush<br><em>Das</em></h1>
+          <h1 class="landing-name">
+            Ayush<br><em>Das</em>
+          </h1>
           <!-- GOOEY MORPH -->
           <svg style="position:absolute;height:0;width:0" aria-hidden="true" focusable="false">
             <defs>
@@ -1332,7 +1358,9 @@
             <a class="resume-btn" href="https://drive.google.com/file/d/1mUCMV213EcESkP-SfvzpNhfzt7V6r2k2/view?usp=sharing" target="_blank">Résumé ↗</a>
           </div>
         </div>
-
+        <div class="profile-pic-container">
+          <img src="assets/profile.jpg" alt="Ayush Das">
+        </div>
       </div>
       <div class="landing-number">01</div>
     </div>
@@ -2116,7 +2144,8 @@
 
     window.addEventListener('load', () => { layout(); });
     window.addEventListener('resize', () => { layout(); });
-    layout();
+    // Defer layout until after first paint so offsetWidth is correct on mobile
+    requestAnimationFrame(() => { requestAnimationFrame(() => { layout(); }); });
     startAuto();
   })();
 
