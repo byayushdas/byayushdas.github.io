@@ -1147,19 +1147,20 @@
       opacity: 1;
       pointer-events: auto;
     }
-    section { padding: 2rem 1.2rem 1.5rem; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start; }
-    /* All pages scroll their own content; swipe navigates only at top/bottom edges */
-    .edu-grid { grid-template-columns: 1fr; }
-
+    section { padding: 4rem 1.2rem 2rem; overflow: hidden; justify-content: center; }
+    
     .section-dots { display: none; }
     .landing-number { display: none; }
-    .cert-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .cert-header > div { flex-wrap: wrap; width: 100%; }
+    .mouse-scroll { display: none; }
+    
+    .content { width: 100%; }
+    .section-heading { font-size: clamp(1.8rem, 8vw, 2.4rem); margin-bottom: 1rem; }
+    .section-label { margin-bottom: 0.4rem; font-size: 0.55rem; }
     
     .landing-inner {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.6rem;
+      gap: 1rem;
     }
     .landing-name {
       font-size: clamp(2.4rem, 11vw, 3.2rem);
@@ -1167,43 +1168,44 @@
     }
     .landing-eyebrow {
       margin-bottom: 0.4rem;
+      font-size: 0.6rem;
     }
     #gooey-wrap {
-      height: 3.5rem;
-      margin-top: 0.3rem;
+      height: 3rem;
+      margin-top: 0.2rem;
       margin-bottom: 0.2rem;
     }
     #gooey-t1, #gooey-t2 {
-      font-size: clamp(2rem, 8vw, 2.8rem);
+      font-size: clamp(1.8rem, 8vw, 2.6rem);
     }
     .landing-links {
       gap: 0.5rem;
       flex-wrap: wrap;
     }
-    .social-icon {
-      width: 36px;
-      height: 36px;
-    }
+    .social-icon { width: 36px; height: 36px; }
     .social-icon svg { width: 14px; height: 14px; }
     .profile-pic-container {
-      width: 60px;  /* ← Change this value to resize the picture on mobile */
-      height: 60px; /* ← Keep this the same as width to stay a circle */
+      width: 70px;
+      height: 70px;
       order: -1;
     }
-    .mouse-scroll {
-      display: none;
-    }
-    .content {
-      width: 100%;
-      overflow-x: hidden;
-    }
-    .section-heading { font-size: clamp(1.5rem, 6vw, 2.2rem); margin-bottom: 0.8rem; }
-    .section-label { margin-bottom: 0.3rem; }
-    .ach-scroll-inner { max-height: 260px; }
+
+    .edu-grid { grid-template-columns: 1fr; gap: 1rem; max-height: 50vh; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-right: 0.5rem; scrollbar-width: none; }
+    .edu-grid::-webkit-scrollbar { display: none; }
+    .ach-scroll-inner { max-height: 50vh; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-right: 0.5rem; scrollbar-width: none; }
+    .ach-scroll-inner::-webkit-scrollbar { display: none; }
+    .cert-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+    
+    .cert-header { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+    .cert-header > div { flex-wrap: wrap; width: 100%; }
+    
     .proj-card { padding: 1.2rem 1rem; gap: 0.6rem; }
     .project-title { font-size: 1rem; }
     .project-desc { font-size: 0.75rem !important; }
-    .connect-wrap { padding: 1.2rem; gap: 1rem; }
+    
+    .connect-wrap { flex-direction: column; padding: 1.5rem; gap: 1.2rem; }
+    .connect-left p { font-size: 0.8rem; margin-top: 0.5rem; }
+    .connect-form-field input, .connect-form-field textarea { padding: 0.6rem 0.8rem; font-size: 0.85rem; }
   }
 
   /* ══════════════ GOOEY TEXT (inline in landing) ══════════════ */
@@ -1891,9 +1893,6 @@
     const prevEl = sec(prev);
     const nextEl = sec(next);
 
-    // Reset scroll position of the incoming section to top
-    nextEl.scrollTop = 0;
-
     nextEl.style.transition = 'none';
     nextEl.className = 'section';
     nextEl.classList.add(dir === 1 ? 'wait-below' : 'wait-above');
@@ -1954,30 +1953,11 @@
 
   // ── TOUCH ─────────────────────────────────────────────
   let tY = null;
-
-  function currentSectionEl() {
-    return document.getElementById('s' + current);
-  }
-
-  window.addEventListener('touchstart', e => {
-    tY = e.touches[0].clientY;
-  }, { passive: true });
-
+  window.addEventListener('touchstart', e => { tY = e.touches[0].clientY; }, { passive: true });
   window.addEventListener('touchend', e => {
     if (tY === null) return;
     const diff = tY - e.changedTouches[0].clientY;
-    if (Math.abs(diff) <= 45) { tY = null; return; }
-
-    // Check if the active section is at the scroll edge before navigating
-    const el = currentSectionEl();
-    if (el) {
-      const atTop    = el.scrollTop <= 2;
-      const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 2;
-      if (diff > 0 && !atBottom) { tY = null; return; } // swiping down, not at bottom yet
-      if (diff < 0 && !atTop)    { tY = null; return; } // swiping up, not at top yet
-    }
-
-    goTo(current + (diff > 0 ? 1 : -1));
+    if (Math.abs(diff) > 45) goTo(current + (diff > 0 ? 1 : -1));
     tY = null;
   });
 
