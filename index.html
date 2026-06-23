@@ -1147,7 +1147,8 @@
       opacity: 1;
       pointer-events: auto;
     }
-    section { padding: 2.5rem 1.2rem 2rem; overflow-x: hidden; justify-content: flex-start; }
+    section { padding: 2.5rem 1.2rem 2rem; overflow-x: hidden; overflow-y: hidden; justify-content: flex-start; }
+    #s1 { overflow-y: auto; -webkit-overflow-scrolling: touch; } /* Education page is scrollable */
     .edu-grid { grid-template-columns: 1fr; }
 
     .section-dots { display: none; }
@@ -1946,11 +1947,39 @@
 
   // ── TOUCH ─────────────────────────────────────────────
   let tY = null;
-  window.addEventListener('touchstart', e => { tY = e.touches[0].clientY; }, { passive: true });
+  const EDUCATION_PAGE = 1; // s1 = Education (the only scrollable page on mobile)
+
+  function getEduScrollEl() {
+    // The education section’s scrollable content wrapper
+    return document.getElementById('s1');
+  }
+
+  window.addEventListener('touchstart', e => {
+    tY = e.touches[0].clientY;
+  }, { passive: true });
+
+  // Prevent native page scroll on non-education pages
+  window.addEventListener('touchmove', e => {
+    if (current !== EDUCATION_PAGE) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
   window.addEventListener('touchend', e => {
     if (tY === null) return;
     const diff = tY - e.changedTouches[0].clientY;
-    if (Math.abs(diff) > 45) goTo(current + (diff > 0 ? 1 : -1));
+    if (Math.abs(diff) <= 45) { tY = null; return; }
+
+    if (current === EDUCATION_PAGE) {
+      // On education page: check if the section itself is scrolled to an edge
+      const eduEl = getEduScrollEl();
+      const atTop    = eduEl.scrollTop <= 0;
+      const atBottom = eduEl.scrollTop + eduEl.clientHeight >= eduEl.scrollHeight - 2;
+      if (diff > 0 && !atBottom) { tY = null; return; } // still scrolling down
+      if (diff < 0 && !atTop)    { tY = null; return; } // still scrolling up
+    }
+
+    goTo(current + (diff > 0 ? 1 : -1));
     tY = null;
   });
 
