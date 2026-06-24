@@ -35,7 +35,7 @@
     --border: #282828;
   }
 
-  html, body { height: 100%; overflow: hidden; }
+  html, body { overflow: visible !important; min-height: 100vh !important; height: auto !important; position: relative !important; display: flex; flex-direction: column; }
 
   body {
     background-color: var(--paper);
@@ -166,43 +166,9 @@
   }
   [data-theme="dark"] .switch-thumb { background: #f0eeea; }
 
-  #stage {
-    position: fixed;
-    inset: 0;
-    top: 72px;
-    overflow: hidden;
-  }
-  section {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2.5rem 3rem 2rem;
-    background: transparent;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(60px);
-    transition:
-      opacity 0.6s cubic-bezier(.4,0,.2,1),
-      transform 0.6s cubic-bezier(.4,0,.2,1),
-      color 0.4s;
-    will-change: opacity, transform;
-    overflow: hidden;
-  }
-  section.is-active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    z-index: 2;
-  }
-
-  .content {
-    max-width: 860px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-  }
+  /* ── DETAIL WRAP (matches school.html pattern) ── */
+  .detail-wrap { flex: 1; display: flex; flex-direction: column; width: 100%; padding-top: 88px; padding-bottom: 0; box-sizing: border-box; }
+  .content { margin: 0 auto; width: 100%; max-width: 860px; padding: 0 3rem; box-sizing: border-box; position: relative; }
 
   .footer {
     margin-top: 5px;
@@ -215,11 +181,9 @@
     transition: color 0.4s;
   }
   .bottom-branding {
-    position: fixed;
-    bottom: 0.6rem;
-    left: 0;
-    right: 0;
-    z-index: 5;
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0 1rem;
     pointer-events: none;
   }
 
@@ -371,17 +335,8 @@
       overflow: auto;
     }
     nav { padding: 0.8rem 1.2rem; height: 60px; }
-    #stage { 
-      position: relative;
-      top: 60px;
-      bottom: auto;
-      overflow: visible;
-    }
-    section { 
-      position: relative;
-      padding: 2rem 1.4rem 2rem; 
-      transform: none !important;
-    }
+    .detail-wrap { padding-top: 60px; }
+    .content { padding: 0 1.4rem; }
     .nav-logo { display: none; }
     .nav-links {
       display: block;
@@ -440,12 +395,10 @@
   </div>
 </nav>
 
-<div id="stage">
-  <section id="s0" class="is-active" style="overflow: visible;">
+<div class="detail-wrap">
+  <div class="content" style="position:relative;z-index:1;">
 
-    <div class="content" style="position:relative;z-index:1;display:flex;flex-direction:column;height:100%;">
-
-      <div style="margin-top: 1rem;">
+      <div>
         <div class="section-label">Project Details</div>
         <h2 class="section-heading">Intelligent Farm<br><em>Surveillance System</em></h2>
         <p class="project-desc" style="font-size: 1rem; color: var(--mid); line-height: 1.6; max-width: 600px; margin-bottom: 1rem;">
@@ -479,7 +432,7 @@
           </a>
         </div>
 
-      <div class="cert-scroll-container" id="certScrollContainer" style="flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
+      <div class="cert-scroll-container" id="certScrollContainer">
         <div class="cert-infinite-scroll" id="certInfiniteScroll">
           <a href="assets/projects/farm/farm-img-1.jpg" target="_blank" class="cert-item" title="View Image"><img decoding="async" src="assets/projects/farm/farm-img-1.jpg" alt="Farm image 1"></a>
           <a href="assets/projects/farm/farm-img-2.jpg" target="_blank" class="cert-item" title="View Image"><img decoding="async" src="assets/projects/farm/farm-img-2.jpg" alt="Farm image 2"></a>
@@ -497,11 +450,10 @@
         </div>
       </div>
 
-    </div>
-    <div class="bottom-branding">
-      <p class="footer">2026 | byayushdas</p>
-    </div>
-  </section>
+  </div>
+  <div class="bottom-branding">
+    <p class="footer">2026 | byayushdas</p>
+  </div>
 </div>
 
 <script>
