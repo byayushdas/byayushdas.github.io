@@ -102,8 +102,29 @@
     left: 0;
     line-height: 1;
   }
-  .nav-right { display: flex; align-items: center; gap: 2.5rem; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .nav-links {
+    display: flex;
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: 250px;
+    background: var(--paper);
+    flex-direction: column;
+    padding: 6rem 2.5rem 2rem;
+    gap: 2rem;
+    border-left: 1px solid var(--border);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s, border-color 0.4s;
+    z-index: 201;
+    list-style: none;
+  }
+  .nav-links.open {
+    transform: translateX(0);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+  }
+  [data-theme="dark"] .nav-links.open {
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+  }
   .nav-links a {
     font-family: var(--mono);
     font-size: 0.68rem;
@@ -121,19 +142,8 @@
   .switch-wrap {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     cursor: pointer;
     user-select: none;
-  }
-  .switch-label {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--mid);
-    transition: color 0.3s;
-    min-width: 2.4rem;
-    text-align: right;
   }
   .switch-btn {
     position: relative;
@@ -267,9 +277,9 @@
   /* ══════════════ FOOTER ══════════════ */
   .footer {
     margin-top: 5px;
-    font-family: var(--mono);
+    font-family: "Helvetica", "Helvetica-Bold", "Arial", sans-serif;
     font-size: 0.65rem;
-    font-weight: 500;
+    font-weight: bold;
     color: var(--ink);
     text-align: center;
     opacity: 1;
@@ -373,7 +383,7 @@
   .social-icon:hover { border-color: var(--ink); color: var(--ink); }
   .social-icon.social-x { color: #333333; border-color: #333333; }
   [data-theme="dark"] .social-icon.social-x { color: #ffffff; border-color: #ffffff; }
-  .social-icon.social-linkedin { color: #0077B5; border-color: #0077B5; }
+  .social-icon.social-linkedin { background-color: #ffffff; color: #0077B5; border-color: #ffffff; }
   .social-icon.social-github { color: #333333; border-color: #333333; }
   [data-theme="dark"] .social-icon.social-github { color: #ffffff; border-color: #ffffff; }
   .social-icon.social-leetcode { color: #FFA116; border-color: #FFA116; }
@@ -511,7 +521,7 @@
       background 0.3s;
     opacity: 0.38;
     transform: scale(0.88) translateY(8px);
-    background: transparent;
+    background: var(--paper);
     cursor: pointer;
     box-sizing: border-box;
   }
@@ -808,9 +818,6 @@
     gap: 4px;
     transition: opacity 0.2s, color 0.2s;
   }
-  [data-theme="dark"] .hack-link {
-    color: #4da3ff;
-  }
   .hack-link:hover {
     opacity: 0.7;
   }
@@ -1077,9 +1084,44 @@
     .connect-left p { margin-top: 0.4rem; margin-bottom: 0.4rem; font-size: 0.75rem; }
   }
 
-  .mobile-menu-btn { display: none; }
-  .close-menu-btn { display: none; }
-  .mobile-overlay { display: none; }
+  .mobile-menu-btn {
+    display: flex;
+    background: none;
+    border: none;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .close-menu-btn {
+    display: flex;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 0.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 199;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .mobile-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
 
   /* ══════════════ RESPONSIVE ══════════════ */
   @media (max-width: 680px) {
@@ -1088,65 +1130,6 @@
     .nav-logo { font-size: 1.25rem; height: 2rem; min-width: 3.5rem; }
     #nav-gt1, #nav-gt2 { font-size: 1.25rem; }
     #nav-gooey-inner { min-width: 3.5rem; }
-    .mobile-menu-btn {
-      display: flex;
-      background: none;
-      border: none;
-      color: var(--ink);
-      cursor: pointer;
-      padding: 0.5rem;
-      margin-left: 0.5rem;
-      align-items: center;
-      justify-content: center;
-    }
-    .nav-links {
-      display: flex;
-      position: fixed;
-      top: 0; right: 0; bottom: 0;
-      width: 250px;
-      background: var(--paper);
-      flex-direction: column;
-      padding: 6rem 2.5rem 2rem;
-      gap: 2rem;
-      border-left: 1px solid var(--border);
-      transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s, border-color 0.4s;
-      z-index: 201;
-    }
-    .nav-links.open {
-      transform: translateX(0);
-      box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-    }
-    [data-theme="dark"] .nav-links.open {
-      box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-    }
-    .close-menu-btn {
-      display: flex;
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      background: none;
-      border: none;
-      color: var(--ink);
-      cursor: pointer;
-      padding: 0.5rem;
-      align-items: center;
-      justify-content: center;
-    }
-    .mobile-overlay {
-      display: block;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 199;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s;
-    }
-    .mobile-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
     section { padding: 4rem 1.2rem 2rem; overflow: hidden; justify-content: center; }
     
     .section-dots { display: none; }
@@ -1248,10 +1231,10 @@
     height: 200px;
     border-radius: 50%;
     border: 3px solid var(--border);
-    overflow: hidden;
     flex-shrink: 0;
     align-self: flex-start;
     transition: border-color 0.4s;
+    position: relative;
   }
   .profile-pic-container img {
     width: 100%;
@@ -1259,6 +1242,27 @@
     object-fit: cover;
     object-position: left 20%;
     display: block;
+    border-radius: 50%;
+  }
+  .status-dot {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    background-color: #22c55e;
+    border: 4px solid var(--paper);
+    border-radius: 50%;
+    z-index: 10;
+  }
+  @media (max-width: 680px) {
+    .status-dot {
+      width: 14px;
+      height: 14px;
+      bottom: 5px;
+      right: 5px;
+      border-width: 2px;
+    }
   }
 
 </style>
@@ -1305,6 +1309,11 @@
     </div>
   </span>
   <div class="nav-right">
+    <div class="switch-wrap" onclick="toggleTheme()">
+      <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
+        <span class="switch-thumb"></span>
+      </button>
+    </div> 
     <ul class="nav-links" id="navLinks">
       <button class="close-menu-btn" onclick="closeMobileMenu()" aria-label="Close menu">
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -1318,14 +1327,6 @@
       <li><a onclick="goTo(3)">Events</a></li>
       <li><a onclick="goTo(4)">Certifications</a></li>
       <li><a onclick="goTo(5)">Connect</a></li>
-      <li class="nav-theme-toggle">
-        <div class="switch-wrap" onclick="toggleTheme()">
-          <span class="switch-label" id="themeLabel">Dark</span>
-          <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
-            <span class="switch-thumb"></span>
-          </button>
-        </div> 
-      </li>
     </ul>
     <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -1392,6 +1393,7 @@
         </div>
         <div class="profile-pic-container">
           <img src="assets/profile.jpg" alt="Ayush Das" fetchpriority="high" loading="eager" decoding="async">
+          <div class="status-dot"></div>
         </div>
       </div>
       <div class="landing-number">01</div>

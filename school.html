@@ -121,19 +121,8 @@
   .switch-wrap {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     cursor: pointer;
     user-select: none;
-  }
-  .switch-label {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--mid);
-    transition: color 0.3s;
-    min-width: 2.4rem;
-    text-align: right;
   }
   .switch-btn {
     position: relative;
@@ -267,9 +256,9 @@
   /* ══════════════ FOOTER ══════════════ */
   .footer {
     margin-top: 5px;
-    font-family: var(--mono);
+    font-family: "Helvetica", "Helvetica-Bold", "Arial", sans-serif;
     font-size: 0.65rem;
-    font-weight: 500;
+    font-weight: bold;
     color: var(--ink);
     text-align: center;
     opacity: 1;
@@ -373,7 +362,7 @@
   .social-icon:hover { border-color: var(--ink); color: var(--ink); }
   .social-icon.social-x { color: #333333; border-color: #333333; }
   [data-theme="dark"] .social-icon.social-x { color: #ffffff; border-color: #ffffff; }
-  .social-icon.social-linkedin { color: #0077B5; border-color: #0077B5; }
+  .social-icon.social-linkedin { background-color: #ffffff; color: #0077B5; border-color: #ffffff; }
   .social-icon.social-github { color: #333333; border-color: #333333; }
   [data-theme="dark"] .social-icon.social-github { color: #ffffff; border-color: #ffffff; }
   .social-icon.social-leetcode { color: #FFA116; border-color: #FFA116; }
@@ -808,9 +797,6 @@
     gap: 4px;
     transition: opacity 0.2s, color 0.2s;
   }
-  [data-theme="dark"] .hack-link {
-    color: #4da3ff;
-  }
   .hack-link:hover {
     opacity: 0.7;
   }
@@ -1243,7 +1229,6 @@
   <div class="nav-right">
     <ul class="nav-links"><li><a href="index.html">← Back to Portfolio</a></li></ul>
     <div class="switch-wrap" onclick="toggleTheme()">
-      <span class="switch-label" id="themeLabel">Dark</span>
       <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
         <span class="switch-thumb"></span>
       </button>
@@ -1377,14 +1362,10 @@
 
 <script>
   const switchBtn  = document.getElementById('switchBtn');
-  const themeLabel = document.getElementById('themeLabel');
 
   const savedTheme = localStorage.getItem('theme') || 'dark';
   if (switchBtn) {
     switchBtn.setAttribute('aria-checked', savedTheme === 'dark' ? 'true' : 'false');
-  }
-  if (themeLabel) {
-    themeLabel.textContent = savedTheme === 'dark' ? 'Dark' : 'Light';
   }
 
   function toggleTheme() {
@@ -1393,7 +1374,6 @@
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
     if(switchBtn) switchBtn.setAttribute('aria-checked', String(!isDark));
-    if(themeLabel) themeLabel.textContent = isDark ? 'Light' : 'Dark';
   }
 
   function openMobileMenu() {

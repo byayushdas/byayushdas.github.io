@@ -117,19 +117,8 @@
   .switch-wrap {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     cursor: pointer;
     user-select: none;
-  }
-  .switch-label {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--mid);
-    transition: color 0.3s;
-    min-width: 2.4rem;
-    text-align: right;
   }
   .switch-btn {
     position: relative;
@@ -172,9 +161,9 @@
 
   .footer {
     margin-top: 5px;
-    font-family: var(--mono);
+    font-family: "Helvetica", "Helvetica-Bold", "Arial", sans-serif;
     font-size: 0.65rem;
-    font-weight: 500;
+    font-weight: bold;
     color: var(--ink);
     text-align: center;
     letter-spacing: 0.08em;
@@ -183,8 +172,9 @@
   .bottom-branding {
     width: 100%;
     text-align: center;
-    padding: 2rem 0 1rem;
+    padding: 1rem 0 0.6rem 0;
     pointer-events: none;
+    margin-top: auto;
   }
 
   .section-label {
@@ -387,7 +377,6 @@
   <div class="nav-right">
     <ul class="nav-links"><li><a href="index.html">← Back to Portfolio</a></li></ul>
     <div class="switch-wrap" onclick="toggleTheme()">
-      <span class="switch-label" id="themeLabel">Dark</span>
       <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
         <span class="switch-thumb"></span>
       </button>
@@ -458,14 +447,10 @@
 
 <script>
   const switchBtn  = document.getElementById('switchBtn');
-  const themeLabel = document.getElementById('themeLabel');
 
   const savedTheme = localStorage.getItem('theme') || 'dark';
   if (switchBtn) {
     switchBtn.setAttribute('aria-checked', savedTheme === 'dark' ? 'true' : 'false');
-  }
-  if (themeLabel) {
-    themeLabel.textContent = savedTheme === 'dark' ? 'Dark' : 'Light';
   }
 
   function toggleTheme() {
@@ -474,7 +459,6 @@
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
     if (switchBtn) switchBtn.setAttribute('aria-checked', String(!isDark));
-    if (themeLabel) themeLabel.textContent = isDark ? 'Light' : 'Dark';
   }
 
 
