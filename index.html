@@ -938,6 +938,9 @@
     width: max-content;
     animation: scroll-right 45s linear infinite;
   }
+  @media (hover: hover) {
+    .cert-infinite-scroll:hover { animation-play-state: paused; }
+  }
 
   .cert-item {
     flex-shrink: 0;
