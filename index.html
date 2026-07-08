@@ -598,53 +598,68 @@
     box-shadow: 0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), 0 4px 16px rgba(255,255,255,0.1);
   }
 
-  .proj-carousel-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 1rem;
-  }
-  .proj-carousel-indicators {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-  }
-  .proj-dot {
-    width: 5px; height: 5px;
+  .proj-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: var(--border);
-    cursor: pointer;
-    border: none;
-    padding: 0;
-    transition: background 0.25s, transform 0.25s;
-  }
-  .proj-dot.active {
-    background: var(--ink);
-    transform: scale(1.4);
-  }
-  .proj-carousel-controls {
-    display: flex;
-    gap: 0.4rem;
-  }
-  .proj-nav-btn {
-    width: 30px; height: 30px;
-    border: 1px solid var(--border);
-    background: var(--paper);
-    color: var(--mid);
-    cursor: pointer;
+    /* Light mode — warm amber-tinted glass */
+    background: rgba(120, 90, 30, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(180, 130, 40, 0.35);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,220,100,0.2);
+
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #7a5500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 20;
     padding: 0;
-    transition: border-color 0.2s, color 0.2s;
   }
-  .proj-nav-btn:hover { border-color: var(--ink); color: var(--ink); }
-  .proj-nav-btn svg { width: 13px; height: 13px; }
-  .proj-counter {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
-    color: var(--mid);
+  .proj-nav-arrow:hover {
+    background: rgba(180, 130, 40, 0.35);
+    border-color: rgba(200, 155, 50, 0.7);
+    box-shadow: 0 6px 24px rgba(180, 130, 40, 0.35), inset 0 1px 0 rgba(255,220,100,0.3);
+    color: #3d2800;
+    transform: translateY(-50%) scale(1.08);
+  }
+  
+  /* Dark mode — indigo/violet tinted glass */
+  [data-theme="dark"] .proj-nav-arrow {
+    background: rgba(100, 80, 220, 0.2);
+    border: 1px solid rgba(160, 140, 255, 0.3);
+    box-shadow: 0 4px 16px rgba(80, 60, 200, 0.3), inset 0 1px 0 rgba(200,190,255,0.1);
+    color: #c4bcff;
+  }
+  [data-theme="dark"] .proj-nav-arrow:hover {
+    background: rgba(110, 90, 240, 0.4);
+    border-color: rgba(180, 165, 255, 0.6);
+    box-shadow: 0 6px 28px rgba(100, 80, 230, 0.5), inset 0 1px 0 rgba(220,210,255,0.2);
+    color: #fff;
+    transform: translateY(-50%) scale(1.08);
+  }
+  .proj-nav-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+  .proj-nav-arrow.left { left: -10px; }
+  .proj-nav-arrow.right { right: -10px; }
+  @media (max-width: 680px) {
+    .proj-nav-arrow {
+      width: 36px;
+      height: 36px;
+    }
+    .proj-nav-arrow svg {
+      width: 16px;
+      height: 16px;
+    }
+    .proj-nav-arrow.left { left: -5px; }
+    .proj-nav-arrow.right { right: -5px; }
   }
   .proj-card-img-wrap {
     position: relative;
@@ -1477,6 +1492,12 @@
       <div class="section-label">03 — Works</div>
       <h2 class="section-heading">My<br><em>Works</em></h2>
       <div class="proj-carousel" id="projCarousel">
+        <button class="proj-nav-arrow left" onclick="projCarouselNav(-1)" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="proj-nav-arrow right" onclick="projCarouselNav(1)" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
         <div class="proj-carousel-track-wrap">
           <div class="proj-carousel-track" id="projTrack">
 
@@ -1595,20 +1616,6 @@
               <div class="proj-card-img-wrap"><img decoding="async" class="proj-card-img" src="assets/projects/arm.webp" alt="Robotic Arm"></div>
             </div>
 
-          </div>
-        </div>
-        <div class="proj-carousel-footer">
-          <div class="proj-carousel-indicators" id="projDots"></div>
-          <div style="display:flex;align-items:center;gap:0.8rem;">
-            <span class="proj-counter" id="projCounter">1 / 4</span>
-            <div class="proj-carousel-controls">
-              <button class="proj-nav-btn" onclick="projCarouselNav(-1)" aria-label="Previous">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <button class="proj-nav-btn" onclick="projCarouselNav(1)" aria-label="Next">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -2126,8 +2133,6 @@
 
     const trackWrap = document.querySelector('.proj-carousel-track-wrap');
     const track = document.getElementById('projTrack');
-    const dotsWrap = document.getElementById('projDots');
-    const counter = document.getElementById('projCounter');
     const carousel = document.getElementById('projCarousel');
     if (!track || !trackWrap) return;
 
@@ -2171,13 +2176,7 @@
     }
 
 
-    cards.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'proj-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-      dot.addEventListener('click', () => { goTo(i); resetAuto(); });
-      dotsWrap.appendChild(dot);
-    });
+
 
     cards[0].classList.add('active');
 
@@ -2190,11 +2189,7 @@
     function goTo(idx) {
       current = (idx + total) % total;
       applyTransform(true);
-      dotsWrap.querySelectorAll('.proj-dot').forEach((d, i) => {
-        d.classList.toggle('active', i === current);
-      });
       cards.forEach((c, i) => c.classList.toggle('active', i === current));
-      if (counter) counter.textContent = (current + 1) + ' / ' + total;
     }
 
     function startAuto() {
