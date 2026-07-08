@@ -1,1 +1,1 @@
-Portfolio Website. Designed and Developed by Ayush Das. 2026.
+Designed and Developed by Ayush Das. 2026.
