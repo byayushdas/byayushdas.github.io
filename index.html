@@ -495,6 +495,7 @@
     border-top: 1px solid var(--border);
   }
   .proj-carousel-track-wrap {
+    position: relative;
     overflow: hidden;
     width: 100%;
     padding-bottom: 40px;
@@ -556,6 +557,9 @@
     justify-content: space-between;
     gap: 1rem;
     margin-top: auto;
+  }
+  @media (max-width: 680px) {
+    .proj-card-bottom { margin-top: 0.5rem; }
   }
 
   /* ══════════════ STAR BUTTON ══════════════ */
@@ -653,13 +657,15 @@
     .proj-nav-arrow {
       width: 36px;
       height: 36px;
+      /* On mobile, position relative to the track-wrap (card area), not bottom footer area */
+      top: 40%;
     }
     .proj-nav-arrow svg {
       width: 16px;
       height: 16px;
     }
-    .proj-nav-arrow.left { left: -5px; }
-    .proj-nav-arrow.right { right: -5px; }
+    .proj-nav-arrow.left { left: -2px; }
+    .proj-nav-arrow.right { right: -2px; }
   }
   .proj-card-img-wrap {
     position: relative;
@@ -1492,13 +1498,13 @@
       <div class="section-label">03 — Works</div>
       <h2 class="section-heading">My<br><em>Works</em></h2>
       <div class="proj-carousel" id="projCarousel">
-        <button class="proj-nav-arrow left" onclick="projCarouselNav(-1)" aria-label="Previous">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <button class="proj-nav-arrow right" onclick="projCarouselNav(1)" aria-label="Next">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
         <div class="proj-carousel-track-wrap">
+          <button class="proj-nav-arrow left" onclick="projCarouselNav(-1)" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="proj-nav-arrow right" onclick="projCarouselNav(1)" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
           <div class="proj-carousel-track" id="projTrack">
 
             <div class="proj-card">
