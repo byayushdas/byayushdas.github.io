@@ -492,50 +492,60 @@
   .proj-carousel {
     position: relative;
     width: 100%;
+    max-width: 100%;
     border-top: 1px solid var(--border);
+    margin: 0 auto;
+    padding: 0 48px; /* Adds space for navigation arrows and reduces card size */
+    box-sizing: border-box;
+  }
+  @media (max-width: 768px) {
+    .proj-carousel { padding: 0 16px; } /* Smaller padding on mobile */
   }
   .proj-carousel-track-wrap {
-    position: relative;
-    overflow: hidden;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
     width: 100%;
-    padding-bottom: 40px;
-    margin-bottom: -40px;
-    padding-top: 40px;
-    margin-top: -40px;
+    padding: 24px 0;
+  }
+  .proj-carousel-track-wrap::-webkit-scrollbar {
+    display: none; /* Chrome */
   }
   .proj-carousel-track {
     display: flex;
-    will-change: transform;
+    gap: 16px;
   }
   .proj-card {
-    padding: 1.4rem 1.1rem 1.2rem;
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    padding: 1.5rem;
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 8px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
-    flex-shrink: 0;
-    transition:
-      transform 0.5s cubic-bezier(0.45, 0, 0.15, 1),
-      box-shadow 0.5s cubic-bezier(0.45, 0, 0.15, 1),
-      opacity 0.5s cubic-bezier(0.45, 0, 0.15, 1),
-      background 0.3s;
-    opacity: 0.38;
-    transform: scale(0.88) translateY(8px);
-    background: var(--paper);
-    cursor: pointer;
+    gap: 1rem;
     box-sizing: border-box;
+    transition: box-shadow 0.2s, transform 0.2s;
   }
-  .proj-card.active {
-    opacity: 1;
-    transform: scale(1) translateY(-6px);
-    box-shadow: 0 18px 52px -8px rgba(0,0,0,0.20), 0 4px 18px -4px rgba(0,0,0,0.10);
-    z-index: 2;
-    cursor: default;
+  .proj-card:hover {
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
   }
-  [data-theme="dark"] .proj-card.active {
-    box-shadow: 0 18px 52px -8px rgba(0,0,0,0.60), 0 4px 18px -4px rgba(0,0,0,0.35);
+  [data-theme="dark"] .proj-card:hover {
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.6);
   }
+  @media (min-width: 768px) {
+    .proj-card { flex: 0 0 calc(50% - 8px); }
+  }
+  @media (min-width: 1024px) {
+    .proj-card { flex: 0 0 calc(33.333% - 11px); }
+  }
+  
   .proj-card-top {
     display: flex;
     align-items: baseline;
@@ -606,66 +616,44 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    /* Light mode — warm amber-tinted glass */
-    background: rgba(120, 90, 30, 0.15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(180, 130, 40, 0.35);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,220,100,0.2);
-
+    background: var(--paper);
+    border: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #7a5500;
+    color: var(--ink);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     z-index: 20;
     padding: 0;
   }
   .proj-nav-arrow:hover {
-    background: rgba(180, 130, 40, 0.35);
-    border-color: rgba(200, 155, 50, 0.7);
-    box-shadow: 0 6px 24px rgba(180, 130, 40, 0.35), inset 0 1px 0 rgba(255,220,100,0.3);
-    color: #3d2800;
-    transform: translateY(-50%) scale(1.08);
+    background: var(--border);
   }
-  
-  /* Dark mode — indigo/violet tinted glass */
-  [data-theme="dark"] .proj-nav-arrow {
-    background: rgba(100, 80, 220, 0.2);
-    border: 1px solid rgba(160, 140, 255, 0.3);
-    box-shadow: 0 4px 16px rgba(80, 60, 200, 0.3), inset 0 1px 0 rgba(200,190,255,0.1);
-    color: #c4bcff;
+  .proj-nav-arrow:disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
   [data-theme="dark"] .proj-nav-arrow:hover {
-    background: rgba(110, 90, 240, 0.4);
-    border-color: rgba(180, 165, 255, 0.6);
-    box-shadow: 0 6px 28px rgba(100, 80, 230, 0.5), inset 0 1px 0 rgba(220,210,255,0.2);
-    color: #fff;
-    transform: translateY(-50%) scale(1.08);
+    background: rgba(255,255,255,0.1);
   }
   .proj-nav-arrow svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
-  .proj-nav-arrow.left { left: 36px; }
-  .proj-nav-arrow.right { right: 36px; }
+  .proj-nav-arrow.left { left: 4px; }
+  .proj-nav-arrow.right { right: 4px; }
+  @media (min-width: 768px) {
+    .proj-nav-arrow.left { left: 6px; }
+    .proj-nav-arrow.right { right: 6px; }
+  }
   @media (max-width: 680px) {
     .proj-nav-arrow {
-      width: 36px;
-      height: 36px;
-      /* On mobile, position relative to the track-wrap (card area), not bottom footer area */
       top: 40%;
     }
-    .proj-nav-arrow svg {
-      width: 16px;
-      height: 16px;
-    }
-    .proj-nav-arrow.left { left: 24px; }
-    .proj-nav-arrow.right { right: 24px; }
   }
   .proj-card-img-wrap {
     position: relative;
@@ -682,11 +670,7 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    cursor: grab;
-    user-select: none;
-    transition: none;
   }
-  .proj-card-img.grabbing { cursor: grabbing; }
 
   /* ══════════════ PROJECT AWARDS ══════════════ */
   .proj-awards {
@@ -1494,13 +1478,13 @@
       <div class="section-label">03 — Works</div>
       <h2 class="section-heading">My<br><em>Works</em></h2>
       <div class="proj-carousel" id="projCarousel">
-        <div class="proj-carousel-track-wrap">
-          <button class="proj-nav-arrow left" onclick="projCarouselNav(-1)" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <button class="proj-nav-arrow right" onclick="projCarouselNav(1)" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
+        <button class="proj-nav-arrow left" onclick="projCarouselNav(-1)" aria-label="Previous">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        </button>
+        <button class="proj-nav-arrow right" onclick="projCarouselNav(1)" aria-label="Next">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+        <div class="proj-carousel-track-wrap" id="projTrackWrap">
           <div class="proj-carousel-track" id="projTrack">
 
             <div class="proj-card">
@@ -2121,154 +2105,35 @@
 
   // ── PROJECTS CAROUSEL ─────────────────────────────────
   (function initProjCarousel() {
-    let current = 0;
-    let autoTimer = null;
+    const trackWrap = document.getElementById('projTrackWrap');
+    if (!trackWrap) return;
 
-    const trackWrap = document.querySelector('.proj-carousel-track-wrap');
-    const track = document.getElementById('projTrack');
-    const carousel = document.getElementById('projCarousel');
-    if (!track || !trackWrap) return;
+    const leftBtn = document.querySelector('.proj-nav-arrow.left');
+    const rightBtn = document.querySelector('.proj-nav-arrow.right');
 
-    const cards = Array.from(track.querySelectorAll('.proj-card'));
-    const total = cards.length;
-
-    const GAP = 16;
-    function layout() {
-      const wrapW = trackWrap.offsetWidth;
-      const cardW = window.innerWidth <= 680 ? Math.round(wrapW * 0.85) : Math.round(wrapW * 0.70);
-
-      cards.forEach(c => {
-        c.style.width = cardW + 'px';
-        c.style.minWidth = cardW + 'px';
-      });
-
-      track.style.gap = GAP + 'px';
-
-      track.style.paddingLeft = '0';
-      track.style.paddingRight = '0';
-
-      applyTransform(false); // re-position without animation on resize
+    function updateButtons() {
+      if (!leftBtn || !rightBtn) return;
+      leftBtn.disabled = trackWrap.scrollLeft <= 0;
+      // Use a tolerance for right edge due to floating point rounding
+      rightBtn.disabled = trackWrap.scrollLeft >= trackWrap.scrollWidth - trackWrap.clientWidth - 1;
     }
 
-    function applyTransform(animate) {
-      const wrapW = trackWrap.offsetWidth;
-      const cardW = cards[0] ? cards[0].offsetWidth : 0;
-      // offset so current card is centered in the wrap
-      const centerOffset = (wrapW - cardW) / 2;
-      const shift = centerOffset - current * (cardW + GAP);
+    trackWrap.addEventListener('scroll', updateButtons);
+    window.addEventListener('resize', updateButtons);
 
-      if (animate === false) {
-        track.style.transition = 'none';
-        track.style.transform = `translateX(${shift}px)`;
-        track.getBoundingClientRect();
-        track.style.transition = 'transform 1s cubic-bezier(0.45, 0, 0.15, 1)';
-      } else {
-        track.style.transition = 'transform 1s cubic-bezier(0.45, 0, 0.15, 1)';
-        track.style.transform = `translateX(${shift}px)`;
-      }
-    }
+    window.projCarouselNav = function(dir) {
+      const card = trackWrap.querySelector('.proj-card');
+      // Scroll by one card width at a time
+      const cardWidth = card ? card.offsetWidth + 16 : trackWrap.clientWidth;
+      trackWrap.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+    };
+    window.resetProjCarousel = function() {
+      if (trackWrap) trackWrap.scrollTo({ left: 0, behavior: 'smooth' });
+    };
 
-
-
-
-    cards[0].classList.add('active');
-
-    cards.forEach((card, i) => {
-      card.addEventListener('click', () => {
-        if (i !== current) { goTo(i); resetAuto(); }
-      });
-    });
-
-    function goTo(idx) {
-      current = (idx + total) % total;
-      applyTransform(true);
-      cards.forEach((c, i) => c.classList.toggle('active', i === current));
-    }
-
-    function startAuto() {
-      if (autoTimer) return;
-      autoTimer = setInterval(() => goTo(current + 1), 4000);
-    }
-    function stopAuto() { clearInterval(autoTimer); autoTimer = null; }
-    function resetAuto() { stopAuto(); startAuto(); }
-
-    carousel.addEventListener('mouseenter', stopAuto);
-    carousel.addEventListener('mouseleave', startAuto);
-
-    window.projCarouselNav = function(dir) { goTo(current + dir); resetAuto(); };
-    window.resetProjCarousel = function() { if (current !== 0) { goTo(0); resetAuto(); } };
-
-    window.addEventListener('load', () => { layout(); });
-    window.addEventListener('resize', () => { layout(); });
-    // Defer layout until after first paint so offsetWidth is correct on mobile
-    requestAnimationFrame(() => { requestAnimationFrame(() => { layout(); }); });
-    startAuto();
+    updateButtons();
   })();
 
-  // ── PROJECT IMAGE PAN ────────────────────────────────
-  (function initImgPan() {
-    function setupPan(img) {
-      let ox = 50, oy = 50;
-      let dragging = false, startX, startY, startOx, startOy;
-
-      function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-
-      function apply() {
-        img.style.objectPosition = ox + '% ' + oy + '%';
-      }
-
-      apply();
-
-      img.addEventListener('mousedown', e => {
-        e.preventDefault();
-        dragging = true;
-        startX = e.clientX; startY = e.clientY;
-        startOx = ox; startOy = oy;
-        img.classList.add('grabbing');
-      });
-
-      window.addEventListener('mousemove', e => {
-        if (!dragging) return;
-        const wrap = img.parentElement;
-        const W = wrap.offsetWidth, H = wrap.offsetHeight;
-        const nW = img.naturalWidth || W, nH = img.naturalHeight || H;
-        const dispH = W * (nH / nW);
-        const rangeX = Math.max(0, W - W);
-        const rangeY = Math.max(0, dispH - H);
-        const dx = e.clientX - startX, dy = e.clientY - startY;
-        ox = clamp(startOx - (dx / (rangeX || W)) * 100, 0, 100);
-        oy = clamp(startOy - (dy / (rangeY || H)) * 100, 0, 100);
-        apply();
-      });
-
-      window.addEventListener('mouseup', () => {
-        if (dragging) { dragging = false; img.classList.remove('grabbing'); }
-      });
-
-      img.addEventListener('touchstart', e => {
-        startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-        startOx = ox; startOy = oy;
-      }, { passive: true });
-
-      img.addEventListener('touchmove', e => {
-        const wrap = img.parentElement;
-        const W = wrap.offsetWidth, H = wrap.offsetHeight;
-        const nW = img.naturalWidth || W, nH = img.naturalHeight || H;
-        const dispH = W * (nH / nW);
-        const rangeY = Math.max(0, dispH - H);
-        const dx = e.touches[0].clientX - startX;
-        const dy = e.touches[0].clientY - startY;
-        ox = clamp(startOx - (dx / W) * 100, 0, 100);
-        oy = clamp(startOy - (dy / (rangeY || H)) * 100, 0, 100);
-        apply();
-      }, { passive: true });
-
-    }
-
-    window.addEventListener('load', () => {
-      document.querySelectorAll('.proj-card-img').forEach(setupPan);
-    });
-  })();
 
   // ── ACHIEVEMENTS SCROLL ───────────────────────────────
   let achScrollPos = 0;
