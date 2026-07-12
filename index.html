@@ -298,7 +298,8 @@
   .mouse-body {
     width: 20px; height: 32px;
     border: 2px solid var(--ink);
-    opacity: 0.85;
+    opacity: 1;
+    background: var(--paper);
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -504,7 +505,6 @@
   .proj-carousel-track-wrap {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
     scrollbar-width: none; /* Firefox */
     width: 100%;
     padding: 24px 0;
@@ -543,7 +543,23 @@
     .proj-card { flex: 0 0 calc(50% - 8px); }
   }
   @media (min-width: 1024px) {
-    .proj-card { flex: 0 0 calc(33.333% - 11px); }
+    .proj-card { flex: 0 0 380px; width: 380px; }
+    
+    .proj-carousel-track-wrap {
+      overflow: hidden;
+      scroll-snap-type: none;
+      mask: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+      -webkit-mask: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
+  }
+  
+  .proj-clone {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .proj-clone {
+      display: flex;
+    }
   }
   
   .proj-card-top {
@@ -569,7 +585,6 @@
     margin-top: auto;
   }
   @media (max-width: 680px) {
-    .proj-card-bottom { margin-top: 0.5rem; }
   }
 
   /* ══════════════ STAR BUTTON ══════════════ */
@@ -659,7 +674,6 @@
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    margin-top: 0.2rem;
     border: 1px solid var(--border);
     overflow: hidden;
   }
@@ -1491,9 +1505,6 @@
               <div class="proj-card-top">
                 <div class="project-title">Intelligent Farm Surveillance System</div>
               </div>
-              <div class="project-desc" style="font-size: 0.85rem; color: var(--mid); line-height: 1.5;">
-                Precision Agriculture using DEW (Data Enabled Wireless) Nodes for Crop Recommendation and Aerial Drone for Crop Disease Detection, Cattle, Pest and Weed Detection.
-              </div>
               <div class="proj-awards">
                 <span class="proj-award-item">
                   <svg class="award-medal" viewBox="0 0 24 24" fill="currentColor">
@@ -1524,10 +1535,7 @@
             <div class="proj-card">
               <div class="proj-card-top">
                 <div class="project-title">Smart HealthCare Monitoring System</div>
-              </div>
-              <div class="project-desc" style="font-size: 0.85rem; color: var(--mid); line-height: 1.5;">
-                A smart health care monitoring system built with an ESP32, multiple biomedical and environmental sensors, and an MQTT + Node-RED pipeline for real-time data collection and CSV logging.
-              </div>
+              </div>         
               <div class="proj-awards">
                 <span class="proj-award-item">
                   <svg class="award-medal" viewBox="0 0 24 24" fill="currentColor">
@@ -1540,11 +1548,8 @@
               </div>
               <div class="proj-card-bottom">
                 <a class="star-btn" href="https://github.com/byayushdas/SmartHealthCareMonitoringSystem.git" target="_blank">
-
-                  <span class="star-btn-text" style="display: flex; align-items: center; gap: 6px;">
-                    <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                    View ↗
-                  </span>
+                  <svg viewBox="0 0 24 24" style="width: 12px; height: 12px; fill: currentColor;"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                  <span class="star-btn-text">View ↗</span>
                 </a>
               </div>
               <div class="proj-card-img-wrap"><img decoding="async" class="proj-card-img" src="assets/projects/health.webp" alt="Smart HealthCare Monitoring System"></div>
@@ -1558,10 +1563,8 @@
                 An Online Platform to send Digital Gifts to your Loved Ones.
               </div>
               <div class="proj-card-bottom">
-                <a class="star-btn" href="https://thegifting.vercel.app" target="_blank" style="padding: 0.5rem 1rem;">
-                  <span class="star-btn-text" style="display: flex; align-items: center; gap: 6px;">
-                    View ↗
-                  </span>
+                <a class="star-btn" href="https://thegifting.vercel.app" target="_blank">
+                  <span class="star-btn-text">View ↗</span>
                 </a>
               </div>
               <div class="proj-card-img-wrap"><img decoding="async" class="proj-card-img" style="object-fit: contain; background: #fff;" src="assets/projects/gift.webp" alt="The Gifting Co."></div>
@@ -1572,11 +1575,10 @@
                 <div class="project-title">Seed2Shelf</div>
               </div>
               <div class="project-desc" style="font-size: 0.85rem; color: var(--mid); line-height: 1.5;">
-                Blockchain based agricultural supply chain transparency platform built for the Indian market. It tracks produce, weight, price, quality from Farmers to Consumers, finally scanning the QR code on the packaging shows the full verified journey.
+                Blockchain based agricultural supply chain transparency platform built for the Indian market.
               </div>
               <div class="proj-card-bottom">
                 <a class="star-btn" href="#" onclick="return false;">
-
                   <span class="star-btn-text">Building</span>
                 </a>
               </div>
@@ -1592,11 +1594,8 @@
               </div>
               <div class="proj-card-bottom">
                 <a class="star-btn" href="https://github.com/byayushdas/RoboticArm.git" target="_blank">
-
-                  <span class="star-btn-text" style="display: flex; align-items: center; gap: 6px;">
-                    <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                    View ↗
-                  </span>
+                  <svg viewBox="0 0 24 24" style="width: 12px; height: 12px; fill: currentColor;"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                  <span class="star-btn-text">View ↗</span>
                 </a>
               </div>
               <div class="proj-card-img-wrap"><img decoding="async" class="proj-card-img" src="assets/projects/arm.webp" alt="Robotic Arm"></div>
@@ -2106,30 +2105,107 @@
   // ── PROJECTS CAROUSEL ─────────────────────────────────
   (function initProjCarousel() {
     const trackWrap = document.getElementById('projTrackWrap');
-    if (!trackWrap) return;
+    const track = document.getElementById('projTrack');
+    if (!trackWrap || !track) return;
+
+    // Clone for infinite scroll on desktop
+    const originalCards = Array.from(track.querySelectorAll('.proj-card'));
+    originalCards.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.classList.add('proj-clone');
+      track.appendChild(clone);
+    });
 
     const leftBtn = document.querySelector('.proj-nav-arrow.left');
     const rightBtn = document.querySelector('.proj-nav-arrow.right');
 
-    function updateButtons() {
-      if (!leftBtn || !rightBtn) return;
-      leftBtn.disabled = trackWrap.scrollLeft <= 0;
-      // Use a tolerance for right edge due to floating point rounding
-      rightBtn.disabled = trackWrap.scrollLeft >= trackWrap.scrollWidth - trackWrap.clientWidth - 1;
-    }
-
-    trackWrap.addEventListener('scroll', updateButtons);
-    window.addEventListener('resize', updateButtons);
+    let isMouseOver = false;
+    let isManualScrolling = false;
+    let manualTimeout;
 
     window.projCarouselNav = function(dir) {
       const card = trackWrap.querySelector('.proj-card');
-      // Scroll by one card width at a time
       const cardWidth = card ? card.offsetWidth + 16 : trackWrap.clientWidth;
+      
+      if (manualTimeout) clearTimeout(manualTimeout);
+      isManualScrolling = true;
+      
+      if (window.innerWidth >= 1024) {
+        // Handle backwards wrapping cleanly
+        if (dir === -1 && trackWrap.scrollLeft <= 0) {
+          const originalWidth = originalCards.length * cardWidth;
+          trackWrap.scrollLeft = originalWidth;
+        }
+      }
+      
       trackWrap.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+      
+      manualTimeout = setTimeout(() => {
+        isManualScrolling = false;
+      }, 600); // Resume auto-scroll shortly after smooth scroll ends
     };
+
     window.resetProjCarousel = function() {
       if (trackWrap) trackWrap.scrollTo({ left: 0, behavior: 'smooth' });
     };
+
+    function updateButtons() {
+      if (!leftBtn || !rightBtn) return;
+      if (window.innerWidth >= 1024) {
+        leftBtn.disabled = false;
+        rightBtn.disabled = false;
+      } else {
+        leftBtn.disabled = trackWrap.scrollLeft <= 0;
+        rightBtn.disabled = trackWrap.scrollLeft >= trackWrap.scrollWidth - trackWrap.clientWidth - 1;
+      }
+    }
+
+    trackWrap.addEventListener('scroll', () => {
+      if (window.innerWidth < 1024) updateButtons();
+    });
+    window.addEventListener('resize', updateButtons);
+
+    const carouselSection = document.getElementById('projCarousel');
+    if (carouselSection) {
+      carouselSection.addEventListener('mouseenter', () => { isMouseOver = true; });
+      carouselSection.addEventListener('mouseleave', () => { isMouseOver = false; });
+      // For touch devices
+      carouselSection.addEventListener('touchstart', () => { isMouseOver = true; }, {passive: true});
+      carouselSection.addEventListener('touchend', () => { isMouseOver = false; }, {passive: true});
+    }
+
+    let lastTime;
+    let scrollPos = 0;
+    
+    function step(timestamp) {
+      if (!lastTime) lastTime = timestamp;
+      const dt = timestamp - lastTime;
+      lastTime = timestamp;
+      
+      if (window.innerWidth >= 1024) {
+        if (originalCards.length > 0) {
+          const cardWidth = originalCards[0].offsetWidth + 16;
+          const originalWidth = originalCards.length * cardWidth;
+          
+          const isPaused = isMouseOver || isManualScrolling;
+          
+          if (!isPaused) {
+            scrollPos += dt * 0.04; // Speed adjustment
+            trackWrap.scrollLeft = scrollPos;
+          } else {
+            // Keep tracker in sync during manual interaction
+            scrollPos = trackWrap.scrollLeft;
+          }
+          
+          if (trackWrap.scrollLeft >= originalWidth) {
+            trackWrap.scrollLeft -= originalWidth;
+            scrollPos = trackWrap.scrollLeft;
+          }
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
 
     updateButtons();
   })();
