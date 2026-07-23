@@ -1,1 +1,0 @@
-Designed and Developed by Ayush Das. 2026.
