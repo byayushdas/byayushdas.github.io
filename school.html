@@ -87,7 +87,7 @@
     filter: url(#nav-threshold);
     height: 100%;
     position: relative;
-    min-width: 5rem;
+    min-width: 10rem;
   }
   #nav-gt1, #nav-gt2 {
     position: absolute;
@@ -411,7 +411,7 @@
       color: var(--ink);
       cursor: pointer;
       padding: 0.5rem;
-      margin-left: 0.5rem;
+      margin-left: -0.5rem;
       align-items: center;
       justify-content: center;
     }
@@ -519,34 +519,70 @@
   }
   .landing-left { flex: 1; }
 
+
+  .loader-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+  }
+  .loader {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    border: 4px solid var(--paper);
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.1),
+      10px 10px 10px rgba(0, 0, 0, 0.4),
+      inset -5px -5px 5px rgba(255, 255, 255, 0.2),
+      inset 10px 10px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(0.2);
+    flex-shrink: 0;
+  }
+  .loader:before {
+    content: "";
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+    z-index: 10;
+    background: var(--paper);
+    border-radius: 50%;
+    border: 2px solid var(--paper);
+    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 0.2),
+      inset 3px 3px 5px rgba(0, 0, 0, 0.5);
+  }
+  .loader span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-image: linear-gradient(-225deg, #ff7402 0%, #ffe700 50%, #fff55e 100%);
+    filter: blur(20px);
+    z-index: -1;
+    animation: animateLoader 0.5s linear infinite;
+  }
+  @keyframes animateLoader {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <span class="nav-logo">
-    <svg style="position:absolute;height:0;width:0" aria-hidden="true" focusable="false">
-      <defs>
-        <filter id="nav-threshold">
-          <feColorMatrix in="SourceGraphic" type="matrix"
-            values="1 0 0 0 0
-                    0 1 0 0 0
-                    0 0 1 0 0
-                    0 0 0 255 -140"/>
-        </filter>
-        <clipPath id="clip_star"><rect width="100" height="40" fill="white" /></clipPath>
-      </defs>
-
-      </defs>
-    </svg>
-    <div id="nav-gooey-inner">
-      <span id="nav-gt1"></span>
-      <span id="nav-gt2"></span>
-    </div>
-  </span>
+  <ul class="nav-links"><li><a href="index.html">← Back to Portfolio</a></li></ul>
   <div class="nav-right">
-    <ul class="nav-links"><li><a href="index.html">← Back to Portfolio</a></li></ul>
+    <div class="loader-wrapper">
+      <div class="loader">
+        <span></span>
+      </div>
+    </div>
+
     <div class="switch-wrap" onclick="toggleTheme()">
       <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
         <span class="switch-thumb"></span>
@@ -676,10 +712,11 @@
 </div>
 
     <div class="bottom-branding">
-        <p class="footer">2026 | byayushdas</p>
+      <p class="footer">&copy; <span class="year"></span> Ayush Das. All rights reserved.</p>
     </div>
 
 <script>
+  document.querySelectorAll(".year").forEach(el => el.textContent = new Date().getFullYear());
   const switchBtn  = document.getElementById('switchBtn');
 
   const savedTheme = localStorage.getItem('theme') || 'dark';

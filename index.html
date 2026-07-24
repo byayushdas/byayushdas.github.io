@@ -91,7 +91,7 @@
     filter: url(#nav-threshold);
     height: 100%;
     position: relative;
-    min-width: 5rem;
+    min-width: 10rem;
   }
   #nav-gt1, #nav-gt2 {
     position: absolute;
@@ -666,22 +666,20 @@
     box-shadow: 0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), 0 4px 16px rgba(255,255,255,0.1);
   }
   .text-dashed-link {
+    font-family: var(--mono);
     color: #0077B5;
-    text-decoration: none;
+    text-decoration: underline;
+    text-underline-offset: 2px;
     font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    transition: all 0.2s;
+    transition: opacity 0.2s, color 0.2s;
   }
   .text-dashed-link:hover {
-    text-decoration: underline dashed #0077B5;
-    text-underline-offset: 4px;
+    opacity: 0.7;
   }
   [data-theme="dark"] .text-dashed-link {
     color: #38bdf8;
-  }
-  [data-theme="dark"] .text-dashed-link:hover {
-    text-decoration: underline dashed #38bdf8;
   }
 
   .proj-nav-arrow {
@@ -1170,7 +1168,7 @@
     color: var(--ink);
     cursor: pointer;
     padding: 0.5rem;
-    margin-left: 0.5rem;
+    margin-left: -0.5rem;
     align-items: center;
     justify-content: center;
   }
@@ -1208,7 +1206,7 @@
     #stage { top: 60px; }
     .nav-logo { font-size: 1.25rem; height: 2rem; min-width: 3.5rem; }
     #nav-gt1, #nav-gt2 { font-size: 1.25rem; }
-    #nav-gooey-inner { min-width: 3.5rem; }
+    #nav-gooey-inner { min-width: 5.5rem; }
     section { padding: 4rem 1.2rem 2rem; overflow: hidden; justify-content: center; }
     
     .section-dots { display: none; }
@@ -1342,6 +1340,70 @@
     }
   }
 
+
+  .loader-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+  }
+  .loader {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    border: 4px solid var(--paper);
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.1),
+      10px 10px 10px rgba(0, 0, 0, 0.4),
+      inset -5px -5px 5px rgba(255, 255, 255, 0.2),
+      inset 10px 10px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(0.2);
+    flex-shrink: 0;
+  }
+  .loader:before {
+    content: "";
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+    z-index: 10;
+    background: var(--paper);
+    border-radius: 50%;
+    border: 2px solid var(--paper);
+    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 0.2),
+      inset 3px 3px 5px rgba(0, 0, 0, 0.5);
+  }
+  .loader span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-image: linear-gradient(-225deg, #ff7402 0%, #ffe700 50%, #fff55e 100%);
+    filter: blur(20px);
+    z-index: -1;
+    animation: animateLoader 0.5s linear infinite;
+  }
+  @keyframes animateLoader {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .mobile-theme-toggle {
+    display: none;
+  }
+  @media (max-width: 680px) {
+    .nav-right > .switch-wrap {
+      display: none !important;
+    }
+    .mobile-theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
 </style>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
@@ -1386,6 +1448,11 @@
     </div>
   </span>
   <div class="nav-right">
+    <div class="loader-wrapper">
+      <div class="loader">
+        <span></span>
+      </div>
+    </div>
     <div class="switch-wrap" onclick="toggleTheme()">
       <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
         <span class="switch-thumb"></span>
@@ -1398,6 +1465,13 @@
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
+      <li class="mobile-theme-toggle">
+        <div class="switch-wrap" onclick="toggleTheme()">
+          <button class="switch-btn" role="switch" aria-checked="true" aria-label="Toggle dark mode">
+            <span class="switch-thumb"></span>
+          </button>
+        </div>
+      </li>
       <li><a onclick="goTo(0)">Home</a></li>
       <li><a onclick="goTo(1)">Education</a></li>
       <li><a onclick="goTo(2)">Works</a></li>
@@ -1483,9 +1557,7 @@
       <span class="mouse-label">scroll</span>
     </div>
     <!-- Quote & Footer -->
-    <div class="bottom-branding">
-        <p class="footer">&copy; <span class="year"></span> Ayush Das. All rights reserved.</p>
-    </div>
+
   </section>
 
   <!-- ② EDUCATION -->
@@ -1919,9 +1991,7 @@
         </div>
       </div>
     </div>
-    <div class="bottom-branding">
-      <p class="footer">&copy; <span class="year"></span> Ayush Das. All rights reserved.</p>
-    </div>
+
   </section>
 
 </div><!-- /stage -->
@@ -2041,13 +2111,11 @@
   });
 
   // ── THEME SWITCH ──────────────────────────────────────
-  const switchBtn  = document.getElementById('switchBtn');
+  const switchBtns = document.querySelectorAll('.switch-btn');
   const themeLabel = document.getElementById('themeLabel');
 
   const savedTheme = localStorage.getItem('theme') || 'dark';
-  if (switchBtn) {
-    switchBtn.setAttribute('aria-checked', savedTheme === 'dark' ? 'true' : 'false');
-  }
+  switchBtns.forEach(btn => btn.setAttribute('aria-checked', savedTheme === 'dark' ? 'true' : 'false'));
   if (themeLabel) {
     themeLabel.textContent = savedTheme === 'dark' ? 'Dark' : 'Light';
   }
@@ -2057,7 +2125,7 @@
     const next   = isDark ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
-    if (switchBtn) switchBtn.setAttribute('aria-checked', String(!isDark));
+    document.querySelectorAll('.switch-btn').forEach(btn => btn.setAttribute('aria-checked', String(!isDark)));
     if (themeLabel) themeLabel.textContent = isDark ? 'Light' : 'Dark';
   }
 
