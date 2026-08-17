@@ -343,15 +343,6 @@
 <div class="terminal-line">&nbsp;</div>
 `;
 
-  const asciiCardHtml = `
-<div class="terminal-line ascii-art txt-white"> █████╗ ██╗   ██╗██╗   ██╗███████╗██╗  ██╗    ██████╗  █████╗ ███████╗   </div>
-<div class="terminal-line ascii-art txt-white">██╔══██╗╚██╗ ██╔╝██║   ██║██╔════╝██║  ██║    ██╔══██╗██╔══██╗██╔════╝   </div>
-<div class="terminal-line ascii-art txt-white">███████║ ╚████╔╝ ██║   ██║███████╗███████║    ██║  ██║███████║███████╗   </div>
-<div class="terminal-line ascii-art txt-white">██╔══██║  ╚██╔╝  ██║   ██║╚════██║██╔══██║    ██║  ██║██╔══██║╚════██║   </div>
-<div class="terminal-line ascii-art txt-white">██║  ██║   ██║   ╚██████╔╝███████║██║  ██║    ██████╔╝██║  ██║███████║██╗</div>
-<div class="terminal-line ascii-art txt-white">╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝</div>
-` + commonFooterHtml;
-
   const asciiCardHtmlByAyushdas = `
 <div class="terminal-line ascii-art"><span class="txt-magenta"> █████╗ ██╗   ██╗██╗   ██╗███████╗██╗  ██╗    </span><span class="txt-white">██████╗  █████╗ ███████╗   </span></div>
 <div class="terminal-line ascii-art"><span class="txt-magenta">██╔══██╗╚██╗ ██╔╝██║   ██║██╔════╝██║  ██║    </span><span class="txt-white">██╔══██╗██╔══██╗██╔════╝   </span></div>
@@ -389,17 +380,36 @@
       return;
     }
     
-    if (lowerCmd === 'npx ayushdas') {
+    if (lowerCmd === 'npx ayushdas' || lowerCmd === 'npx byayushdas') {
       const output = document.createElement('div');
-      output.innerHTML = asciiCardHtml;
+      output.innerHTML = asciiCardHtmlByAyushdas;
       outputArea.appendChild(output);
       return;
     }
 
-    if (lowerCmd === 'npx byayushdas') {
-      const output = document.createElement('div');
-      output.innerHTML = asciiCardHtmlByAyushdas;
-      outputArea.appendChild(output);
+    if (lowerCmd.startsWith('npm quote') || lowerCmd.startsWith('npx quote')) {
+      const appendLine = (html) => {
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        line.innerHTML = html;
+        outputArea.appendChild(line);
+      };
+
+      const doQuote = (quoteText, author) => {
+        appendLine('<span class="txt-cyan">"</span>' + escapeHtml(quoteText) + '<span class="txt-cyan">"</span>');
+        appendLine('  <span class="txt-dim">— ' + escapeHtml(author) + '</span>');
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+      };
+
+      fetch('https://dummyjson.com/quotes/random')
+        .then(res => res.json())
+        .then(data => {
+          doQuote(data.quote, data.author);
+        })
+        .catch(err => {
+          doQuote("The best way to predict the future is to invent it.", "Alan Kay");
+        });
+      
       return;
     }
 
