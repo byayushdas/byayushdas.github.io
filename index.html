@@ -1395,17 +1395,9 @@
   }
 
   .mobile-theme-toggle {
-    display: none;
-  }
-  @media (max-width: 680px) {
-    .nav-right > .switch-wrap {
-      display: none !important;
-    }
-    .mobile-theme-toggle {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 </style>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -1456,11 +1448,7 @@
         <span></span>
       </div>
     </a>
-    <div class="switch-wrap" onclick="toggleTheme()">
-      <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
-        <span class="switch-thumb"></span>
-      </button>
-    </div> 
+
     <ul class="nav-links" id="navLinks">
       <button class="close-menu-btn" onclick="closeMobileMenu()" aria-label="Close menu">
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -1622,7 +1610,16 @@
   <section id="s2" class="wait-below">
     <div class="content">
       <div class="section-label">03 — Works</div>
-      <h2 class="section-heading">My<br><em>Works</em></h2>
+      <div class="cert-header">
+        <h2 class="section-heading" style="margin-bottom: 0;">My<br><em>Works</em></h2>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <select id="projCategorySelect" class="manual-view-btn" style="appearance: auto; cursor: pointer; padding-right: 15px;">
+            <option value="all" selected>All</option>
+            <option value="software">Software</option>
+            <option value="hardware">Hardware</option>
+          </select>
+        </div>
+      </div>
       <div class="proj-carousel" id="projCarousel">
         <button class="proj-nav-arrow left" onclick="projCarouselNav(-1)" aria-label="Previous">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
@@ -1633,7 +1630,7 @@
         <div class="proj-carousel-track-wrap" id="projTrackWrap">
           <div class="proj-carousel-track" id="projTrack">
 
-            <div class="proj-card">
+            <div class="proj-card hardware">
               <div class="proj-card-top">
                 <div class="project-title">Intelligent Farm Surveillance System</div>
               </div>
@@ -1663,7 +1660,7 @@
               <div class="proj-card-img-wrap"><img decoding="async" class="proj-card-img" src="assets/projects/Drone.webp" alt="Intelligent Farm Surveillance System"></div>
             </div>
 
-            <div class="proj-card">
+            <div class="proj-card hardware">
               <div class="proj-card-top">
                 <div class="project-title">Smart HealthCare Monitoring System</div>
               </div>         
@@ -1686,7 +1683,7 @@
               <div class="proj-card-img-wrap"><img decoding="async" class="proj-card-img" src="assets/projects/health.webp" alt="Smart HealthCare Monitoring System"></div>
             </div>
 
-            <div class="proj-card">
+            <div class="proj-card software">
               <div class="proj-card-top">
                 <div class="project-title">The Gifting Co.</div>
               </div>
@@ -1701,7 +1698,7 @@
               <div class="proj-card-img-wrap"><img decoding="async" class="proj-card-img" style="object-fit: contain; background: #fff;" src="assets/projects/gift.webp" alt="The Gifting Co."></div>
             </div>
 
-            <div class="proj-card">
+            <div class="proj-card software">
               <div class="proj-card-top">
                 <div class="project-title">Seed2Shelf</div>
               </div>
@@ -1716,7 +1713,7 @@
               <div class="proj-card-img-wrap"><img decoding="async" class="proj-card-img" src="assets/projects/seed.webp" alt="Seed2Shelf"></div>
             </div>
 
-            <div class="proj-card">
+            <div class="proj-card hardware">
               <div class="proj-card-top">
                 <div class="project-title">Robotic Arm</div>
               </div>
@@ -2254,7 +2251,8 @@
     let manualTimeout;
 
     window.projCarouselNav = function(dir) {
-      const card = trackWrap.querySelector('.proj-card');
+      const visibleCards = Array.from(trackWrap.querySelectorAll('.proj-card')).filter(c => c.style.display !== 'none');
+      const card = visibleCards.length > 0 ? visibleCards[0] : null;
       const cardWidth = card ? card.offsetWidth + 16 : trackWrap.clientWidth;
       
       if (manualTimeout) clearTimeout(manualTimeout);
@@ -2263,7 +2261,8 @@
       if (window.innerWidth >= 1024) {
         // Handle backwards wrapping cleanly
         if (dir === -1 && trackWrap.scrollLeft <= 0) {
-          const originalWidth = originalCards.length * cardWidth;
+          const visibleOriginals = originalCards.filter(c => c.style.display !== 'none');
+          const originalWidth = visibleOriginals.length * cardWidth;
           trackWrap.scrollLeft = originalWidth;
         }
       }
@@ -2313,9 +2312,10 @@
       lastTime = timestamp;
       
       if (window.innerWidth >= 1024) {
-        if (originalCards.length > 0) {
-          const cardWidth = originalCards[0].offsetWidth + 16;
-          const originalWidth = originalCards.length * cardWidth;
+        const visibleOriginals = originalCards.filter(c => c.style.display !== 'none');
+        if (visibleOriginals.length > 0) {
+          const cardWidth = visibleOriginals[0].offsetWidth + 16;
+          const originalWidth = visibleOriginals.length * cardWidth;
           
           const isPaused = isMouseOver || isManualScrolling;
           
@@ -2338,6 +2338,24 @@
     requestAnimationFrame(step);
 
     updateButtons();
+
+    const projCategorySelect = document.getElementById('projCategorySelect');
+    if (projCategorySelect) {
+      projCategorySelect.addEventListener('change', (e) => {
+        const cat = e.target.value;
+        const allCards = track.querySelectorAll('.proj-card');
+        allCards.forEach(card => {
+          if (cat === 'all' || card.classList.contains(cat)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        window.resetProjCarousel();
+        scrollPos = 0;
+        updateButtons();
+      });
+    }
   })();
 
 
