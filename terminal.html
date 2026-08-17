@@ -238,6 +238,14 @@
     outline: none;
     flex: 1;
     width: 100%;
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+  .cmd-input:empty::before {
+    content: attr(data-placeholder);
+    color: rgba(224, 224, 224, 0.4);
+    font-style: italic;
+    pointer-events: none;
   }
 
   .footer {
@@ -288,13 +296,13 @@
         <div class="mac-btn min-btn"></div>
         <div class="mac-btn max-btn"></div>
       </div>
-      <div class="mac-title">user@macbook: ~</div>
+      <div class="mac-title">user@macbook: zsh</div>
     </div>
     <div class="terminal-body" id="terminalBody">
       <div id="outputArea"></div>
       <div class="terminal-line">
         <span class="prompt">user@macbook ~ %</span>
-        <input type="text" class="cmd-input" id="cmdInput" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" autofocus>
+        <span class="cmd-input" id="cmdInput" contenteditable="true" spellcheck="false" data-placeholder="Type npx/npm quote or npx ayushdas or npx byayushdas to see magic."></span>
       </div>
     </div>
   </div>
@@ -355,9 +363,10 @@
 
   cmdInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-      const command = cmdInput.value.trim();
-      const rawCommand = cmdInput.value;
-      cmdInput.value = '';
+      e.preventDefault();
+      const command = cmdInput.innerText.trim();
+      const rawCommand = cmdInput.innerText;
+      cmdInput.innerText = '';
       
       const newCmdLine = document.createElement('div');
       newCmdLine.className = 'terminal-line';
