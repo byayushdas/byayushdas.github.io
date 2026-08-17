@@ -290,6 +290,9 @@
     letter-spacing: 0.08em;
     transition: color 0.4s;
   }
+  @media (max-width: 680px) {
+    .footer { display: none; }
+  }
   .bottom-branding {
     position: absolute;
     bottom: 0.6rem;
@@ -1448,11 +1451,11 @@
     </div>
   </span>
   <div class="nav-right">
-    <div class="loader-wrapper">
+    <a href="terminal.html" class="loader-wrapper" style="text-decoration: none; cursor: pointer;">
       <div class="loader">
         <span></span>
       </div>
-    </div>
+    </a>
     <div class="switch-wrap" onclick="toggleTheme()">
       <button class="switch-btn" role="switch" aria-checked="true" id="switchBtn" aria-label="Toggle dark mode">
         <span class="switch-thumb"></span>
@@ -1994,6 +1997,9 @@
 
   </section>
 
+  <div class="bottom-branding">
+    <p class="footer">&copy; <span class="year"></span> Ayush Das. All rights reserved.</p>
+  </div>
 </div><!-- /stage -->
 
 <script>
