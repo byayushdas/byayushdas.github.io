@@ -19,6 +19,54 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  /* ══════════════ SWITCH ══════════════ */
+  .switch-wrap {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .switch-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+    background: #e2e2e2;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    transition: background 0.35s cubic-bezier(.4,0,.2,1);
+    flex-shrink: 0;
+  }
+  .switch-btn[aria-checked="true"] {
+    background: #1a1a1a;
+  }
+  [data-theme="dark"] .switch-btn[aria-checked="false"] {
+    background: #333;
+  }
+  [data-theme="dark"] .switch-btn[aria-checked="true"] {
+    background: #2a2a2a;
+  }
+  .switch-thumb {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    left: 2px;
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1), background 0.3s;
+    will-change: transform;
+  }
+  .switch-btn[aria-checked="true"] .switch-thumb {
+    transform: translateX(20px);
+    background: #fde047;
+    box-shadow: 0 0 10px 2px rgba(253,224,71,0.55);
+  }
+  [data-theme="dark"] .switch-thumb { background: #f0eeea; }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   button:focus, button:active { outline: none !important; }
   button::-moz-focus-inner { border: 0 !important; }
@@ -61,11 +109,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 3rem;
+    padding: 1rem max(3rem, calc((100vw - 720px) / 2 + 3rem));
     height: 72px;
-    background: var(--paper);
-    border-bottom: 1px solid var(--border);
-    transition: background 0.4s, border-color 0.4s;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: none;
+    transition: background 0.4s;
+  }
+  [data-theme="dark"] nav {
+    background: rgba(13, 13, 13, 0.7);
   }
   .nav-logo {
     font-family: var(--serif);
@@ -121,7 +174,7 @@
 
   /* ── DETAIL WRAP (matches school.html pattern) ── */
   .detail-wrap { flex: 1; display: flex; flex-direction: column; width: 100%; padding-top: 88px; padding-bottom: 0; box-sizing: border-box; }
-  .content { margin: 0 auto; width: 100%; max-width: 860px; padding: 0 3rem; box-sizing: border-box; position: relative; }
+  .content { margin: 0 auto; width: 100%; max-width: 720px; padding: 0 3rem; box-sizing: border-box; position: relative; }
 
   .footer {
     margin-top: 5px;
@@ -136,12 +189,14 @@
   @media (max-width: 680px) {
     .footer { display: none; }
   }
-  .bottom-branding {
-    width: 100%;
+   .bottom-branding {
+    position: relative;
+    padding: 3rem 0 1rem;
+    left: 0;
+    right: 0;
     text-align: center;
-    padding: 1rem 0 0.6rem 0;
+    z-index: 5;
     pointer-events: none;
-    margin-top: auto;
   }
 
 
@@ -185,42 +240,25 @@
 
   /* ══════════════ STAR BUTTON ══════════════ */
   .star-btn {
-    position: relative;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 5px;
-    border-radius: 9999px;
-    padding: 5px 13px;
-    font-family: var(--mono);
-    font-size: 0.58rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-decoration: none;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: underline;
     cursor: pointer;
-    background: transparent;
-    border: 1px solid var(--ink);
-    outline: none;
     color: var(--ink);
-    box-shadow: 0 0 8px rgba(0,0,0,0.2), 0 0 20px rgba(0,0,0,0.08);
-    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    transition: color 0.2s;
   }
   .star-btn:hover {
-    background: var(--ink);
-    color: var(--paper);
-    transform: translateY(-1px);
-    box-shadow: 0 0 12px rgba(0,0,0,0.35), 0 0 30px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.18);
+    color: var(--mid);
   }
   [data-theme="dark"] .star-btn {
-    border-color: rgba(255,255,255,0.85);
     color: #f0eeea;
-    box-shadow: 0 0 8px rgba(255,255,255,0.25), 0 0 20px rgba(255,255,255,0.1);
   }
   [data-theme="dark"] .star-btn:hover {
-    background: rgba(255,255,255,0.08);
     color: #ffffff;
-    box-shadow: 0 0 12px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.2), 0 4px 16px rgba(255,255,255,0.1);
   }
 
 
@@ -306,55 +344,7 @@
     .project-desc { font-size: 0.75rem !important; }
   }
 
-  .loader-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 32px;
-    height: 32px;
-  }
-  .loader {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    border: 4px solid var(--paper);
-    overflow: hidden;
-    border-radius: 50%;
-    box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.1),
-      10px 10px 10px rgba(0, 0, 0, 0.4),
-      inset -5px -5px 5px rgba(255, 255, 255, 0.2),
-      inset 10px 10px 10px rgba(0, 0, 0, 0.4);
-    transform: scale(0.2);
-    flex-shrink: 0;
-  }
-  .loader:before {
-    content: "";
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    right: 25px;
-    bottom: 25px;
-    z-index: 10;
-    background: var(--paper);
-    border-radius: 50%;
-    border: 2px solid var(--paper);
-    box-shadow: inset -2px -2px 5px rgba(255, 255, 255, 0.2),
-      inset 3px 3px 5px rgba(0, 0, 0, 0.5);
-  }
-  .loader span {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-image: linear-gradient(-225deg, #ff7402 0%, #ffe700 50%, #fff55e 100%);
-    filter: blur(20px);
-    z-index: -1;
-    animation: animateLoader 0.5s linear infinite;
-  }
-  @keyframes animateLoader {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+
 </style>
 </head>
 <body>
@@ -362,12 +352,11 @@
 <nav>
   <ul class="nav-links"><li><a href="index.html">← Back to Portfolio</a></li></ul>
   <div class="nav-right">
-    <a href="terminal.html" class="loader-wrapper" style="text-decoration: none; cursor: pointer;">
-      <div class="loader">
-        <span></span>
-      </div>
-    </a>
-
+    <div class="switch-wrap" onclick="toggleTheme()">
+      <button class="switch-btn" id="switchBtn" role="switch" aria-checked="true" aria-label="Toggle dark mode">
+        <span class="switch-thumb"></span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -382,27 +371,19 @@
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 2rem;">
           <div class="proj-awards" style="margin-bottom: 0;">
             <span class="proj-award-item">
-              <svg class="award-medal" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2l2.4 1.5 2.8-.5.9 2.7 2.6 1.1-.4 2.8 1.9 2.1-1.4 2.5.5 2.8-2.6 1-1 2.7-2.8-.4L12 19l-2.4-1.5-2.8.5-.9-2.7-2.6-1.1.4-2.8-1.9-2.1 1.4-2.5-.5-2.8 2.6-1 1-2.7 2.8.4L12 2zm0 4.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
-                <path d="M6 16.5l-2 7 4.5-2.5 2.5 1.5V18a8.5 8.5 0 0 1-5-1.5z"/>
-                <path d="M18 16.5a8.5 8.5 0 0 1-5 1.5v4.5l2.5-1.5L20 23.5l-2-7z"/>
-              </svg>
+              <svg class="award-medal"><use href="#icon-medal"></use></svg>
               IEEE YESIST12 MakerFair Track Finalist, Malaysia
             </span>
             <span class="proj-award-item">
-              <svg class="award-medal" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2l2.4 1.5 2.8-.5.9 2.7 2.6 1.1-.4 2.8 1.9 2.1-1.4 2.5.5 2.8-2.6 1-1 2.7-2.8-.4L12 19l-2.4-1.5-2.8.5-.9-2.7-2.6-1.1.4-2.8-1.9-2.1 1.4-2.5-.5-2.8 2.6-1 1-2.7 2.8.4L12 2zm0 4.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
-                <path d="M6 16.5l-2 7 4.5-2.5 2.5 1.5V18a8.5 8.5 0 0 1-5-1.5z"/>
-                <path d="M18 16.5a8.5 8.5 0 0 1-5 1.5v4.5l2.5-1.5L20 23.5l-2-7z"/>
-              </svg>
+              <svg class="award-medal"><use href="#icon-medal"></use></svg>
               IEEE Robotics Competition Second Runners&#8209;Up, Kolkata
             </span>
           </div>
           <a class="star-btn" href="https://github.com/byayushdas/IntelligentFarmSurveillanceSystem.git" target="_blank">
 
             <span class="star-btn-text" style="display: flex; align-items: center; gap: 6px;">
-              <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-              Docs ↗
+              <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><use href="#icon-github"></use></svg>
+              Docs
             </span>
           </a>
         </div>
