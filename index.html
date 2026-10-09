@@ -818,8 +818,6 @@
     gap: 1rem;
     margin-top: auto;
   }
-  @media (max-width: 680px) {
-  }
 
   /* ══════════════ STAR BUTTON ══════════════ */
   .star-btn {
@@ -1023,9 +1021,9 @@
     transform: translateX(-3px);
     z-index: 2;
   }
-  .timeline-marker.tier-gold { border-color: #ffc44a; box-shadow: 0 0 10px rgba(255,196,74,0.3); }
-  .timeline-marker.tier-silver { border-color: #94c4f9; box-shadow: 0 0 10px rgba(148,196,249,0.3); }
-  .timeline-marker.tier-finalist { border-color: #8fedb4; box-shadow: 0 0 10px rgba(143,237,180,0.3); }
+  .timeline-marker.tier-gold { border-color: #ffffff; box-shadow: 0 0 10px rgba(255,255,255,0.3); }
+  .timeline-marker.tier-silver { border-color: #ffffff; box-shadow: 0 0 10px rgba(255,255,255,0.3); }
+  .timeline-marker.tier-finalist { border-color: #ffffff; box-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
   .timeline-content {
     display: flex;
@@ -1089,38 +1087,38 @@
     white-space: nowrap;
     text-transform: uppercase;
   }
-  /* Gold tier — bright amber */
+  /* Gold tier — Magenta */
   .hack-place.tier-gold {
-    color: #e6a72e;
-    background: rgba(230,167,46,0.12);
-    border-color: rgba(230,167,46,0.4);
+    color: #ec4899;
+    background: rgba(236,72,153,0.12);
+    border-color: rgba(236,72,153,0.4);
   }
   [data-theme="dark"] .hack-place.tier-gold {
-    color: #ffc44a;
-    background: rgba(255,196,74,0.15);
-    border-color: rgba(255,196,74,0.4);
+    color: #f472b6;
+    background: rgba(244,114,182,0.15);
+    border-color: rgba(244,114,182,0.4);
   }
-  /* Silver tier — bright blue */
+  /* Silver tier — Purple */
   .hack-place.tier-silver {
-    color: #4a8cdb;
-    background: rgba(74,140,219,0.12);
-    border-color: rgba(74,140,219,0.4);
+    color: #a855f7;
+    background: rgba(168,85,247,0.12);
+    border-color: rgba(168,85,247,0.4);
   }
   [data-theme="dark"] .hack-place.tier-silver {
-    color: #94c4f9;
-    background: rgba(148,196,249,0.15);
-    border-color: rgba(148,196,249,0.4);
+    color: #c084fc;
+    background: rgba(192,132,252,0.15);
+    border-color: rgba(192,132,252,0.4);
   }
-  /* Finalist tier — bright mint */
+  /* Finalist tier — Cyan */
   .hack-place.tier-finalist {
-    color: #42a86f;
-    background: rgba(66,168,111,0.12);
-    border-color: rgba(66,168,111,0.4);
+    color: #14b8a6;
+    background: rgba(20,184,166,0.12);
+    border-color: rgba(20,184,166,0.4);
   }
   [data-theme="dark"] .hack-place.tier-finalist {
-    color: #8fedb4;
-    background: rgba(143,237,180,0.15);
-    border-color: rgba(143,237,180,0.4);
+    color: #5eead4;
+    background: rgba(94,234,212,0.15);
+    border-color: rgba(94,234,212,0.4);
   }
 
   /* leading icon dot */
@@ -1130,12 +1128,12 @@
     flex-shrink: 0;
     display: inline-block;
   }
-  .place-dot.gold     { background: #e6a72e; }
-  .place-dot.silver   { background: #4a8cdb; }
-  .place-dot.finalist { background: #42a86f; }
-  [data-theme="dark"] .place-dot.gold     { background: #ffc44a; }
-  [data-theme="dark"] .place-dot.silver   { background: #94c4f9; }
-  [data-theme="dark"] .place-dot.finalist { background: #8fedb4; }
+  .place-dot.gold     { background: #ec4899; }
+  .place-dot.silver   { background: #a855f7; }
+  .place-dot.finalist { background: #14b8a6; }
+  [data-theme="dark"] .place-dot.gold     { background: #f472b6; }
+  [data-theme="dark"] .place-dot.silver   { background: #c084fc; }
+  [data-theme="dark"] .place-dot.finalist { background: #5eead4; }
 
   /* — Year stamp — */
   .hack-year {
@@ -1646,7 +1644,7 @@
           <a href="https://github.com/byayushdas" target="_blank" data-tooltip="GitHub"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
 
           <!-- Leetcode -->
-          <a href="https://leetcode.com/u/byayushdas/" target="_blank" data-tooltip="LeetCode"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.396.702-1.863l2.82-2.836c.143-.143.346-.208.547-.179.202.029.377.143.475.311.117.202.083.454-.083.619l-2.585 2.6c-.234.234-.367.575-.367.93s.133.696.367.93l4.333 4.364c.234.234.575.367.93.367s.696-.133.93-.367l2.696-2.607c.18-.18.468-.204.673-.056.205.148.261.425.132.628-.01.015-.021.03-.034.045zm3.176-11.02l-4.332-4.364c-.467-.467-1.111-.662-1.823-.662s-1.357.195-1.824.662l-2.82 2.836c-.143.143-.346.208-.547.179-.202-.029-.377-.143-.475-.311-.117-.202-.083-.454.083-.619l2.585-2.6c.234-.234.367-.575.367-.93s-.133-.696-.367-.93l4.333-4.364c.234-.234.575-.367.93-.367s.696.133.93.367l2.697 2.607c.18.18.468.204.673.056.205-.148.261-.425.132-.628.01-.015.021-.03.034-.045l-2.696-2.607c-.467-.467-1.111-.662-1.823-.662zM7.324 16.536c-.11.11-.258.172-.414.172-.156 0-.304-.062-.414-.172-.11-.11-.172-.258-.172-.414 0-.156.062-.304.172-.414l6.586-6.586c.11-.11.258-.172.414-.172.156 0 .304.062.414.172.11.11.172.258.172.414 0 .156-.062.304-.172.414l-6.586 6.586z"/></svg></a>
+          <a href="https://leetcode.com/u/byayushdas/" target="_blank" data-tooltip="LeetCode"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg></a>
           <!-- X -->
           <a href="https://x.com/byayushdas" target="_blank" data-tooltip="X (Twitter)"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
           <!-- Instagram -->
@@ -2224,8 +2222,6 @@
     requestAnimationFrame(step);
 
     updateButtons();
-
-
   })();
 
   // ── ACHIEVEMENTS SCROLL ───────────────────────────────
