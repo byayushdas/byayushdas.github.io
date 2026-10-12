@@ -357,10 +357,30 @@
   [data-theme="dark"] .proj-award-item {
     color: #ffc44a;
   }
-  .proj-award-item .award-medal {
+  .proj-award-item svg,
+  .proj-award-item .award-medal,
+  .award-medal {
     width: 0.9rem;
     height: 0.9rem;
     flex-shrink: 0;
+    fill: #c97a10 !important;
+    color: #c97a10 !important;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .proj-award-item svg path,
+  .award-medal path {
+    fill: #c97a10 !important;
+  }
+  [data-theme="dark"] .proj-award-item svg,
+  [data-theme="dark"] .proj-award-item .award-medal,
+  [data-theme="dark"] .award-medal {
+    fill: #ffc44a !important;
+    color: #ffc44a !important;
+  }
+  [data-theme="dark"] .proj-award-item svg path,
+  [data-theme="dark"] .award-medal path {
+    fill: #ffc44a !important;
   }
 
   /* ══════════════ RESPONSIVE ══════════════ */
