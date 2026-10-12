@@ -1101,44 +1101,27 @@
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.05em;
-    padding: 0.25rem 0.6rem;
-    border-radius: 20px;
-    border: 1px solid transparent;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #ffc44a;
     white-space: nowrap;
     text-transform: uppercase;
   }
-  /* Gold tier — Magenta */
-  .hack-place.tier-gold {
-    color: #ec4899;
-    background: rgba(236,72,153,0.12);
-    border-color: rgba(236,72,153,0.4);
+  .hack-place.tier-attended {
+    color: #a3e635;
   }
-  [data-theme="dark"] .hack-place.tier-gold {
-    color: #f472b6;
-    background: rgba(244,114,182,0.15);
-    border-color: rgba(244,114,182,0.4);
+  [data-theme="light"] .hack-place {
+    color: #c97a10;
   }
-  /* Silver tier — Purple */
-  .hack-place.tier-silver {
-    color: #a855f7;
-    background: rgba(168,85,247,0.12);
-    border-color: rgba(168,85,247,0.4);
+  [data-theme="light"] .hack-place.tier-attended {
+    color: #4d7c0f;
   }
-  [data-theme="dark"] .hack-place.tier-silver {
-    color: #c084fc;
-    background: rgba(192,132,252,0.15);
-    border-color: rgba(192,132,252,0.4);
+  [data-theme="dark"] .hack-place {
+    color: #ffc44a;
   }
-  /* Finalist tier — Cyan */
-  .hack-place.tier-finalist {
-    color: #14b8a6;
-    background: rgba(20,184,166,0.12);
-    border-color: rgba(20,184,166,0.4);
-  }
-  [data-theme="dark"] .hack-place.tier-finalist {
-    color: #5eead4;
-    background: rgba(94,234,212,0.15);
-    border-color: rgba(94,234,212,0.4);
+  [data-theme="dark"] .hack-place.tier-attended {
+    color: #a3e635;
   }
 
   /* leading icon dot */
@@ -1147,13 +1130,8 @@
     border-radius: 50%;
     flex-shrink: 0;
     display: inline-block;
+    background: currentColor;
   }
-  .place-dot.gold     { background: #ec4899; }
-  .place-dot.silver   { background: #a855f7; }
-  .place-dot.finalist { background: #14b8a6; }
-  [data-theme="dark"] .place-dot.gold     { background: #f472b6; }
-  [data-theme="dark"] .place-dot.silver   { background: #c084fc; }
-  [data-theme="dark"] .place-dot.finalist { background: #5eead4; }
 
   /* — Year stamp — */
   .hack-year {
@@ -1900,7 +1878,7 @@
               <div class="timeline-content">
                 <div class="timeline-header">
                   <div class="hack-year">January, 2026</div>
-                  <div class="hack-place tier-finalist"><span class="place-dot finalist"></span>Attended</div>
+                  <div class="hack-place tier-attended"><span class="place-dot attended"></span>Attended</div>
                 </div>
                 <div class="hack-name">47th Annual General Meeting</div>
                 <div class="hack-sub">IEEE Kolkata Section</div>
@@ -1960,7 +1938,7 @@
               <div class="timeline-content">
                 <div class="timeline-header">
                   <div class="hack-year">May, 2025</div>
-                  <div class="hack-place tier-finalist"><span class="place-dot finalist"></span>Attended</div>
+                  <div class="hack-place tier-attended"><span class="place-dot attended"></span>Attended</div>
                 </div>
                 <div class="hack-name">ICELTS OCEANIA, ICAELS OCEANIA, AIMBIG OCEANIA Conferences</div>
                 <div class="hack-sub">UNSW, Australia</div>
@@ -1975,7 +1953,7 @@
               <div class="timeline-content">
                 <div class="timeline-header">
                   <div class="hack-year">January, 2025</div>
-                  <div class="hack-place tier-finalist"><span class="place-dot finalist"></span>Attended</div>
+                  <div class="hack-place tier-attended"><span class="place-dot attended"></span>Attended</div>
                 </div>
                 <div class="hack-name">Kshitij Annual Techno Management Fest</div>
                 <div class="hack-sub">IIT Kharagpur</div>
